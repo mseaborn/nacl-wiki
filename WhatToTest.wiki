@@ -11,7 +11,7 @@
 
   * Run all the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/examples.html examples and tests].
   * [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Build Native Client] from scratch.
-  * Build Quake for Native Client on Mac or Linux; run the resulting portable binary on Mac, Linux, or Windows. For more information, see the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/porting.html Porting Guide].
+  * Build Quake and XaoS for Native Client; run them. For more information, see the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/examples.html examples and tests] page.
   
 === For even more fun ===
 
