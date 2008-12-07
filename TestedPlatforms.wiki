@@ -23,7 +23,7 @@ The Native Client plug-in has been successfully used in the following browsers:
 
 == What doesn't work ==
 
-_No information yet_
+The 8 December release of Native Client will not build on Ubuntu Intrepid. We should have this fixed the next week or so.
 
 = Mac =
 
