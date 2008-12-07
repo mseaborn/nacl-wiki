@@ -1,4 +1,5 @@
 #summary Suggestions for how to test Native Client.
+#labels Featured
 
 === First things first ===
 
