@@ -1,0 +1,7 @@
+#summary Information about each release
+
+==== Contents ====
+
+<wiki:toc max_depth="1" />
+
+= First release =
