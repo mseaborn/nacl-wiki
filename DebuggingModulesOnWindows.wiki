@@ -1,0 +1,14 @@
+#summary Debugging tips for Windows.
+
+Using printf is impractical on Windows
+because you can't effectively get standard I/O output
+from the version of `sel_ldr`
+that's installed by default.
+The problem occurs because on Windows,
+only the debug version of `sel_ldr`
+sends output to the console.
+(Only the debug version is compiled with 
+`/SUBSYSTEM:CONSOLE`.)
+
+_PENDING: This page should talk about DBG=1 and other issues related to the console.
+It should also give some tips for debugging with Visual Studio._
