@@ -4,6 +4,6 @@
 
 == Section 1 ==
 
-=== What will question 1 be? ===
+=== What is Native Client? ===
 
-Answer.
+Native Client is an open-source research technology from Google for running x86 native code in web applications, with the goal of maintaining the browser neutrality, OS portability, and safety that people expect from web apps.
