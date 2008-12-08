@@ -5,3 +5,5 @@
 <wiki:toc max_depth="1" />
 
 = First release =
+
+See [http://nativeclient.googlecode.com/svn-history/r15/trunk/nacl/googleclient/native_client/RELEASE_NOTES RELEASE_NOTES] in the `nacl/googleclient/native_client/` directory.
