@@ -1,4 +1,4 @@
-#summary Debugging tips for Windows.
+#summary Debugging tips for Windows
 
 Using printf is impractical on Windows
 because you can't effectively get standard I/O output
