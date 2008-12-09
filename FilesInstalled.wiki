@@ -11,7 +11,7 @@ On Linux, the following files are copied into `$(HOME)/.mozilla/plugins`:
 
 On Mac, one or two directories are installed:
 
-    * /Library/Internet PlugIns/npGoogleNaClPlugin.bundle
+    * $(HOME)/Library/Internet Plug-Ins/npGoogleNaClPlugin.bundle
     * $(HOME)/Library/Frameworks/SDL.framework - _skipped if SDL is already installed in `/Library/Frameworks`_
 
 On Windows, the following files are copied into `c:\Program Files\Mozilla Firefox\plugins\`:
