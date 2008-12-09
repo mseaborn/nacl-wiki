@@ -26,6 +26,9 @@ For example, on Windows three files are required:
 `sel_ldr.exe`, `SDL.dll`, and `npGoogleNaClPlugin.dll`.
 See FilesInstalled for details.
 
+=== Why is make failing in cygwin (Windows)? ===
+
+See the explanation and workaround in the discussion group: [http://groups.google.com/group/native-client-discuss/browse_thread/thread/a14268f6bd36cb83 notes for makefiles, cygwin, and windows].
 
 === I see a warning in my Windows build: "is Pywin32 present?" Should I worry? ===
 
