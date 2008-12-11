@@ -2,7 +2,7 @@
 
 This page describes how to uninstall the Native Client plugin from your system. We assume it was installed with our scons-based installer.
 
-On Linux, remove the following files from `$(HOME)/.mozilla/plugins`:
+On Linux, remove the following files from $(HOME)/.mozilla/plugins:
 
     * sel_ldr
     * sel_ldr_bin
@@ -15,7 +15,7 @@ On Mac, completely remove this directory:
 
 You may also want to remove the SDL.framework directory from $(HOME)/Library/Frameworks if no other applications on your system are using it.
 
-On Windows, remove the following files from `c:\Program Files\Mozilla Firefox\plugins\`:
+On Windows, remove the following files from c:\Program Files\Mozilla Firefox\plugins\:
 
     * sel_ldr.exe
     * SDL.dll
