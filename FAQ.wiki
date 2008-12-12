@@ -3,6 +3,7 @@
 This page answers the most commonly asked questions about Native
 Client. If you don't find the answer to your question here, please try
 the [http://groups.google.com/group/native-client-discuss discussion group].
+Also sign up for the [http://groups.google.com/group/native-client-announce announcement group].
 
 ====Contents====
 
@@ -18,13 +19,13 @@ Native Client is an open-source research technology from Google for running x86 
 
 As this release is mainly intended for the security and research communities, we focused on making them self-contained, and making it build robustly, at the cost of download size. For the "nacl_mac" download, here's what you get (uncompressed sizes):
 
-    * SDK 3rd party source for gcc, binutils and other tools (67MB)
+    * SDK 3rd party source for gcc, binutils, and other tools (67MB)
     * Prebuilt SDK (60MB)
-    * Native Client prebuilt binaries (plugin, container, examples) (22MB)
+    * Native Client prebuilt binaries (plug-in, container, examples) (22MB)
     * Image source for the map used to generate the spinning globe (5MB)
     * Source, documentation, everything else (9MB)
 
-One download gives you everything you need to try the system, build your own Native Client modules, and even build the SDK, plugins and secure module container.
+One download gives you everything you need to try the system, build your own Native Client modules, and even build the SDK, plugins, and secure module container.
 
 == Build/Install Questions ==
 
