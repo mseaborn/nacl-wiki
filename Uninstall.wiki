@@ -1,22 +1,28 @@
 #summary How to uninstall the Native Client plug-in
 
-This page describes how to uninstall the Native Client plugin from your system. We assume it was installed with our scons-based installer.
+This page describes how to uninstall the Native Client plug-in from your system, assuming you installed the plug-in using our SCons-based installer.
 
-On Linux, remove the following files from $(HOME)/.mozilla/plugins:
+===Linux===
 
-    * sel_ldr
-    * sel_ldr_bin
-    * libnpGoogleNaClPlugin.so
-    * libSDL-1.2.so.0
+Remove the following files from `$(HOME)/.mozilla/plugins`:
 
-On Mac, completely remove this directory:
+    * `sel_ldr`
+    * `sel_ldr_bin`
+    * `libnpGoogleNaClPlugin.so`
+    * `libSDL-1.2.so.0`
 
-    * $(HOME)/Library/Internet Plug-Ins/npGoogleNaClPlugin.bundle
+===Mac===
 
-You may also want to remove the SDL.framework directory from $(HOME)/Library/Frameworks if no other applications on your system are using it.
+Completely remove this directory:
 
-On Windows, remove the following files from c:\Program Files\Mozilla Firefox\plugins\:
+    * `$(HOME)/Library/Internet Plug-Ins/npGoogleNaClPlugin.bundle`
 
-    * sel_ldr.exe
-    * SDL.dll
-    * npGoogleNaClPlugin.dll
+You may also want to remove the `SDL.framework` directory from `$(HOME)/Library/Frameworks` if no other applications on your system are using it.
+
+===Windows===
+
+Remove the following files from `c:\Program Files\Mozilla Firefox\plugins\`:
+
+    * `sel_ldr.exe`
+    * `SDL.dll`
+    * `npGoogleNaClPlugin.dll`
