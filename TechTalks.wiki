@@ -1,0 +1,99 @@
+#summary Scheduled talks about Native Client
+
+To help the community learn more about Native Client,
+we're scheduling a number of technical talks at major universities.
+The first talks are in Europe:
+
+  * 7 January 2009: Swiss Federal Institute of Technology Zürich (ETH Zürich)
+  * 8 January 2009: Université Pierre & Marie Curie (Paris-VI)
+  * 12 January 2009: University College London, UK
+
+We also plan some talks in the US, though the details haven't been finalized:
+
+  * 28 January 2009: MIT
+  * 29 January 2009: Carnegie Mellon University
+  * 30 January 2009: Harvard
+
+We understand that many people interested in Native Client
+don't live near a university we'll visit;
+for you we will be posting a video on YouTube,
+hopefully sometime in January.
+We will send an announcement to
+[http://groups.google.com/group/native-client-announce native-client-announce]
+when the video becomes available.
+
+More details on the presentations:
+
+<wiki:toc />
+
+==7 January 2009: Zürich==
+
+<dl>
+<dt><b>When:</b></dt>
+<dd> 15:15, Wednesday, 7 January 2009</dd>
+<dt><b>Where:</b></dt>
+<dd>Eidgenössische Technische Hochschule Zürich <br />
+Swiss Federal Institute of Technology Zürich <br />
+IFW D 42 <br />
+Haldeneggsteig 4 / Weinbergstrasse <br />
+CH-8006 Zürich
+</dd>
+<dt><b>Host:</b></dt>
+<dd>Thomas Gross</dd>
+<dt><b>School info:</b></dt>
+<dd>http://www.ethz.ch/</dd>
+<dt><b>Department info:</b></dt>
+<dd>http://www.inf.ethz.ch/</dd>
+<dt><b>Event details:</b></dt>
+<dd>http://www.inf.ethz.ch/news/events/details/index?id=1058</dd>
+<dt><b>Directions:</b></dt>
+<dd>http://www.inf.ethz.ch/about/finding</dd>
+</dl>
+
+==8 January 2009: Paris==
+
+<dl>
+<dt><b>When:</b></dt>
+<dd> Morning, Thursday, 8 January 2009 (exact time to be posted soon) </dd>
+<dt><b>Where:</b></dt>
+<dd>Laboratoire d'Informatique de Paris VI <br />
+Université Pierre & Marie Curie <br />
+Room 847 at LIP6 <br />
+104 ave. du Président Kennedy <br />
+75016 Paris <br />
+(near Maison de la Radio) <br />
+</dd>
+<dt><b>Host:</b></dt>
+<dd> Marc Shapiro </dd>
+<dt><b>School info:</b></dt>
+<dd> http://www.upmc.fr/ </dd>
+<dt><b>Laboratory info:</b></dt>
+<dd> http://www.lip6.fr </dd>
+<dt><b>Event details:</b></dt>
+<dd> People wishing to attend should email
+Paule DOT Mayenga AT lip6 DOT fr in advance, and must show ID. </dd>
+</dl>
+
+
+==12 January 2009: London==
+
+
+<dl>
+<dt><b>When:</b></dt>
+<dd> Noon, Monday, January 12th, 2009 </dd>
+<dt><b>Where:</b></dt>
+<dd>
+University College London <br />
+Anatomy JZ Young Lecture Theatre <br />
+Gower Street <br />
+London <br />
+WC1E 6BT <br />
+</dd>
+<dt><b>Host:</b></dt>
+<dd> Brad Karp </dd>
+<dt><b>School info:</b></dt>
+<dd> http://www.ucl.ac.uk/ </dd>
+<dt><b>Department info:</b></dt>
+<dd> http://www.cs.ucl.ac.uk/ </dd>
+</dl>
+
