@@ -1,0 +1,25 @@
+#summary Download Native Client
+
+Native Client is a research technology,
+and *we do not consider it secure*.
+We encourage you to experiment with the technology,
+but do so at your own risk.
+Please [Uninstall uninstall the plug-in] when you're not using it for development or testing.
+Whenever you reinstall the plug-in,
+be sure to use the latest version.
+
+Here are the current downloads:
+
+  * [http://nativeclient.googlecode.com/files/nacl_linux_0.1_9380090.tgz Source with prebuilt binaries and SDK: Linux]
+  * [http://nativeclient.googlecode.com/files/nacl_mac_0.1_9380090.tgz Source with prebuilt binaries and SDK: Mac]
+  * [http://nativeclient.googlecode.com/files/nacl_win_0.1_9380090.zip Source with prebuilt binaries and SDK: Windows]
+  * [http://nativeclient.googlecode.com/files/nacl_source_0.1_9380090.tgz Source only]
+
+If you've never used Native Client before,
+follow the instructions in the
+[http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started guide].
+
+
+For more information on Native Client downloads, including file sizes,
+see the [http://code.google.com/p/nativeclient/downloads/list detailed download page].
+For information about the current release, see ReleaseNotes.
