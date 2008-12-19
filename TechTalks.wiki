@@ -1,4 +1,5 @@
 #summary Scheduled talks about Native Client
+#labels Featured
 
 To help the community learn more about Native Client,
 we're scheduling a number of technical talks at major universities.
@@ -96,4 +97,3 @@ WC1E 6BT <br />
 <dt><b>Department info:</b></dt>
 <dd> http://www.cs.ucl.ac.uk/ </dd>
 </dl>
-
