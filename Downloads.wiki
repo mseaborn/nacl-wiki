@@ -1,4 +1,5 @@
 #summary Download Native Client
+#labels Featured
 
 Native Client is a research technology,
 and *we do not consider it secure*.
