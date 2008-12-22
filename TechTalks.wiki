@@ -29,13 +29,14 @@ More details on the presentations:
 
 ==7 January 2009: Zürich==
 
+<B>NOTE</B>: Room location updated on 22 Dec 2008.
 <dl>
 <dt><b>When:</b></dt>
 <dd> 15:15, Wednesday, 7 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>Eidgenössische Technische Hochschule Zürich <br />
 Swiss Federal Institute of Technology Zürich <br />
-IFW D 42 <br />
+IFW A 32 <br />
 Haldeneggsteig 4 / Weinbergstrasse <br />
 CH-8006 Zürich
 </dd>
