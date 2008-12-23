@@ -1,9 +1,7 @@
 #summary Information about each release
 
-==== Contents ====
+Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution. You can also find release notes in the SVN depository:
 
-<wiki:toc max_depth="1" />
+  * [http://nativeclient.googlecode.com/svn-history/r46/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 18, 2008]
 
-= First release =
-
-See [http://nativeclient.googlecode.com/svn-history/r15/trunk/nacl/googleclient/native_client/RELEASE_NOTES RELEASE_NOTES] in the `nacl/googleclient/native_client/` directory.
+  * [http://nativeclient.googlecode.com/svn-history/r15/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 1, 2008]
