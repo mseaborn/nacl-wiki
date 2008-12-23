@@ -56,7 +56,7 @@ CH-8006 Zürich
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> Morning, Thursday, 8 January 2009 (exact time to be posted soon) </dd>
+<dd> 10:30am, Thursday, 8 January 2009 </dd>
 <dt><b>Where:</b></dt>
 <dd>Laboratoire d'Informatique de Paris VI <br />
 Université Pierre & Marie Curie <br />
