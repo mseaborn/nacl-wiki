@@ -1,6 +1,6 @@
 #summary Information about each release
 
-Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution. You can also find release notes in the SVN depository:
+Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution. You can find copies in the SVN depository:
 
   * [http://nativeclient.googlecode.com/svn-history/r46/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 18, 2008]
 
