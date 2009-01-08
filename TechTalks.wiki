@@ -9,8 +9,9 @@ The first talks are in Europe:
   * 8 January 2009: Université Pierre & Marie Curie (Paris-VI)
   * 12 January 2009: University College London, UK
 
-We also plan some talks in the US, though the details haven't been finalized:
+We also plan some talks in the US:
 
+  * 20 January 2009: Stanford
   * 28 January 2009: MIT
   * 29 January 2009: Carnegie Mellon University
 
@@ -98,8 +99,25 @@ WC1E 6BT <br />
 <dd> http://www.cs.ucl.ac.uk/ </dd>
 </dl>
 
+==20 January 2009: Stanford University ==
 
-==28 January 2009: Cambridge, Massachusetts ==
+<dl>
+<dt><b>When:</b></dt>
+<dd> 1:30-3:00pm, Tuesday, 20 January 2009</dd>
+<dt><b>Where:</b></dt>
+<dd>Room 204, Packard Electrical Engineering Building<br />
+Stanford University <br />
+Stanford, CA 94305
+</dd>
+<dt><b>Host:</b></dt>
+<dd>David Mazieres and Nick McKeown/dd>
+<dt><b>School info:</b></dt>
+<dd>http://www.stanford.edu/</dd>
+<dt><b>Department info:</b></dt>
+<dd>http://www.cs.stanford.edu/</dd>
+</dl>
+
+==28 January 2009: Massachusetts Institute of Technology ==
 
 <dl>
 <dt><b>When:</b></dt>
@@ -118,4 +136,26 @@ Cambridge MA 02139-4307
 <dd>http://www.eecs.mit.edu/</dd>
 <dt><b>Directions:</b></dt>
 <dd>http://whereis.mit.edu/map-jpg?section=directions</dd>
+</dl>
+
+==29 January 2009: Carnegie Mellon University ==
+
+<dl>
+<dt><b>When:</b></dt>
+<dd> noon - 1pm, Thursday, 29 January 2009</dd>
+<dt><b>Where:</b></dt>
+<dd>8220 Wean Hall <br />
+School of Computer Science
+Carnegie Mellon University <br />
+5000 Forbes Avenue <br />
+Pittsburgh, PA  15213
+</dd>
+<dt><b>Host:</b></dt>
+<dd>Peter Lee/dd>
+<dt><b>School info:</b></dt>
+<dd>http://www.cmu.edu/</dd>
+<dt><b>Department info:</b></dt>
+<dd>http://www.scs.cmu.edu/</dd>
+<dt><b>For More Information:</b></dt>
+<dd>http://www.pdl.cmu.edu/SDI/2009/012908.html</dd>
 </dl>
