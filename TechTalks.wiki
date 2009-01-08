@@ -32,7 +32,7 @@ More details on the presentations:
 <B>NOTE</B>: Room location updated on 22 Dec 2008.
 <dl>
 <dt><b>When:</b></dt>
-<dd> 15:15, Wednesday, 7 January 2009</dd>
+<dd> 15:15 Wednesday, 7 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>Eidgenössische Technische Hochschule Zürich <br />
 Swiss Federal Institute of Technology Zürich <br />
@@ -56,7 +56,7 @@ CH-8006 Zürich
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 10:30am, Thursday, 8 January 2009 </dd>
+<dd> 10:30am Thursday, 8 January 2009 </dd>
 <dt><b>Where:</b></dt>
 <dd>Laboratoire d'Informatique de Paris VI <br />
 Université Pierre & Marie Curie <br />
@@ -82,7 +82,7 @@ Paule DOT Mayenga AT lip6 DOT fr in advance, and must show ID. </dd>
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> Noon, Monday, January 12th, 2009 </dd>
+<dd> Noon Monday, 12 January 2009 </dd>
 <dt><b>Where:</b></dt>
 <dd>
 University College London <br />
@@ -103,14 +103,14 @@ WC1E 6BT <br />
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 1:30-3:00pm, Tuesday, 20 January 2009</dd>
+<dd> 1:30-3 Tuesday, 20 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>Room 204, Packard Electrical Engineering Building<br />
 Stanford University <br />
 Stanford, CA 94305
 </dd>
 <dt><b>Host:</b></dt>
-<dd>David Mazieres and Nick McKeown</dd>
+<dd>David Mazieres and Nick !McKeown</dd>
 <dt><b>School info:</b></dt>
 <dd>http://www.stanford.edu/</dd>
 <dt><b>Department info:</b></dt>
@@ -121,7 +121,7 @@ Stanford, CA 94305
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 2-3:30, Wednesday, 28 January 2009</dd>
+<dd> 2-3:30 Wednesday, 28 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>32-G449 (Patil/Kiva conference room) <br />
 Massachusetts Institute of Technology <br />
@@ -142,7 +142,7 @@ Cambridge MA 02139-4307
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> noon - 1pm, Thursday, 29 January 2009</dd>
+<dd> Noon-1 Thursday, 29 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>8220 Wean Hall <br />
 School of Computer Science
@@ -156,6 +156,6 @@ Pittsburgh, PA  15213
 <dd>http://www.cmu.edu/</dd>
 <dt><b>Department info:</b></dt>
 <dd>http://www.scs.cmu.edu/</dd>
-<dt><b>For More Information:</b></dt>
+<dt><b>Event details:</b></dt>
 <dd>http://www.pdl.cmu.edu/SDI/2009/012908.html</dd>
 </dl>
