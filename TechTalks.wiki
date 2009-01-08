@@ -107,7 +107,7 @@ WC1E 6BT <br />
 <dt><b>Where:</b></dt>
 <dd>Room 204, Packard Electrical Engineering Building<br />
 Stanford University <br />
-Stanford, CA 94305
+Stanford CA 94305
 </dd>
 <dt><b>Host:</b></dt>
 <dd>David Mazieres and Nick !McKeown</dd>
@@ -148,7 +148,7 @@ Cambridge MA 02139-4307
 School of Computer Science
 Carnegie Mellon University <br />
 5000 Forbes Avenue <br />
-Pittsburgh, PA  15213
+Pittsburgh PA  15213
 </dd>
 <dt><b>Host:</b></dt>
 <dd>Peter Lee</dd>
