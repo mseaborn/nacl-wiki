@@ -110,7 +110,7 @@ Stanford University <br />
 Stanford, CA 94305
 </dd>
 <dt><b>Host:</b></dt>
-<dd>David Mazieres and Nick McKeown/dd>
+<dd>David Mazieres and Nick McKeown</dd>
 <dt><b>School info:</b></dt>
 <dd>http://www.stanford.edu/</dd>
 <dt><b>Department info:</b></dt>
@@ -151,7 +151,7 @@ Carnegie Mellon University <br />
 Pittsburgh, PA  15213
 </dd>
 <dt><b>Host:</b></dt>
-<dd>Peter Lee/dd>
+<dd>Peter Lee</dd>
 <dt><b>School info:</b></dt>
 <dd>http://www.cmu.edu/</dd>
 <dt><b>Department info:</b></dt>
