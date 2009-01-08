@@ -27,7 +27,7 @@ More details on the presentations:
 
 <wiki:toc />
 
-==7 January 2009: Zürich==
+==7 January 2009: ETH Zürich==
 
 <B>NOTE</B>: Room location updated on 22 Dec 2008.
 <dl>
@@ -52,7 +52,7 @@ CH-8006 Zürich
 <dd>http://www.inf.ethz.ch/about/finding</dd>
 </dl>
 
-==8 January 2009: Paris==
+==8 January 2009: Paris-VI==
 
 <dl>
 <dt><b>When:</b></dt>
@@ -77,7 +77,7 @@ Paule DOT Mayenga AT lip6 DOT fr in advance, and must show ID. </dd>
 </dl>
 
 
-==12 January 2009: London==
+==12 January 2009: University College London==
 
 
 <dl>
