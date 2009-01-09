@@ -105,7 +105,7 @@ WC1E 6BT <br />
 <dt><b>When:</b></dt>
 <dd> 1:30-3 Tuesday, 20 January 2009</dd>
 <dt><b>Where:</b></dt>
-<dd>Room 204, Packard Electrical Engineering Building<br />
+<dd>Room TBD<br />
 Stanford University <br />
 Stanford CA 94305
 </dd>
