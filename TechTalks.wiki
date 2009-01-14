@@ -103,9 +103,10 @@ WC1E 6BT <br />
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 1:30-3 Tuesday, 20 January 2009</dd>
+<dd> 1:30-3:00pm Tuesday, 20 January 2009</dd>
 <dt><b>Where:</b></dt>
-<dd>Room TBD<br />
+<DD>Center for Integrated Systems Auditorium<br />
+420 Via Palou<br />
 Stanford University <br />
 Stanford CA 94305
 </dd>
@@ -121,7 +122,7 @@ Stanford CA 94305
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 2-3:30 Wednesday, 28 January 2009</dd>
+<dd> 2-3:30pm Wednesday, 28 January 2009</dd>
 <dt><b>Where:</b></dt>
 <dd>32-G449 (Patil/Kiva conference room) <br />
 Massachusetts Institute of Technology <br />
