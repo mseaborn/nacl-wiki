@@ -126,7 +126,7 @@ Stanford CA 94305
 <dt><b>Where:</b></dt>
 <dd>32-G449 (Patil/Kiva conference room) <br />
 Massachusetts Institute of Technology <br />
-77 Massachusetts Avenue <br />
+32 Vassar Street <br />
 Cambridge MA 02139-4307
 </dd>
 <dt><b>Host:</b></dt>
