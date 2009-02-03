@@ -9,7 +9,7 @@ We've scheduled the following talks:
 
 We understand that many people interested in Native Client
 don't live near a university we'll visit;
-for you we will be posting a video on YouTube,
+for you we will be posting a video on !YouTube,
 hopefully sometime in early February.
 We will send an announcement to
 [http://groups.google.com/group/native-client-announce native-client-announce]
