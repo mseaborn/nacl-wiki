@@ -28,9 +28,9 @@ Past tech talks:
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> noon Tuesday, 10 February 2009</dd>
+<dd> Noon Tuesday, 10 February 2009</dd>
 <dt><b>Where:</b></dt>
-<dd>room TBD <br />
+<dd>Room 402, Computer Science building <br />
 Princeton University <br />
 Princeton NJ 08544
 </dd>
