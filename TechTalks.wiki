@@ -23,25 +23,8 @@ Past tech talks:
   * 20 January 2009: Stanford
   * 28 January 2009: MIT
   * 29 January 2009: Carnegie Mellon University
+  * 10 February 2009: Princeton
   
-==10 February 2009: Princeton==
-
-<dl>
-<dt><b>When:</b></dt>
-<dd> Noon Tuesday, 10 February 2009</dd>
-<dt><b>Where:</b></dt>
-<dd>Room 402, Computer Science Building <br />
-35 Olden St <br />
-Princeton University <br />
-Princeton NJ 08544
-</dd>
-<dt><b>School info:</b></dt>
-<dd>http://www.princeton.edu</dd>
-<dt><b>Department info:</b></dt>
-<dd> http://www.cs.princeton.edu/ </dd>
-<dt><b>Directions:</b></dt>
-<dd>http://www.cs.princeton.edu/general/visit.php</dd>
-</dl>
 
 ==5 March 2009: UC Berkeley==
 
