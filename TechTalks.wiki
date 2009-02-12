@@ -7,13 +7,10 @@ We've scheduled the following talks:
 
 <wiki:toc />
 
-We understand that many people interested in Native Client
-don't live near a university we'll visit;
-for you we will be posting a video on !YouTube,
-hopefully sometime in early February.
-We will send an announcement to
-[http://groups.google.com/group/native-client-announce native-client-announce]
-when the video becomes available.
+If you can't attend a talk, please watch the
+[http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video].
+You can also look at the
+[http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf slides (PDF)].
 
 Past tech talks:
 
