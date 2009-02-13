@@ -16,10 +16,8 @@ Here are the current downloads:
   * [http://nativeclient.googlecode.com/files/nacl_windows_0.1_38_2009_02_11.zip Source with prebuilt binaries and SDK: Windows]
   * [http://nativeclient.googlecode.com/files/nacl_source_0.1_38_2009_02_11.tgz Source only]
 
-If you've never used Native Client before,
-follow the instructions in the
-[http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started guide].
-
+See the
+[http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started guide] for instructions on extracting and installing the Native Client files.
 
 For more information on Native Client downloads, including file sizes,
 see the [http://code.google.com/p/nativeclient/downloads/list detailed download page].
