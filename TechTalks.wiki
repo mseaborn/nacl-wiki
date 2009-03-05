@@ -3,7 +3,6 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at major universities.
-We've scheduled the following talks:
 
 <wiki:toc />
 
