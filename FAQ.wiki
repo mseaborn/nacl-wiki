@@ -5,8 +5,6 @@ Client. If you don't find the answer to your question here, please try
 the [http://groups.google.com/group/native-client-discuss discussion group].
 Also sign up for the [http://groups.google.com/group/native-client-announce announcement group].
 
-====Contents====
-
 <wiki:toc max_depth="3" />
 
 == General Native Client Questions ==
