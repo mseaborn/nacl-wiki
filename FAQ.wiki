@@ -25,6 +25,10 @@ As this release is mainly intended for the security and research communities, we
 
 One download gives you everything you need to try the system, build your own Native Client modules, and even build the SDK, plugins, and secure module container.
 
+=== Why doesn't Native Client work on 64-bit Windows? ===
+
+The short answer is that we intend to support 64-bit Windows, but it's going to take some time because our 32-bit Windows solution depends on APIs that aren't in some 64-bit versions. For the long answer, see the [http://groups.google.com/group/native-client-discuss/browse_thread/thread/3683b35e9ec74f02 discussion group post].
+
 == Build/Install Questions ==
 
 === Why isn't the plug-in loading? ===
