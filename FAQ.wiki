@@ -31,6 +31,15 @@ One download gives you everything you need to try the system, build your own Nat
 
 The short answer is that we intend to support 64-bit Windows, but it's going to take some time because our 32-bit Windows solution depends on APIs that aren't in some 64-bit versions. For the long answer, see the [http://groups.google.com/group/native-client-discuss/browse_thread/thread/3683b35e9ec74f02 discussion group post].
 
+=== What's the process for becoming a contributor? ===
+
+Before sending us any code, please sign a Contributor License Agreement (CLA). The CLA protects you and us.
+
+   * If you are an individual writing original source code and you're sure you own the intellectual property, sign an [http://code.google.com/legal/individual-cla-v1.0.html individual CLA]. (If you work for a company, you might want to check with your employer about ownership of the intellectual property.)
+   * If you work for a company that wants to allow you to contribute your work to Native Client, sign a [http://code.google.com/legal/corporate-cla-v1.0.html corporate CLA].
+
+Once you've signed the CLA, you can contribute code by posting the diffs to the Native Client Discussion group.
+
 == Build/Install Questions ==
 
 === Why isn't the plug-in loading? ===
