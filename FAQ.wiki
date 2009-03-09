@@ -38,7 +38,7 @@ Before sending us any code, please sign a Contributor License Agreement (CLA). T
    * If you are an individual writing original source code and you're sure you own the intellectual property, sign an [http://code.google.com/legal/individual-cla-v1.0.html individual CLA]. (If you work for a company, you might want to check with your employer about ownership of the intellectual property.)
    * If you work for a company that wants to allow you to contribute your work to Native Client, sign a [http://code.google.com/legal/corporate-cla-v1.0.html corporate CLA].
 
-Once you've signed the CLA, you can contribute code by posting the diffs to the Native Client Discussion group.
+Once you've signed the CLA, you can contribute code by posting the diffs to the [http://groups.google.com/group/native-client-discuss Native Client Discuss group].
 
 == Build/Install Questions ==
 
