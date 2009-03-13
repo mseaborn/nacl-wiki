@@ -1,9 +1,13 @@
 #summary Information about each release
 
-Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution. You can find copies in the SVN depository:
+Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution.
+
+*Note:* The date in the release notes might not match the date in this page. The date in the notes reflects when the notes were edited, which might be a few days before the release; this page lists the day the release went out.
+
+You can find copies of the release notes in the SVN depository:
 
   * [http://nativeclient.googlecode.com/svn-history/r134/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: March 12, 2009]
   * [http://nativeclient.googlecode.com/svn-history/r119/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: February 11, 2009]
   * [http://nativeclient.googlecode.com/svn-history/r67/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: January 16, 2009]
-  * [http://nativeclient.googlecode.com/svn-history/r46/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 18, 2008]
-  * [http://nativeclient.googlecode.com/svn-history/r15/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 1, 2008]
+  * [http://nativeclient.googlecode.com/svn-history/r46/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 22, 2008]
+  * [http://nativeclient.googlecode.com/svn-history/r15/trunk/nacl/googleclient/native_client/RELEASE_NOTES  Release notes: December 11, 2008]
