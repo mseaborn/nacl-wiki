@@ -1,9 +1,5 @@
 #summary Project Ideas for Native Client.
 
-= Project Ideas =
-
-This is an informal list of new project ideas for Native Client.
-
 === Testing ===
   * Contribute tests. We always need more tests.
   * Write fuzzing tests for NaCl module interfaces.
