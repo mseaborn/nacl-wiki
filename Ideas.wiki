@@ -2,7 +2,7 @@
 
 === Testing ===
   * Contribute tests. We always need more tests.
-  * Write fuzzing tests for NaCl module interfaces.
+  * Write fuzzing tests for Native Client module interfaces.
   * Write fuzzing tests for the validator.
 
 === Application Development ===
@@ -13,15 +13,15 @@ Start work on one of the obvious applications:
   * speech recognition or synthesis
 
 === Infrastructure ===
-Port your favorite open-source library or system to NaCl.
-  * Port SWIG to generate NaCl stubs on top of the NaCl IMC. This could help us allow languages like Python to make calls into the browser/JavaScript environment
-  * Port GTK to NaCl
+Port your favorite open-source library or system to Native Client.
+  * Port SWIG to generate Native Client stubs on top of the Native Client IMC. This could help us allow languages like Python to make calls into the browser/JavaScript environment
+  * Port GTK to Native Client
   * Port something a lot easier than SWIG or GTK
 
-Port your favorite language system to NaCl.
-  * Help with the Python or Ruby ports to NaCl.
-  * Port gcj or other interpreted Java system to NaCl.
-  * Port a new compiler/language to NaCl: ML, Lisp, Scheme, Smalltalk, Prolog, Cobal, Fortran.
+Port your favorite language system to Native Client.
+  * Help with the Python or Ruby ports to Native Client.
+  * Port gcj or other interpreted Java system to Native Client.
+  * Port a new compiler/language to Native Client: ML, Lisp, Scheme, Smalltalk, Prolog, Cobal, Fortran.
 
 === Security Projects ===
-    * Client authentication. What can NaCl provide to help a server be confident that the client it is talking to is an authentic and unadulterated NaCl module?
+    * Client authentication. What can Native Client provide to help a server be confident that the client it is talking to is an authentic and unadulterated Native Client module?
