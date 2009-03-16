@@ -1,0 +1,31 @@
+#summary Project Ideas for Native Client.
+
+= Project Ideas =
+
+This is an informal list of new project ideas for Native Client.
+
+=== Testing ===
+  * Contribute tests. We always need more tests.
+  * Write fuzzing tests for NaCl module interfaces.
+  * Write fuzzing tests for the validator.
+
+=== Application Development ===
+Start work on one of the obvious applications:
+  * image editor
+  * drawing program (remember MacDraw?)
+  * spreadsheet
+  * speech recognition or synthesis
+
+=== Infrastructure ===
+Port your favorite open-source library or system to NaCl.
+  * Port SWIG to generate NaCl stubs on top of the NaCl IMC. This could help us allow languages like Python to make calls into the browser/JavaScript environment
+  * Port GTK to NaCl
+  * Port something a lot easier than SWIG or GTK
+
+Port your favorite language system to NaCl.
+  * Help with the Python or Ruby ports to NaCl.
+  * Port gcj or other interpreted Java system to NaCl.
+  * Port a new compiler/language to NaCl: ML, Lisp, Scheme, Smalltalk, Prolog, Cobal, Fortran.
+
+=== Security Projects ===
+    * Client authentication. What can NaCl provide to help a server be confident that the client it is talking to is an authentic and unadulterated NaCl module?
