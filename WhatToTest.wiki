@@ -15,6 +15,7 @@
   
 === For even more fun ===
 
+  * Pick something from the [Ideas] page.
   * Port existing open-source packages to run as Native Client module components.
   * Write new Native Client modules that use Native Client's reduced system call interface, NPAPI, and SRPC to communicate with the browser.
   * Defeat the Native Client sandbox. Can you create a Native Client module that creates a file in the local file system, makes a network connection that subverts browser domain restrictions, or directly executes a system call? Exploits using <tt>sel_ldr</tt> from the command line or from the browser plug-in are both of interest. Don't use the -d debug flag — that would be too easy! 
