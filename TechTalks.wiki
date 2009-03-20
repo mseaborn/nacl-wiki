@@ -1,5 +1,4 @@
 #summary Scheduled talks about Native Client
-#labels Featured
 
 To help the community learn more about Native Client,
 we're giving technical talks at major universities.
