@@ -5,7 +5,7 @@ This page describes how to port your code to Native Client. Although this page c
 *Contents:*
 <wiki:toc />
 
-*Note:* This page needs more examples and details. It also needs to point to a list of ports, with recommendations on where to start with various kinds of ports. If you have porting tips, please add them to this page as comments. For suggestions and discussions, please use the [http://groups.google.com/group/native-client-discuss Native Client Discuss group]. 
+*Note:* This page needs more examples and details. It also needs to point to a list of ports, with recommendations on where to start with various kinds of ports. If you have porting tips, please add them to this page as comments. For suggestions and discussions, please respond to [http://groups.google.com/group/native-client-discuss/browse_thread/thread/46703ad19a49ce8b this post]. 
 
 == Porting a project that uses Autoconf ==
 
