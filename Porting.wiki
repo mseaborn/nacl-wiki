@@ -1,4 +1,5 @@
 #summary Tips on porting to Native Client
+#labels Featured
 
 This page describes how to port your code to Native Client. Although this page concentrates on porting projects that use [http://www.gnu.org/software/autoconf/ Autoconf], most of the information is also relevant to non-Autoconf projects.
 
