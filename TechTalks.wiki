@@ -2,11 +2,17 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at major universities.
-Watch this page for information about future talks.
+We've scheduled the following talks:
+
+  * 1 April 2009: Purdue University
+  * 2 April 2009: University of Illinois at Urbana-Champaign
+
+<wiki:comment> Watch this page for information about future talks. </wiki:comment>
+Watch this page for more details on these talks.
 
 <wiki:toc />
 
-If you weren't able to attend a talk, please watch the
+If you can't attend a talk, please watch the
 [http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video].
 You can also look at the
 [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf slides (PDF)].
