@@ -28,3 +28,23 @@ Past tech talks:
   * 29 January 2009: Carnegie Mellon University
   * 10 February 2009: Princeton
   * 5 March 2009: UC Berkeley
+
+<wiki:comment>
+** == 1 April 2009: Home Depot == **
+
+<dl>
+<dt><b>When:</b></dt>
+<dd> 1pm Thursday, 5 March 2009 </dd>
+<dt><b>Where:</b></dt>
+<DD>Soda Hall, Wozniak Lounge<br />
+University of California, Berkeley <br />
+Berkeley CA 94720
+</dd>
+<dt><b>School info:</b></dt>
+<dd>http://berkeley.edu/</dd>
+<dt><b>Event details:</b></dt>
+<dd>http://www.truststc.org/seminar.htm</dd>
+<dt><b>Directions:</b></dt>
+<dd>http://www.eecs.berkeley.edu/Directions/</dd>
+</dl>
+</wiki:comment>
