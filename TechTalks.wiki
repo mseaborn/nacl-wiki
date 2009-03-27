@@ -30,7 +30,7 @@ Past tech talks:
 
 <dl>
 <dt><b>When:</b></dt>
-<dd> 10:30 AM, Wednesday, 1 April 2009 </dd>
+<dd> 10:30 AM Wednesday, 1 April 2009 </dd>
 <dt><b>Where:</b></dt>
 <DD>EE 115<br />
 465 Northwestern Avenue<br />
