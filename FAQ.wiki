@@ -27,9 +27,6 @@ As this release is mainly intended for the security and research communities, we
 
 One download gives you everything you need to try the system, build your own Native Client modules, and even build the SDK, plugins, and secure module container.
 
-=== Why doesn't Native Client work on 64-bit Windows? ===
-
-The short answer is that we intend to support 64-bit Windows, but it's going to take some time because our 32-bit Windows solution depends on APIs that aren't in some 64-bit versions. For the long answer, see the [http://groups.google.com/group/native-client-discuss/browse_thread/thread/3683b35e9ec74f02 discussion group post].
 
 === What's the process for becoming a contributor? ===
 
@@ -39,6 +36,34 @@ Before sending us any code, please sign a Contributor License Agreement (CLA). T
    * If you work for a company that wants to allow you to contribute your work to Native Client, sign a [http://code.google.com/legal/corporate-cla-v1.0.html corporate CLA].
 
 Once you've signed the CLA, you can contribute code by posting the diffs to the [http://groups.google.com/group/native-client-discuss Native Client Discuss group].
+
+== Implementation Questions ==
+
+=== Why doesn't Native Client work on 64-bit Windows? ===
+
+The short answer is that we intend to support 64-bit Windows, but it's going to take some time because our 32-bit Windows solution depends on APIs that aren't in some 64-bit versions. For the long answer, see the [http://groups.google.com/group/native-client-discuss/browse_thread/thread/3683b35e9ec74f02 discussion group post].
+
+=== Why does Native Client use a whitelist for the URLs of untrusted modules? ===
+
+The whitelist is a precaution while we work on hardening the system and on features that are required for defense in depth. Eventually, you should be able to load Native Client modules from any http URL.
+
+=== How can I make Native Client load modules from non-localhost URLs? ===
+
+Edit the whitelist in npapi_plugin/origin.cc. For example, if you want to load modules from a Google Code project named kw-test, add `http://kw-test.googlecode.com` like this:
+
+{{{
+bool OriginIsInWhitelist(std::string origin) {
+  static char const *allowed_origin[] = {
+    "http://localhost",
+    "http://localhost:80",
+    "http://localhost:5103",
+    "http://kw-test.googlecode.com",  // NEW: WHITELIST MY PROJECT'S WEBSITE
+  };
+  ...
+}
+}}}
+
+After modifying the whitelist, rebuild as described in [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Building Native Client], and then reinstall as described in [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started].
 
 == Build/Install Questions ==
 
