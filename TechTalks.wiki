@@ -3,10 +3,12 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at major universities.
-We've scheduled the following talks:
+Watch this page for information about future talks.
 
-<wiki:comment> Watch this page for information about future talks.
-Watch this page for more details on these talks. </wiki:comment>
+<wiki:comment>
+We've scheduled the following talks:
+Watch this page for more details on these talks. 
+</wiki:comment>
 
 <wiki:toc />
 
@@ -25,37 +27,8 @@ Past tech talks:
   * 29 January 2009: Carnegie Mellon University
   * 10 February 2009: Princeton
   * 5 March 2009: UC Berkeley
-
-== 1 April 2009: Purdue University ==
-
-<dl>
-<dt><b>When:</b></dt>
-<dd> 10:30 AM Wednesday, 1 April 2009 </dd>
-<dt><b>Where:</b></dt>
-<DD>EE 115<br />
-465 Northwestern Avenue<br />
-West Lafayette, IN 47907
-</dd>
-<dt><b>School info:</b></dt>
-<dd>http://www.purdue.edu/</dd>
-<dt><b>Directions:</b></dt>
-<dd>http://www.purdue.edu/campus_map/</dd>
-</dl>
-
-== 2 April 2009: University of Illinois at Urbana-Champaign ==
-<dl>
-<dt><b>When:</b></dt>
-<dd> 10 AM Thursday, 2 April 2009 </dd>
-<dt><b>Where:</b></dt>
-<DD>4405 Siebel Center<br />
-201 N. Goodwin Avenue<br />
-Urbana, IL 61801
-</dd>
-<dt><b>School info:</b></dt>
-<dd>http://illinois.edu/</dd>
-<dt><b>Directions:</b></dt>
-<dd>http://illinois.edu/ricker/CampusMap</dd>
-</dl>
+  * 1 April 2009: Purdue University
+  * 2 April 2009: University of Illinois at Urbana-Champaign
 
 <wiki:comment>
 <dl>
