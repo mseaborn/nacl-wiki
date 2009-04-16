@@ -3,14 +3,14 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at major universities.
-Watch this page for information about future talks.
-
-<wiki:comment>
 We've scheduled the following talks:
-Watch this page for more details on these talks. 
-</wiki:comment>
 
 <wiki:toc />
+
+<wiki:comment>
+Watch this page for more details on these talks. 
+Watch this page for information about future talks.
+</wiki:comment>
 
 If you can't attend a talk, please watch the
 [http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video].
@@ -30,20 +30,22 @@ Past tech talks:
   * 1 April 2009: Purdue University
   * 2 April 2009: University of Illinois at Urbana-Champaign
 
-<wiki:comment>
+===24 June 2009: Velocity Conference===
 <dl>
 <dt><b>When:</b></dt>
-<dd> 1pm Thursday, 5 March 2009 </dd>
+<dd> 4:45pm - 5:05pm Wednesday, 24 June 2009 </dd>
 <dt><b>Where:</b></dt>
-<DD>Soda Hall, Wozniak Lounge<br />
-University of California, Berkeley <br />
-Berkeley CA 94720
+<dd>Regency 2<br />
+Fairmont San Jose <br />
+170 S. Market Street <br />
+San Jose CA 95113 
 </dd>
-<dt><b>School info:</b></dt>
-<dd>http://berkeley.edu/</dd>
+<dt><b>Conference info:</b></dt>
+<dd>http://en.oreilly.com/velocity2009/</dd>
 <dt><b>Event details:</b></dt>
-<dd>http://www.truststc.org/seminar.htm</dd>
+<dd>http://en.oreilly.com/velocity2009/public/schedule/detail/8960</dd>
 <dt><b>Directions:</b></dt>
-<dd>http://www.eecs.berkeley.edu/Directions/</dd>
+<dd>http://en.oreilly.com/velocity2009/public/content/hotel</dd>
+<dt><b>Discount code:</b>  (15% off conference admission)</dt>
+<dd>VEL09FSP</dd>
 </dl>
-</wiki:comment>
