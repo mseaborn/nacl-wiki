@@ -11,10 +11,10 @@ be sure to use the latest version.
 
 Here are the current downloads:
 
-  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_linux_0.1_57_2009_03_30.tgz Source with prebuilt binaries and SDK: Linux]
-  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_mac_0.1_57_2009_03_30.tgz Source with prebuilt binaries and SDK: Mac]
-  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_windows_0.1_57_2009_03_30.zip Source with prebuilt binaries and SDK: Windows]
-  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_source_0.1_57_2009_03_30.tgz Source only]
+  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_linux_0.1_2009_04_23.tgz Source with prebuilt binaries and SDK: Linux]
+  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_mac_0.1_2009_04_23.tgz Source with prebuilt binaries and SDK: Mac]
+  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_windows_0.1_2009_04_23.zip Source with prebuilt binaries and SDK: Windows]
+  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_source_0.1_2009_04_23.tgz Source only]
 
 See the
 [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started guide] for instructions on extracting and installing the Native Client files.
