@@ -2,7 +2,7 @@
 #labels Featured
 
 To help the community learn more about Native Client,
-we're giving technical talks at major universities.
+we're giving technical talks at conferences and major universities.
 We've scheduled the following talks:
 
 <wiki:toc />
@@ -30,10 +30,45 @@ Past tech talks:
   * 1 April 2009: Purdue University
   * 2 April 2009: University of Illinois at Urbana-Champaign
 
+===18 May 2009: IEEE Symposium on Security and Privacy===
+<dl>
+<dt><b>When:</b></dt>
+<dd> 1:30pm - 3pm Monday, 18 May 2009 <br />
+(conference is May 17-20)</dd>
+<dt><b>Where:</b></dt>
+<dd>The Claremont Resort<br />
+41 Tunnel Road<br />
+Berkeley CA 94705</dd>
+<dt><b>Conference info:</b></dt>
+<dd>http://oakland09.cs.virginia.edu/</dd>
+<dt><b>Event details:</b></dt>
+<dd>http://oakland09.cs.virginia.edu/program.html</dd>
+<dt><b>Directions:</b></dt>
+<dd>http://www.claremontresort.com/About/Directions/</dd>
+</dl>
+
+===28 May 2009: Google I/O===
+<dl>
+<dt><b>When:</b></dt>
+<dd> 12pm - 1pm Thursday, 28 May 2009 <br />
+(conference is May 27-28)</dd>
+<dt><b>Where:</b></dt>
+<dd>Moscone West<br />
+747 Howard St.<br />
+San Francisco CA 94103</dd>
+<dt><b>Conference info:</b></dt>
+<dd>http://code.google.com/events/io/</dd>
+<dt><b>Event details:</b></dt>
+<dd>http://code.google.com/events/io/sessions.html</dd>
+<dt><b>Directions:</b></dt>
+<dd>http://code.google.com/events/io/location.html</dd>
+</dl>
+
 ===24 June 2009: Velocity Conference===
 <dl>
 <dt><b>When:</b></dt>
-<dd> 4:45pm - 5:05pm Wednesday, 24 June 2009 </dd>
+<dd> 4:45pm - 5:05pm Wednesday, 24 June 2009 <br />
+(conference is June 22-24)</dd>
 <dt><b>Where:</b></dt>
 <dd>Regency 2<br />
 Fairmont San Jose <br />
