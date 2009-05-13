@@ -1,6 +1,6 @@
 #summary Debugging tips for Windows
 
-Using printf (as described in the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/debugging.html Debugging Tips])
+Using printf (as described in the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/debugging.html Debugging Tips])
 is impractical on Windows
 because you can't effectively get standard I/O output
 from the version of `sel_ldr`
