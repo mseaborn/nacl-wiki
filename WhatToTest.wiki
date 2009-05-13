@@ -3,15 +3,15 @@
 
 === First things first ===
 
-  * Follow the steps in the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/getting_started.html Getting Started] guide.
-  * Browse the rest of the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/README.html#doc documentation].
-  * Read the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/nacl_paper.pdf research paper] (PDF).
+  * Follow the steps in the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/getting_started.html Getting Started] guide.
+  * Browse the rest of the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/README.html#doc documentation].
+  * Read the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/nacl_paper.pdf research paper] (PDF).
 
 === Please try these ===
 
-  * Run all the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/examples.html examples and tests].
-  * [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Build Native Client] from scratch.
-  * Build Quake and XaoS for Native Client; run them. For more information, see the [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/examples.html examples and tests] page.
+  * Run all the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/examples.html examples and tests].
+  * [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/building.html Build Native Client] from scratch.
+  * Build Quake and XaoS for Native Client; run them. For more information, see the [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/examples.html examples and tests] page.
   
 === For even more fun ===
 
