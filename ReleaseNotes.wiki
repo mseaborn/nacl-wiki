@@ -6,6 +6,7 @@ Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_c
 
 You can find copies of the release notes in the SVN depository:
 
+  * [http://nativeclient.googlecode.com/svn-history/r201/data/docs_tarball/nacl/googleclient/native_client/RELEASE_NOTES Release notes: June 1, 2009]
   * [http://nativeclient.googlecode.com/svn-history/r168/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: April 23, 2009]
   * [http://nativeclient.googlecode.com/svn-history/r155/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: March 30, 2009]
   * [http://nativeclient.googlecode.com/svn-history/r134/trunk/nacl/googleclient/native_client/RELEASE_NOTES Release notes: March 12, 2009]
