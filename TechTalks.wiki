@@ -13,9 +13,10 @@ Watch this page for information about future talks.
 </wiki:comment>
 
 If you can't attend a talk, please watch the
-[http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video].
-You can also look at the
-[http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf slides (PDF)].
+[http://code.google.com/events/io/sessions/NativeClientUsingNativeCode.html Google I/O video] (with [http://dl.google.com/io/2009/pres/Th_1200_NativeClientUsingNativeCodetoBuildComputeIntensiveWebApplications.pdf PDF slides]).
+You can also watch the
+[http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video]
+and its [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf PDF slides].
 
 Past tech talks:
 
@@ -29,40 +30,8 @@ Past tech talks:
   * 5 March 2009: UC Berkeley
   * 1 April 2009: Purdue University
   * 2 April 2009: University of Illinois at Urbana-Champaign
-
-===18 May 2009: IEEE Symposium on Security and Privacy===
-<dl>
-<dt><b>When:</b></dt>
-<dd> 1:30pm - 3pm Monday, 18 May 2009 <br />
-(conference is May 17-20)</dd>
-<dt><b>Where:</b></dt>
-<dd>The Claremont Resort<br />
-41 Tunnel Road<br />
-Berkeley CA 94705</dd>
-<dt><b>Conference info:</b></dt>
-<dd>http://oakland09.cs.virginia.edu/</dd>
-<dt><b>Event details:</b></dt>
-<dd>http://oakland09.cs.virginia.edu/program.html</dd>
-<dt><b>Directions:</b></dt>
-<dd>http://www.claremontresort.com/About/Directions/</dd>
-</dl>
-
-===28 May 2009: Google I/O===
-<dl>
-<dt><b>When:</b></dt>
-<dd> 12pm - 1pm Thursday, 28 May 2009 <br />
-(conference is May 27-28)</dd>
-<dt><b>Where:</b></dt>
-<dd>Moscone West<br />
-747 Howard St.<br />
-San Francisco CA 94103</dd>
-<dt><b>Conference info:</b></dt>
-<dd>http://code.google.com/events/io/</dd>
-<dt><b>Event details:</b></dt>
-<dd>http://code.google.com/events/io/sessions.html</dd>
-<dt><b>Directions:</b></dt>
-<dd>http://code.google.com/events/io/location.html</dd>
-</dl>
+  * 18 May 2009: IEEE Symposium on Security and Privacy
+  * 28 May 2009: Google I/O
 
 ===24 June 2009: Velocity Conference===
 <dl>
