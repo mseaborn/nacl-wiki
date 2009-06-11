@@ -1,0 +1,70 @@
+#summary How to get the Native Client source code
+
+*Quick links:* [http://code.google.com/p/nativeclient/source/browse#svn/trunk/nacl/googleclient/native_client browse source] | [http://code.google.com/p/nativeclient/source/list recent changes]
+
+*Note:* This is a preview of what our Source tab will have. The instructions for downloading a buildable version of the source are rather useless until we update the "Building Native Client" and "Getting Started" docs. We'll do that within a few days...
+
+== Overview ==
+
+How you should get the Native Client source code depends on what you want to do with it.
+
+<dl>
+<dt> *To just look at the source code* (and not use Native Client): </dt>
+<dd> Browse or download the source code. Instructions are in *Browsing the source code*, below.</dd>
+
+<dt> *To use the latest version*: </dt>
+<dd> Get the source code and build it.  Getting buildable source code requires Subversion and the Chromium depot tools. Building Native Client requires Python and a platform-dependent build environment. Instructions are in *Getting buildable source code*, below. </dd>
+
+<dt> *To use a pre-built version*: </dt>
+<dd> <a href="http://code.google.com/p/nativeclient/wiki/Downloads?tm=2">Download a tarball</a>. Currently, the tarball has the full, buildable source code for Native Client. Over time, we intend to reduce the tarball's size and scope so that it becomes an SDK containing only the files that developers need to create, debug, and test Native Client modules. </dd>
+</dl>
+
+
+=== Choosing a source code branch ===
+
+{PENDING: This section will explain trunk vs. stable branches. It will note which one this page uses, and what you should substitute to get other versions of the source code.}
+
+== Browsing the source code ==
+
+If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/nacl/googleclient/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
+
+  `svn checkout http://nativeclient.googlecode.com/svn/trunk/nacl`
+
+If you use `svn checkout`, the source code appears under a directory named `nacl` in the current directory. You can update it using `svn update`.
+
+== Getting buildable source code ==
+
+If you want to build the latest version of Native Client, follow these steps:
+
+   # If you don't already have `gclient`, get it by downloading the Chromium [http://dev.chromium.org/developers/how-tos/install-gclient depot tools].<br><br>
+   # If you don't already have [http://subversion.tigris.org/ Subversion] (1.6 or later), download it.<br><br>
+   # Create a directory to hold the Native Client source code. We'll call it `$NACL_ROOT`.<br><br>*Important:* Make sure the path to the directory has no spaces. Examples of good `$NACL_ROOT` values:<br><br>`/home/me/SVN/nativeclient`    <em>(Linux)</em><br>`/Users/me/SVN/nativeclient`   <em>(Mac)</em><br>`C:\SVN\nativeclient`          <em>(Windows)</em><br><br>
+   # In a shell window, execute the following commands:
+{{{
+cd $NACL_ROOT
+gclient config http://nativeclient.googlecode.com/svn/trunk/nacl
+}}}
+   # Download the code (this might take a few minutes):
+{{{
+cd $NACL_ROOT
+gclient update
+}}}
+
+Here's what the `gclient` steps do:
+  * `gclient config` sets up your working directory, creating a `.gclient` file that identifies the structure to pull from the repository.
+  * `gclient update` creates several subdirectories and downloads the latest Native Client files.
+
+To update the Native Client source code, run `gclient update` from `$NACL_ROOT` or any of its subdirectories.
+
+Once you've downloaded the source code, you can build Native Client. To do so, you need Python and a platform-specific development environment. Details on prerequisites and how to build are in [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Building Native Client].
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
