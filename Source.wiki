@@ -57,14 +57,3 @@ Here's what the `gclient` steps do:
 To update the Native Client source code, run `gclient update` from `$NACL_ROOT` or any of its subdirectories.
 
 Once you've downloaded the source code, you can build Native Client. To do so, you need Python and a platform-specific development environment. Details on prerequisites and how to build are in [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Building Native Client].
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
