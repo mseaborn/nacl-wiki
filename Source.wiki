@@ -2,8 +2,6 @@
 
 *Quick links:* [http://code.google.com/p/nativeclient/source/browse#svn/trunk/nacl/googleclient/native_client browse source] | [http://code.google.com/p/nativeclient/source/list recent changes]
 
-*Note:* This is a preview of what our Source tab will have. The instructions for downloading a buildable version of the source are rather useless until we update the "Building Native Client" and "Getting Started" docs. We'll do that within a few days...
-
 == Overview ==
 
 How you should get the Native Client source code depends on what you want to do with it.
