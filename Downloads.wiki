@@ -9,12 +9,11 @@ Please [Uninstall uninstall the plug-in] when you're not using it for developmen
 Whenever you reinstall the plug-in,
 be sure to use the latest version.
 
-Here are the current downloads:
+Here are the current "tarball" downloads:
 
   * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_linux_0.1_2009_06_01.tgz Source with prebuilt binaries and SDK: Linux]
   * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_mac_0.1_2009_06_01.tgz Source with prebuilt binaries and SDK: Mac]
   * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_windows_0.1_2009_06_01.zip Source with prebuilt binaries and SDK: Windows]
-  * [http://code.google.com/p/nativeclient/downloads/detail?name=nacl_source_0.1_2009_06_01.tgz Source only]
 
 See the
 [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/getting_started.html Getting Started guide] for instructions on extracting and installing the Native Client files.
@@ -22,3 +21,5 @@ See the
 For more information on Native Client downloads, including file sizes,
 see the [http://code.google.com/p/nativeclient/downloads/list detailed download page].
 For information about the current release, see ReleaseNotes.
+
+*Note:* The tarball downloads are built from old source code. If you want the latest source code, go to the [http://code.google.com/p/nativeclient/wiki/Source?tm=4 Source] tab.
