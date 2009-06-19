@@ -20,6 +20,6 @@ See the
 
 For more information on Native Client downloads, including file sizes,
 see the [http://code.google.com/p/nativeclient/downloads/list detailed download page].
-For information about the current release, see ReleaseNotes.
+For information about the current release, see ReleaseNotes. If you want the latest source code, go to the [http://code.google.com/p/nativeclient/wiki/Source?tm=4 Source] tab.
 
-*Note:* The tarball downloads are built from old source code. If you want the latest source code, go to the [http://code.google.com/p/nativeclient/wiki/Source?tm=4 Source] tab.
+*Note:* These tarballs are automatically generated and tested, but that doesn't guarantee they'll work. If the latest tarball appears to be broken, please let people know by posting to [http://groups.google.com/group/native-client-discuss Native Client Discuss] and [http://code.google.com/p/nativeclient/issues/list filing a bug].
