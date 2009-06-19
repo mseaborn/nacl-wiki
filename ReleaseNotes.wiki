@@ -1,6 +1,34 @@
 #summary Information about each release
 
-Release notes are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory of the distribution.
+This page summarizes the changes in each downloadable "tarball" of the Native Client project. To get the latest tarball for each platform, see [Downloads Downloads].
+
+Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, and the main development repository changed from an internal one to the [http://code.google.com/p/nativeclient/source/browse#svn/trunk nativeclient project's SVN repository].
+
+==== Contents ====
+
+<wiki:toc max_depth="3" />
+
+== 0.2 release notes ==
+
+This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `nacl/googleclient/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/nacl/googleclient/native_client/RELEASE_NOTES latest version]).
+
+
+=== June 19, 2009 ===
+
+Includes all [http://code.google.com/p/nativeclient/source/list?start=280 changes up to r280]. Most significantly:
+
+  * The getting started and build instructions have changed.
+  * The source hierarchy has changed a great deal (and might still change).
+  * Most of the directories under `scons-out` now have `-x86-32` added to their names.
+  * The expiration date has _not_ changed — it's still July 8.
+
+Some advice:
+  * If you have bookmarks for the examples, update them to add `-x86-32`.
+  * If you've been downloading Native Client frequently, you might end up with both old and new binaries under `scons-out` — for example, `scons-out/nacl` and `scons-out/nacl-x86-32`. To avoid problems, delete the non`-x86-32` versions of all the directories that contain binaries (that is, all the `scons-out` directories except `doc`).
+
+== 0.1 release notes ==
+
+Release notes for 0.1 distributions are in the `RELEASE_NOTES` file in the `nacl/googleclient/native_client/` directory.
 
 *Note:* The date in the release notes might not match the date in this page. The date in the notes reflects when the notes were edited, which might be a few days before the release; this page lists the day the release went out.
 
