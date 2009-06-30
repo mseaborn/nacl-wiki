@@ -3,20 +3,20 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at conferences and major universities.
-We've scheduled the following talks:
+Watch this page for information about future talks.
 
 <wiki:toc />
 
 <wiki:comment>
+We've scheduled the following talks:
 Watch this page for more details on these talks. 
-Watch this page for information about future talks.
 </wiki:comment>
 
 If you can't attend a talk, please watch the
 [http://code.google.com/events/io/sessions/NativeClientUsingNativeCode.html Google I/O video] (with [http://dl.google.com/io/2009/pres/Th_1200_NativeClientUsingNativeCodetoBuildComputeIntensiveWebApplications.pdf PDF slides]).
 You can also watch the
 [http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video]
-and its [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf PDF slides].
+and its [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf PDF slides] or the [http://velocityconference.blip.tv/file/2293252/ Velocity video].
 
 Past tech talks:
 
@@ -32,24 +32,4 @@ Past tech talks:
   * 2 April 2009: University of Illinois at Urbana-Champaign
   * 18 May 2009: IEEE Symposium on Security and Privacy
   * 28 May 2009: Google I/O
-
-===24 June 2009: Velocity Conference===
-<dl>
-<dt><b>When:</b></dt>
-<dd> 4:45pm - 5:05pm Wednesday, 24 June 2009 <br />
-(conference is June 22-24)</dd>
-<dt><b>Where:</b></dt>
-<dd>Regency 2<br />
-Fairmont San Jose <br />
-170 S. Market Street <br />
-San Jose CA 95113 
-</dd>
-<dt><b>Conference info:</b></dt>
-<dd>http://en.oreilly.com/velocity2009/</dd>
-<dt><b>Event details:</b></dt>
-<dd>http://en.oreilly.com/velocity2009/public/schedule/detail/8960</dd>
-<dt><b>Directions:</b></dt>
-<dd>http://en.oreilly.com/velocity2009/public/content/hotel</dd>
-<dt><b>Discount code:</b>  (15% off conference admission)</dt>
-<dd>VEL09FSP</dd>
-</dl>
+  * 24 June 2009: Velocity Conference
