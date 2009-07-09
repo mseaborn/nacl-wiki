@@ -13,6 +13,18 @@ Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, a
 This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `nacl/googleclient/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/nacl/googleclient/native_client/RELEASE_NOTES latest version]).
 
 
+=== July 9, 2009 ===
+
+Includes all [http://code.google.com/p/nativeclient/source/list?start=343 changes up to r343]. Most significantly:
+
+  * New expiration date: August 18
+  * Slimmed down tarballs (they no longer have third-party SDK source)
+  * Install and header file cleanup
+  * Decoder updates anticipating 64-bit support (r326)
+  * Support for new versions of GCC and binutils
+  * Filter the user's environment prior to making it available to NaCl modules (r332)
+  * New convention checker, !IncludeChecker, enforces that all includes using double quotes have  paths starting with limited number of allowed prefixes; also flags use of '..' in path and includes that are NOT in the top part of the file (r294)
+
 === June 19, 2009 ===
 
 Includes all [http://code.google.com/p/nativeclient/source/list?start=280 changes up to r280]. Most significantly:
