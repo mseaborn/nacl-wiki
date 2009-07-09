@@ -22,7 +22,7 @@ Includes all [http://code.google.com/p/nativeclient/source/list?start=343 change
   * Install and header file cleanup
   * Decoder updates anticipating 64-bit support (r326)
   * Support for new versions of GCC and binutils
-  * Filter the user's environment prior to making it available to NaCl modules (r332)
+  * Filter the user's environment prior to making it available to Native Client modules (r332)
   * New convention checker, !IncludeChecker, enforces that all includes using double quotes have  paths starting with limited number of allowed prefixes; also flags use of '..' in path and includes that are NOT in the top part of the file (r294)
 
 === June 19, 2009 ===
