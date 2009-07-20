@@ -10,7 +10,7 @@ Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, a
 
 == 0.2 release notes ==
 
-This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `nacl/googleclient/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/nacl/googleclient/native_client/RELEASE_NOTES latest version]).
+This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `src/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/RELEASE_NOTES latest version]).
 
 
 === July 9, 2009 ===
