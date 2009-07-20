@@ -26,9 +26,9 @@ How you should get the Native Client source code depends on what you want to do 
 
 If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/nacl/googleclient/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
 
-  `svn checkout http://nativeclient.googlecode.com/svn/trunk/nacl`
+  `svn checkout http://nativeclient.googlecode.com/svn/trunk/src`
 
-If you use `svn checkout`, the source code appears under a directory named `nacl` in the current directory. You can update it using `svn update`.
+If you use `svn checkout`, the source code appears under a directory named `src` in the current directory. You can update it using `svn update`.
 
 == Getting buildable source code ==
 
@@ -40,7 +40,7 @@ If you want to build the latest version of Native Client, follow these steps:
    # In a shell window, execute the following commands:
 {{{
 cd $NACL_ROOT
-gclient config http://nativeclient.googlecode.com/svn/trunk/nacl
+gclient config http://nativeclient.googlecode.com/svn/trunk/src
 }}}
    # Download the code (this might take a few minutes):
 {{{
@@ -54,4 +54,4 @@ Here's what the `gclient` steps do:
 
 To update the Native Client source code, run `gclient update` from `$NACL_ROOT` or any of its subdirectories.
 
-Once you've downloaded the source code, you can build Native Client. To do so, you need Python and a platform-specific development environment. Details on prerequisites and how to build are in [http://nativeclient.googlecode.com/svn/trunk/nacl/googleclient/native_client/documentation/building.html Building Native Client].
+Once you've downloaded the source code, you can build Native Client. To do so, you need Python and a platform-specific development environment. Details on prerequisites and how to build are in [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/building.html Building Native Client].
