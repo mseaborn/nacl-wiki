@@ -1,0 +1,10 @@
+#summary Platform Independent NPAPI (Pepper)
+
+= Introduction =
+
+We're working on an effort we call Pepper.  It's a set of modifications to NPAPI to make plugins more portable and more secure.  We have proposed the first part of the API and are preparing a more detailed version for formal submission.
+
+
+= Details =
+
+You can read the working proposal on the Mozilla wiki: https://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI.  We look forward to your comments.
