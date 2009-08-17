@@ -12,6 +12,15 @@ Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, a
 
 This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `src/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/RELEASE_NOTES latest version]).
 
+=== August 17, 2009 ===
+
+Includes all [http://code.google.com/p/nativeclient/source/list?start=538 changes up to r538], plus r543 and r544. Most significantly:
+
+  * New expiration date: September 29
+  * More directory structure changes, such as:
+    * src/native_client -> build/native_client
+    * source tree root is now build (was nacl)
+  * We recently removed support for the NPAPI bridge because of concerns about NPAPI's portability and security.  We are proposing some revisions to NPAPI, which you can read about at http://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI.
 
 === July 9, 2009 ===
 
