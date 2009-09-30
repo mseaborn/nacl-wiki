@@ -12,6 +12,17 @@ Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, a
 
 This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `src/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/RELEASE_NOTES latest version]).
 
+
+=== September 28, 2009 ===
+
+Includes all [http://code.google.com/p/nativeclient/source/list?start=782 changes up to r782]. Most significantly:
+
+   * New expiration date: November 4, 2009
+   * Added a new sample (tests/drawing) that illustrates the use of Anti-Grain Geometry
+   * Continued progress on ARM and x86-64 ports
+   * Various build and system changes to support integration into Google Chrome
+   * New interface (nacl_thread_nice) for supporting real-time threads
+
 === August 17, 2009 ===
 
 Includes all [http://code.google.com/p/nativeclient/source/list?start=538 changes up to r538], plus r543 and r544. Most significantly:
