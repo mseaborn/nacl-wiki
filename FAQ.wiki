@@ -63,14 +63,14 @@ bool OriginIsInWhitelist(std::string origin) {
 }
 }}}
 
-After modifying the whitelist, rebuild as described in [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/building.html Building Native Client], and then reinstall as described in [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/getting_started.html Getting Started].
+After modifying the whitelist, rebuild as described in [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/building.html Building Native Client], and then reinstall as described in [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html Getting Started].
 
 == Build/Install Questions ==
 
 === Why isn't the plug-in loading? ===
 
 Assuming you've already
-[http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/getting_started.html#plugin installed the plug-in],
+[http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html#plugin installed the plug-in],
 verify that all files required by the plug-in are in place.
 For example, on Windows three files are required:
 `sel_ldr.exe`, `SDL.dll`, and `npGoogleNaClPlugin.dll`.
