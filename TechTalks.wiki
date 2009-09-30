@@ -38,22 +38,16 @@ Past tech talks:
 <dl>
   <dt><b>When:</b></dt>
   <dd>3:30 pm Thursday, 8 October 2009 </dd>
-  
   <dt><b>Where:</b></dt>
   <dd>EEB-105 <br />University of Washington <br />Seattle, Washington</dd>
-  
   <dt><b>Host:</b></dt>
   <dd><a href="http://www.cs.washington.edu/homes/djg/">Dan Grossman</a></dd>
-  
   <dt><b>School info:</b></dt>
   <dd>http://www.washington.edu</dd>
-  
   <dt><b>Department info:</b></dt>
   <dd>http://www.cs.washington.edu</dd>
-  
   <dt><b>Event details:</b></dt>
   <dd>http://www.cs.washington.edu/htbin-post/mvis/mvis?ID=867</dd>
-  
   <dt><b>Directions:</b></dt>
   <dd>http://www.washington.edu/home/maps/?EEB</dd>
 </dl>
