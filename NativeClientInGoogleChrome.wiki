@@ -25,7 +25,7 @@ Native Client is now built into the Dev channel of Google Chrome. This page tell
       # [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html#software Get the software]. (Download the tarball, extract the files, and make sure you have the right version of Python.)
       # [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html#httpd Start a local HTTP server], if one isn't already running on your computer. <br /><br />
    # In Google Chrome, view the Browser Test Page, using *localhost* for the hostname. For example: <br /> <br /><a href="http://localhost:5103/scons-out/nacl-x86-32/staging/examples.html" target="_blank">http://localhost:5103/scons-out/nacl-x86-32/staging/examples.html</a><br /><br />
-   # Click links to examples to run them.
+   # Click links to examples and tests to run them.
 
 
 When Google Chrome is launched with the *--internal-nacl* flag, the integrated version of Native Client is used to run the examples and tests. Otherwise, the Native Client plug-in (if installed) is used to run them.
@@ -36,9 +36,9 @@ The following tests should work in the integrated version of Native Client:
 
     * Mandelbrot performance test<br /> This works because all drawing is from JavaScript; Native Client is used only for calculations.
 
-The following tests don't currently work:
+The following examples don't currently work:
 
-    * Demos with graphics (except for the Mandelbrot performance test) <br />This includes all tests in the Examples column except the SRPC hello world example.
+    * Examples with graphics (except for the Mandelbrot performance test) <br />This includes everything in the Examples column except the SRPC hello world example.
 
 
 For details about what each example and test contains, see the [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/examples.html Examples and Tests] page and the README files in the source code.
