@@ -12,11 +12,11 @@ Native Client is now built into the Dev channel of Google Chrome. This page tell
 
   # [http://www.google.com/chrome Download Google Chrome], if you don't already have it.
   # Subscribe to the [http://dev.chromium.org/getting-involved/dev-channel Dev channel].
-  # Launch Google Chrome from the command line, adding *--internal-nacl*. If you're in the directory that contains chrome.exe (something like `C:\Documents and Settings\me\Local Settings\Application Data\Google\Chrome\Application`), your command should look like this:
+  # Launch Google Chrome from the command line, adding *--internal-nacl --no-sandbox*. If you're in the directory that contains chrome.exe (something like `C:\Documents and Settings\me\Local Settings\Application Data\Google\Chrome\Application`), your command should look like this:
 
-<blockquote><b><code>chrome.exe --internal-nacl</code></b></blockquote>
+<blockquote><b><code>chrome.exe --internal-nacl --no-sandbox</code></b></blockquote>
 
-*Warning:* Currently, *using --internal-nacl disables the Google Chrome sandbox*. This is related to a bug that we expect to fix soon, but for now, we recommend running Google Chrome with this flag *only* for testing Native Client and not for regular web browsing.
+*Warning:* Currently, *using --internal-nacl requires disabling the Google Chrome sandbox*. This is related to a bug that we expect to fix soon, but for now, we recommend running Google Chrome with the --internal-nacl flag *only* for testing Native Client and not for regular web browsing.
 
 
 = How to find and run examples and tests =
@@ -48,7 +48,7 @@ For details about what each example and test contains, see the [http://nativecli
 
     * Graphics and audio from native code don't work yet. Think of Native Client as a windowless plug-in. Proposed NPAPI improvements ([http://groups.google.com/group/native-client-announce/browse_thread/thread/3607403cbc165499 announcement], [https://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI spec]) will provide access to video and audio.
     * Native Client in Google Chrome has been tested only on Windows. It probably doesn't work on Mac or Linux.
-    * Enabling Native Client currently disables the Google Chrome sandbox. In other words, *--internal-nacl* implicitly sets *--no-sandbox*.
+    * Enabling Native Client currently requires disabling the Google Chrome sandbox. In other words, *--internal-nacl* requires *--no-sandbox*. 
 
 
 = More information =
