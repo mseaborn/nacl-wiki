@@ -3,20 +3,24 @@
 
 To help the community learn more about Native Client,
 we're giving technical talks at conferences and major universities.
-We've scheduled the following talks:
+Watch this page for information about future talks.
 
 <wiki:toc />
 
 <wiki:comment>
+We've scheduled the following talks:
 Watch this page for information about future talks.
 Watch this page for more details on these talks. 
 </wiki:comment>
 
 If you can't attend a talk, please watch the
-[http://code.google.com/events/io/sessions/NativeClientUsingNativeCode.html Google I/O video] (with [http://dl.google.com/io/2009/pres/Th_1200_NativeClientUsingNativeCodetoBuildComputeIntensiveWebApplications.pdf PDF slides]).
+[http://www.youtube.com/watch?v=zgng4C18nNk video].
 You can also watch the
-[http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video]
-and its [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf PDF slides] or the [http://velocityconference.blip.tv/file/2293252/ Velocity video].
+[http://code.google.com/events/io/sessions/NativeClientUsingNativeCode.html Google I/O video]
+(with [http://dl.google.com/io/2009/pres/Th_1200_NativeClientUsingNativeCodetoBuildComputeIntensiveWebApplications.pdf PDF slides]),
+the [http://www.youtube.com/watch?v=L8m9U7p_Ntk Stanford video]
+(with [http://nativeclient.googlecode.com/svn/data/site/NaCl_Talk_Jan09.pdf PDF slides]),
+or the [http://velocityconference.blip.tv/file/2293252/ Velocity video].
 
 Past tech talks:
 
@@ -33,21 +37,4 @@ Past tech talks:
   * 18 May 2009: IEEE Symposium on Security and Privacy
   * 28 May 2009: Google I/O
   * 24 June 2009: Velocity Conference
-
-===8 October 2009: University of Washington===
-<dl>
-  <dt><b>When:</b></dt>
-  <dd>3:30 pm Thursday, 8 October 2009 </dd>
-  <dt><b>Where:</b></dt>
-  <dd>EEB-105 <br />University of Washington <br />Seattle, Washington</dd>
-  <dt><b>Host:</b></dt>
-  <dd><a href="http://www.cs.washington.edu/homes/djg/">Dan Grossman</a></dd>
-  <dt><b>School info:</b></dt>
-  <dd>http://www.washington.edu</dd>
-  <dt><b>Department info:</b></dt>
-  <dd>http://www.cs.washington.edu</dd>
-  <dt><b>Event details:</b></dt>
-  <dd>http://www.cs.washington.edu/htbin-post/mvis/mvis?ID=867</dd>
-  <dt><b>Directions:</b></dt>
-  <dd>http://www.washington.edu/home/maps/?EEB</dd>
-</dl>
+  * 8 October 2009: University of Washington
