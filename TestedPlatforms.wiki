@@ -15,7 +15,6 @@ We've tested building with the following configurations:
   * Unbuntu 9.04 (Jaunty Jackalope)
 
 Building and running on 64-bit systems isn't as well tested as on 32-bit systems.
-  * The ia32-lib-dev package is, as of this writing, missing from the amd64 Karmic Koala release of Ubuntu, and we cannot (yet) build the on Karmic amd64.
 
 The Native Client plug-in has been successfully used in the following browsers:
   * Firefox 3
@@ -23,6 +22,8 @@ The Native Client plug-in has been successfully used in the following browsers:
 
 
 == What doesn't work ==
+
+  * The ia32-lib-dev package is, as of this writing, missing from the amd64 Karmic Koala release of Ubuntu, and we cannot (yet) build the on Karmic amd64.
 
 = Mac =
 
