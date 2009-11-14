@@ -12,9 +12,11 @@ This page lists the platforms on which we've tried Native Client, both for build
 
 We've tested building with the following configurations:
   * Ubuntu 8.04 (Hardy Heron)
-  * Unbuntu 9.04 (Jaunty Jackalope)
+  * Ubuntu 9.04 (Jaunty Jackalope)
+  * Ubuntu 9.10 (Karmic Koala)
 
 Building and running on 64-bit systems isn't as well tested as on 32-bit systems.
+Some time after Karmic stabilizes, we will drop support for Jaunty.
 
 The Native Client plug-in has been successfully used in the following browsers:
   * Firefox 3
@@ -24,6 +26,7 @@ The Native Client plug-in has been successfully used in the following browsers:
 == What doesn't work ==
 
   * The ia32-lib-dev package is, as of this writing, missing from the amd64 Karmic Koala release of Ubuntu, and we cannot (yet) build the on Karmic amd64.
+
 
 = Mac =
 
