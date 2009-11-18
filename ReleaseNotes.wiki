@@ -12,6 +12,9 @@ Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, a
 
 This section describes the changes in each 0.2 release. You can find some more information in the `RELEASE_NOTES` file of the `src/native_client/` directory (here's the [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/RELEASE_NOTES latest version]).
 
+=== November 2, 2009 ===
+
+No changes except for a new expiration date: January 14, 2010
 
 === September 28, 2009 ===
 
