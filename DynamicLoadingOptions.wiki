@@ -1,4 +1,6 @@
-#summary Dynamic loading in Native Client
+#summary Options for supporting dynamic loading, and how they interact with dynamic libraries
+
+= Dynamic loading in Native Client =
 
 _Draft_
 
