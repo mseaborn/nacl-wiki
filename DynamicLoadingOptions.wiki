@@ -18,11 +18,11 @@ The current sandboxing scheme supports statically-linked executables only.  It u
  * `0x20000`: executable's code segment (untrusted but validated code)
  * `code_top`: executable's data segment
 
-The Native Client process is limited so that the only instructions it can execute are below `code_top`.  There are two mechanisms for doing this:
- * On x86: via segmentation.  The x86 code segment is set to be `code_top` bytes in size.  Jumping outside this segment will cause a segmentation fault.
-    * `code_top` has to be page-aligned.
- * On other architectures: by requiring masking instructions before indirect jumps.  Indirect jump instructions must be preceded by a masking instruction that limits the range of the destination address.
-    * This requires that `code_top` is a power of 2 so that the address range can be restricted with a simple bitmask.
+The Native Client process is limited so that the only instructions it can execute are below `code_top`.  Each of the three architectures has a different way to do this.  All three require indirect jumps to be preceded by a masking instruction that forces the destination address to be aligned, but whether this instruction limits the range of the address varies.
+
+ * On x86, the range of indirect jumps is restricted using segmentation, not the masking instruction.  The x86 code segment is set to be `code_top` bytes in size.  Jumping outside this segment will cause a segmentation fault.  `code_top` has to be page-aligned.
+ * On ARM, the masking instruction does restrict range.  Currently the masking instruction is `bic reg, reg, #0xf000000f` (see `NACL_CONTROL_FLOW_MASK` in the code).  In general, `code_top` will need to be a power of 2.  The current mask value means that `code_top` is 256MB.  The mask value fits neatly into an ARM immediate value.
+ * On x86-64, the masking instruction implicitly restricts range to 4GB by operating on a 32-bit register, but this is not used to enforce a split between code and data, because the NaCl process's address space is not bigger than 4GB.  Instead, the x86-64 scheme uses the NX bit to separate code and data.  The x86-64 scheme uses the same 3-byte masking instructions that x86 uses (see AddRegisterJumpIndirect64() in the code).
 
 == Interface 1: ContiguousCode ==
 This interface scheme adds an extra region into address space into which code can be dynamically loaded.  This region appears after the executable's code segment, before its data segment, so that the address space layout becomes:
