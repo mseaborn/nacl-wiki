@@ -1,0 +1,45 @@
+#summary Modularising NaCl's build system
+
+= Modularisation proposal =
+
+_Draft_
+
+I propose that we modularise the build system for NaCl so that it has the following properties, based on what I outlined in a [http://lackingrhoticity.blogspot.com/2009/12/modular-vs-monolithic-build-systems.html blog post]:
+
+ # The build consists of a set of modules.
+ # Each module can be built separately.
+ # Each module's build produces some output (a directory tree).
+ # A module may depend on the outputs of other modules, but it can't reach inside the others' build trees.
+ # There is a common interface that each module provides for building itself.
+ # The build tool can be replaced with another.  The description of the module set is separate from the modules themselves.
+
+This is as opposed to a monolithic build system.  The main characteristic of a monolithic build is that any part of the build can reference any other part via relative filenames.
+
+There are three areas where we might wish to apply this:
+ * The toolchain: binutils, gcc (pre-gcc and the full gcc), newlib, libnacl, pthread library, etc.  This is currently built by tools/Makefile, which invokes Scons.  There is a separate script for building the ARM toolchain.
+ * The trusted codebase: sel_ldr, ncval, NPAPI plugin.  Built by Scons.
+ * Package collection (native_client_sdk in SVN).  Built by shell scripts.
+(The toolchain and package collection are both sometimes referred to as "the SDK", but I'm using different terms here in order to distinguish them.)
+
+In the long term, the package collection is the most important part to modularise, because we expect it to become large and take a long time to build.  However, the package collection is less of a priority in the short term because fewer people are working on it.  Modularising the NaCl Scons build is less of a priority because it builds relatively quickly.  Therefore I am focusing initially on modularising the toolchain build.
+
+The toolchain build takes a relatively long time, and covering multiple architectures makes this worse.  Currently our Buildbot-based continuous integration system rebuilds the toolchain in a cycle that is separate from the main build.  The trybots don't rebuild the toolchain because that would take too long for most changes; the trybots cannot tell what parts of the toolchain need to be rebuilt.  This means the trybots are not very useful for testing toolchain changes.  This situation could be improved if the toolchain could be rebuilt incrementally.
+
+== Prototype ==
+
+I have written a prototype replacement for tools/Makefile.
+
+ * I have put the code here for now:  http://github.com/mseaborn/nacl-modular-build
+ * To get the code you can do:  `git clone git://github.com/mseaborn/nacl-modular-build.git`
+
+=== Pain points ===
+
+ * tools/Makefile copies header files into the newlib source tree, which partly violates the model.  It is better if we can separate source directories from build directories, so that source directories are not modified during the build.
+
+ * NaCl's Scons build uses "naclsdk_mode=custom:..." as both an input tree and an output tree for nacl_extra_sdk.  build.py tries to use this argument to specify the output tree only (it passes the path of an empty directory).  We could tell scons how to find nacl-gcc by setting PATH instead.  However, scons resets PATH by default.  To work around this I have added the following line to SConstruct:
+
+   {{{
+pre_base_env['ENV']['PATH'] = os.environ['PATH']
+}}}
+
+ * Is there a way to tell Scons to use a build directory other than `scons-out`?  We need a way to ensure that Scons-built files are rebuilt whenever nacl-gcc is rebuilt.
