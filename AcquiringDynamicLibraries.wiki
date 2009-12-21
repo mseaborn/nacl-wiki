@@ -1,0 +1,55 @@
+#summary How dynamic libraries will be fetched
+
+= Acquiring dynamic libraries =
+
+_Draft_
+
+<wiki:toc/>
+
+== How libraries will be fetched and loaded ==
+Each .so file can be fetched from a URL.
+
+There are at least two interfaces through which libraries can be fetched for use in NaCl processes:
+ * XMLHttpRequest
+ * NaCl's `__urlAsNaClDesc()`, a method provided to Javascript on the NaCl plugin object
+
+In principle, any mechanism that Javascript code can currently use for fetching data can be used for fetching libraries.
+
+The main advantage of the latter, NaCl-specific interface is that it can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading (see DynamicLoadingOptions).  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
+
+=== Executables ===
+Executables will be fetched by the dynamic linker in the same way as libraries.
+
+=== Same Origin Policy ===
+XMLHttpRequest is constrained by a Same Origin Policy (SOP).  `__urlAsNaClDesc` will also be constrained by a SOP.  (Note that the NaCl NPAPI plugin has to implement the SOP itself because NPAPI does not provide a way to reuse the browser's SOP.)
+
+The main reason for the SOP is that XMLHttpRequest requests convey cookies -- a type of ambient authority.  The Same Origin Policy is not intended to prevent web apps from sending messages across origins; it is only intended to prevent the web app from seeing the server's response to the request.  (Sending cross-origin messages can already be done using mechanisms other than XMLHttpRequest, including redirects and `<img>` elements.)
+
+Loading libraries in NaCl is analogous to loading Javascript files via the `<script src=...>` tag.  However, interestingly, `<script>` is not constrained by the SOP.  The server is effectively opting in to revealing the response across origins by setting the content-type to "text/javascript".  Supposedly the response is not revealed directly to the web app:  the DOM, which is trusted, evaluates the Javascript and so the web app only gets access to the values the script assigns to variables.  In NaCl's case, however, interpreting .so files is done by untrusted code.  We have to reveal the fetched data to the web app, so NaCl cannot be as unconstrained as the `<script>` tag.
+
+=== Sharing libraries across sites ===
+It will be desirable to share library files across sites, so that the browser does not have to download identical files multiple times.  This problem already exists for Javascript libraries.  NaCl executables and libraries are expected to be larger than Javascript libraries so the problem becomes more important.
+
+For Javascript libraries, the main (only?) mechanism for doing this is the `<script>` tag.  This allows sharing in a centralised model in which multiple sites pick a central site to download the library file from.  This works because `<script>` does not follow a Same Origin Policy.  Sites using the central site's services are vulnerable to the central site which can change the file contents it serves up.  The script text is not available across origins so the web app cannot check the text against a hash before running it.
+
+For NaCl, web apps could fetch libraries using CORS or Uniform Messaging (formerly known as GuestXHR), which are not NaCl-specific.
+
+We might also wish to allow decentralised sharing of files.  For example, sites A and B both host `libfoo.so`.  If the browser has already downloaded `libfoo.so` from site A, it won't need to download it again from site B, and vice-versa.  Schemes for doing this by embedding secure hashes into URLs have been proposed (see Douglas Crockford's post).
+
+This problem is not unique to NaCl, so we should not adopt a solution which is NaCl-specific.
+
+=== Prefetching ===
+The naive approach is to fetch each library file as ld.so requests them.  We could reduce latency by listing all the libraries we expect to load up-front.  The Javascript code can request the files on startup, to fetch them into the browser's cache.  This would just mean that the requests are pipelined.
+
+== Versioning ==
+As with static linking, each web app gets to choose its own version of libc and other libraries.  Furthermore, different NaCl processes in the same web app can use different libc versions.  Libc is not supplied by the browser.
+
+We don't expect there to be a huge number of libc versions, but older and newer versions of the same libc are likely to be around at the same time, as are different libc implementations (such as newlib and glibc).
+
+Web apps get to pick a set of libraries that are known to work well together.  This is analogous to selecting a set of Javascript libraries, or selecting a set of packages for a software distribution such as Debian or Fedora.  This way we can avoid "[http://en.wikipedia.org/wiki/Dll_hell DLL hell]"; libraries are not the responsibility of the end user.
+
+This provides extra flexibility that is not available to typical applications on Linux when packaged with commonly-used packaging systems like dpkg or RPM.  Packaging systems such as Zero-Install and Nix allow multiple library versions to coexist in the same way that I am proposing for NaCl.
+
+Though we have this extra flexibility we will still have all the versioning mechanisms that are available in ELF shared libraries normally:  libraries can opt to provide stable ABIs and declare interfaces via [http://en.wikipedia.org/wiki/Soname sonames] and ELF symbol versioning; we get the benefit of separate compilation.
+
+Upgrading libraries is the responsibility of the web app.
