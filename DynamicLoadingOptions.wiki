@@ -79,10 +79,29 @@ If NaCl's dynamic loading facility does not support interleaved code and data, w
  * `0x10180000`: library 2 data
 This example assumes that at most 256MB (`0x10000000`) is set aside for loading code.
 
-Once an ELF shared library is linked to become a .so file, its code and data segments are fixed relative to each other (with a caveat).  The ELF shared library is relocatable, but whatever offset the code segment is moved by, the data segment must be moved by too.  This is what the ELF Program Headers format assumes, and any dynamic loader will assume.  This means the size of the gap between segments gets linked in to the shared library at link time.  It is straightforward to specify the gap size by changing the linker script.  Shared libraries linked with different segment gap sizes will be difficult to load together (because of the difficulty of allocating address space), so we may want to choose a standard segment gap size, such as 256MB.
+Once an ELF shared library is linked to become a .so file, its code and data segments are fixed relative to each other (with a caveat).  The ELF shared library is relocatable, but whatever offset the code segment is moved by, the data segment must be moved by too.  This is what the ELF Program Headers format assumes, and any dynamic loader will assume.  This means the size of the gap between segments gets linked in to the shared library at link time.  Shared libraries linked with different segment gap sizes will be difficult to load together (because of the difficulty of allocating address space), so we may want to choose a standard segment gap size, such as 256MB.
 
+It is straightforward to specify the gap size by changing `ld`'s [http://sourceware.org/binutils/docs-2.20/ld/Scripts.html linker script].  Normally a linker script contains an instruction like the following (taken from `/usr/lib/ldscripts/elf_i386.x`) to ensure that the code and data segments are on different pages:
+{{{
+  /* Adjust the address for the data segment.  We want to adjust up to
+     the same address within the page on the next page up.  */
+  . = ALIGN (CONSTANT (MAXPAGESIZE)) - ((CONSTANT (MAXPAGESIZE) - .) & (CONSTANT (MAXPAGESIZE) - 1));
+}}}
+NaCl's linker script for statically linked executables has a slightly different instruction.  This forces the data segment to start on a new page:
+{{{
+  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* NaCl wants page alignment */
+}}}
+(For a discussion of the relative merits of those two instructions, see [http://code.google.com/p/nativeclient/issues/detail?id=193 issue 193].)
+
+To link a shared library with a segment gap of 256MB, we would instead use:
+{{{
+  . = 0x10000000;
+}}}
+
+=== Address space wastage ===
 This layout wastes some data address space.  Suppose library 1's code segment is 192k and its data segment is 64k (after rounding up to a page size of 64k).  We will have to set aside 192k of address space for the data segment so that library 2's segments (which are fixed relative to each other) can fit in after library 1's segments.  Hence we waste 128k of address space.  However, we don't waste memory because nothing needs to be mapped into this space.  Furthermore, this is really fragmentation rather than wastage because mmap() could still allocate from these gaps.  Note that space in the code region can be similarly wasted if the library's data segment is larger than the code segment, but it is more usual for the code segment to be larger.
 
+=== Deferring the choice of segment gap size ===
 There are two ways in which we might defer the choice of segment gap size until after linking the .so:
 
  * Use `ld`'s `--emit-relocs` option.  This is the caveat mentioned above.  This tells `ld` to include all ELF relocations in the output.  It may be possible to use this information to rewrite the .so file to move the segments relative to each other.  However, it is not clear that this is the purpose of `--emit-relocs`, and it may be easier to simply re-link the .so file from the original inputs to `ld`.
@@ -93,7 +112,7 @@ There are two ways in which we might defer the choice of segment gap size until 
 
    This means libraries and executables do not have an inbuilt preferred segment gap size.  The main advantage of this scheme is that it can avoid the address space wastage mentioned above.  The resulting executables would contain a load of TEXTRELs (relocations in the code/text segment).  TEXTRELs are usually considered to be bad, because they prevent the memory for the code from being shared between processes.  Although NaCl does not currently implement sharing code via mmap, pervasive use of TEXTRELs prevents this sharing from being introduced in the future, so this seems like a step in the wrong direction.  Extending ELF would involve a lot of toolchain work to implement a feature that no-one else would use, just to save some address space fragmentation, so implementing this does not seem worthwhile.
 
-=== Allocating address space ===
+=== Allocating address space at runtime ===
 The dynamic linker normally allocates address space for a library by first mmapp()ing a region large enough for the whole library, both code and data segments, which assumes that the segments are contiguous.  It passes a `NULL` `start` argument to mmap(), so the kernel chooses the start address.  The kernel keeps track of what parts of address space have been allocated so the process doesn't have to.
 
 Allocation will be less straightforward when each library's code and data segments are discontiguous.  The dynamic linker will have to allocate space from the code and data regions of address space simultaneously.  The data region may contain mappings created by the main program or by libraries; the dynamic linker will need to avoid overwriting these.  We may need to extend mmap() to support this; some possibilities are:
