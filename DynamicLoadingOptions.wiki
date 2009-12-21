@@ -93,6 +93,14 @@ There are two ways in which we might defer the choice of segment gap size until 
 
    This means libraries and executables do not have an inbuilt preferred segment gap size.  The main advantage of this scheme is that it can avoid the address space wastage mentioned above.  The resulting executables would contain a load of TEXTRELs (relocations in the code/text segment).  TEXTRELs are usually considered to be bad, because they prevent the memory for the code from being shared between processes.  Although NaCl does not currently implement sharing code via mmap, pervasive use of TEXTRELs prevents this sharing from being introduced in the future, so this seems like a step in the wrong direction.  Extending ELF would involve a lot of toolchain work to implement a feature that no-one else would use, just to save some address space fragmentation, so implementing this does not seem worthwhile.
 
+=== Allocating address space ===
+The dynamic linker normally allocates address space for a library by first mmapp()ing a region large enough for the whole library, both code and data segments, which assumes that the segments are contiguous.  It passes a `NULL` `start` argument to mmap(), so the kernel chooses the start address.  The kernel keeps track of what parts of address space have been allocated so the process doesn't have to.
+
+Allocation will be less straightforward when each library's code and data segments are discontiguous.  The dynamic linker will have to allocate space from the code and data regions of address space simultaneously.  The data region may contain mappings created by the main program or by libraries; the dynamic linker will need to avoid overwriting these.  We may need to extend mmap() to support this; some possibilities are:
+ * Add a flag to mmap() for use with MAP_FIXED to return an error if the requested range overlaps some mappings.
+ * Add a system call for enumerating existing mappings or enumerating unmapped ranges (perhaps within a specified range).
+ * Remove the `start=NULL` variant of the mmap() syscall and require allocation of address space to be done in user space (that is, in the untrusted NaCl process) by an mmap() library call that records allocations.
+
 == Interface 2: InterleavedCode ==
 In this interface scheme, NaCl's mmap() call is extended to provide a verify-and-map-code operation.  Code and data may be interleaved in the NaCl process's address space.  Code may be mapped with page granularity, which is 64k for compatibility with Windows.
 
