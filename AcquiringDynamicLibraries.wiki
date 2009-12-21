@@ -23,25 +23,29 @@ The main advantage of the latter, NaCl-specific interface is that it can be used
 === Executables ===
 Executables will be fetched by the dynamic linker in the same way as libraries.
 
-=== Same Origin Policy ===
+== Sharing libraries across sites ==
+It will be desirable to share library files across sites, so that the browser does not have to download identical files multiple times.  This issue already occurs for Javascript libraries.  NaCl executables and libraries are expected to be larger than Javascript libraries which makes this issue more important for NaCl.
+
+=== Background: Same Origin Policy ===
 XMLHttpRequest is constrained by a Same Origin Policy (SOP).  `__urlAsNaClDesc` will also be constrained by a SOP.  (Note that the NaCl NPAPI plugin has to implement the SOP itself because NPAPI does not provide a way to reuse the browser's SOP.)
 
 The main reason for the SOP is that XMLHttpRequest requests convey cookies -- a type of [http://en.wikipedia.org/wiki/Ambient_authority ambient authority].  The Same Origin Policy is not intended to prevent web apps from sending messages across origins; it is only intended to prevent the web app from seeing the server's response to the request.  (Sending cross-origin messages can already be done using mechanisms other than XMLHttpRequest, including redirects and `<img>` elements.)
 
-Loading libraries in NaCl is analogous to loading Javascript files via the `<script src=...>` tag.  However, interestingly, `<script>` is not constrained by the SOP.  The server is effectively opting in to revealing the response across origins by setting the content-type to "text/javascript".  Supposedly the response is not revealed directly to the web app:  the DOM, which is trusted, evaluates the Javascript and so the web app only gets access to the values the script assigns to variables.  In NaCl's case, however, interpreting .so files is done by untrusted code.  We have to reveal the fetched data to the web app, so NaCl cannot be as unconstrained as the `<script>` tag.
+=== Comparison: `script` element ===
+Loading libraries in NaCl is analogous to loading Javascript files via the `<script src=...>` element.  Interestingly, `<script>` is not constrained by the SOP.  By setting the response's content-type to `text/javascript`, the server effectively opts in to revealing the response to the web app.  Supposedly, the response is not revealed directly to the web app.  The DOM, a trusted part of the browser, evaluates the Javascript code, and the web app gets access only to the values the script assigns to variables.  In practice, one cannot rely on `text/javascript` data from being revealed across origins.
 
-=== Sharing libraries across sites ===
-It will be desirable to share library files across sites, so that the browser does not have to download identical files multiple times.  This problem already exists for Javascript libraries.  NaCl executables and libraries are expected to be larger than Javascript libraries so the problem becomes more important.
+In NaCl's case, however, interpreting .so files is unambiguously the responsibility of untrusted code.  We have to reveal the fetched data to the web app, so NaCl cannot be as unconstrained as the `<script>` tag.
 
-For Javascript libraries, the main (only?) mechanism for doing this is the `<script>` tag.  This allows sharing in a centralised model in which multiple sites pick a central site to download the library file from.  This works because `<script>` does not follow a Same Origin Policy.  Sites using the central site's services are vulnerable to the central site which can change the file contents it serves up.  The script text is not available across origins so the web app cannot check the text against a hash before running it.
+The `<script>` element permits a centralised model for sharing library code.  Suppose multiple web apps use the library `libjfoo.js`.  If this is hosted at `http://libjfoo.org/libjfoo-1.0.js`, the web apps can opt to link to this URL.  The down side of using the `<script>` element in this way is that the web apps will be vulnerable to the centralised site, `libjfoo.org`.  This site can change the file contents it serves up and thereby run arbitrary Javascript in the context of the web apps.  Since the script text is not available across origins, the web app cannot check the text against a hash before `eval`'ing it.
 
+=== Fetching libraries across origins ===
 For NaCl, web apps could fetch libraries using CORS or Uniform Messaging (formerly known as GuestXHR), which are not NaCl-specific.
 
 We might also wish to allow decentralised sharing of files.  For example, sites A and B both host `libfoo.so`.  If the browser has already downloaded `libfoo.so` from site A, it won't need to download it again from site B, and vice-versa.  Schemes for doing this by embedding secure hashes into URLs have been proposed (see Douglas Crockford's post).
 
 This problem is not unique to NaCl, so we should not adopt a solution which is NaCl-specific.
 
-=== Prefetching ===
+== Prefetching ==
 The naive approach is to fetch each library file as ld.so requests them.  We could reduce latency by listing all the libraries we expect to load up-front.  The Javascript code can request the files on startup, to fetch them into the browser's cache.  This would just mean that the requests are pipelined.
 
 == Versioning ==
