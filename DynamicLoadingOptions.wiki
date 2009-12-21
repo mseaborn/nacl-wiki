@@ -131,7 +131,9 @@ On x86 systems without the NX bit, we implement this using x86 segmentation.  Th
 
 (Note that as before, "unmapped" really means "mapped with no permission bits set".  The x86 segments are shown side by side to illustrate the correspondence though really one is after the other.)
 
-This is a [http://en.wikipedia.org/wiki/Harvard_architecture Harvard architecture]-style approach, because any given address in the NaCl process's address space could potentially have two meanings depending on whether it is used for code or data access.  In practice we would probably not allow differing code and data pages to be mapped at the same address, because of the potential for confusion that this could cause.
+This is a [http://en.wikipedia.org/wiki/Harvard_architecture Harvard architecture]-style approach, because any given address in the NaCl process's address space could potentially have two meanings depending on whether it is used for code or data access.  In practice we would not allow differing code and data pages to be mapped at the same address, because of the potential for confusion that this could cause.
+
+Note that PaX, a set of patches to the Linux kernel, uses a similar approach to emulate the NX bit on x86 in its [http://pax.grsecurity.net/docs/segmexec.txt SEGMEXEC] scheme.
 
 ==== x86 code segment size ====
 The layout above halves the amount of address space available to the NaCl process from 1024MB to 512MB.  However, we could reduce the address space loss if it were acceptable for address space to be non-uniform.
