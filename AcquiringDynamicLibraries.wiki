@@ -39,7 +39,7 @@ In NaCl's case, however, interpreting .so files is unambiguously the responsibil
 The `<script>` element permits a centralised model for sharing library code.  Suppose multiple web apps use the library `libjfoo.js`.  If this is hosted at `http://libjfoo.org/libjfoo-1.0.js`, the web apps can opt to link to this URL.  The down side of using the `<script>` element in this way is that the web apps will be vulnerable to the centralised site, `libjfoo.org`.  This site can change the file contents it serves up and thereby run arbitrary Javascript in the context of the web apps.  Since the script text is not available across origins, the web app cannot check the text against a hash before `eval`'ing it.
 
 === Fetching libraries across origins ===
-For NaCl, web apps could fetch libraries using CORS or Uniform Messaging (formerly known as GuestXHR), which are not NaCl-specific.
+For NaCl, web apps could fetch libraries using [http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/att-0931/draft.html Uniform Messaging] (formerly known as GuestXHR) or [http://www.w3.org/Security/wiki/CORS CORS], which are not NaCl-specific.
 
 We might also wish to allow decentralised sharing of files.  For example, sites A and B both host `libfoo.so`.  If the browser has already downloaded `libfoo.so` from site A, it won't need to download it again from site B, and vice-versa.  Schemes for doing this by embedding secure hashes into URLs have been proposed (see Douglas Crockford's post).
 
