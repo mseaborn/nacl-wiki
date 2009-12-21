@@ -140,6 +140,13 @@ The layout above halves the amount of address space available to the NaCl proces
 
 Suppose Windows lets us allocate 1024MB of `sel_ldr`'s address space.  We could allocate 300MB to the x86 code segment and 724MB to the x86 data segment.  Hence the NaCl process sees 724MB of address space, but it can map code only into the bottom 300MB.  However code is still allowed to be interleaved with data.  The remaining 424MB can only contain data.  Though the resulting address space is non-uniform, it is still more flexible than the ContiguousCode scheme.
 
+==== Whether code is readable as data ====
+Should pages that we map into the x86 code segment also be mapped into the x86 data segment?
+
+If we do this, code will be readable as data, as on other platforms.  However, there may be difficulties in mapping pages twice on Windows.
+
+If we do not do this, we will have a discrepancy between platforms.  This could lead to portability problems if programmers rely on being able to read code as data, and test their software on only one platform.  We cannot change the other platforms to match because processors do not usually provide an executable-but-not-readable page permission.  PROT_EXEC usually implies PROT_READ.  This may not be a problem because reading code is inherently unportable -- any program that does so will depend on the instruction set.  NaCl does not allow arbitrary data in an ELF code segment (with the possible exception of 31 byte chunks guarded by a HLT byte), so no data in the code segment can be in a portable format.
+
 === Evaluation ===
 Pros:
  * Less need to pre-allocate address space (or actual memory) to trade off expected code and data sizes.
