@@ -6,6 +6,9 @@ _Draft_
 
 <wiki:toc/>
 
+== Overview ==
+The normal model for shared libraries in Unix is that libraries are installed into the filesystem by a package manager into the centralised locations `/lib` and `/usr/lib`.  Native Client, however, does not have a built-in filesystem, and the concept of a centralised package manager is not applicable to web apps.  Instead, we propose to use a virtualised filesystem namespace, implemented via IPC calls.  Each NaCl process may be launched with a custom filesystem namespace populated with the library versions the web app chooses to use.
+
 == How libraries will be fetched and loaded ==
 Each .so file can be fetched from a URL.
 
