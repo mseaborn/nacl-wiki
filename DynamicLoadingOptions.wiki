@@ -81,7 +81,8 @@ This example assumes that at most 256MB (`0x10000000`) is set aside for loading 
 
 Once an ELF shared library is linked to become a .so file, its code and data segments are fixed relative to each other (with a caveat).  The ELF shared library is relocatable, but whatever offset the code segment is moved by, the data segment must be moved by too.  This is what the ELF Program Headers format assumes, and any dynamic loader will assume.  This means the size of the gap between segments gets linked in to the shared library at link time.  Shared libraries linked with different segment gap sizes will be difficult to load together (because of the difficulty of allocating address space), so we may want to choose a standard segment gap size, such as 256MB.
 
-It is straightforward to specify the gap size by changing `ld`'s [http://sourceware.org/binutils/docs-2.20/ld/Scripts.html linker script].  Normally a linker script contains an instruction like the following (taken from `/usr/lib/ldscripts/elf_i386.x`) to ensure that the code and data segments are on different pages:
+=== Linker script changes ===
+It is straightforward to specify the segment gap size by changing `ld`'s [http://sourceware.org/binutils/docs-2.20/ld/Scripts.html linker script].  Normally a linker script contains an instruction like the following (taken from `/usr/lib/ldscripts/elf_i386.x`) to ensure that the code and data segments are on different pages:
 {{{
   /* Adjust the address for the data segment.  We want to adjust up to
      the same address within the page on the next page up.  */
@@ -99,7 +100,7 @@ To link a shared library with a segment gap of 256MB, we would instead use:
 }}}
 
 === Address space wastage ===
-This layout wastes some data address space.  Suppose library 1's code segment is 192k and its data segment is 64k (after rounding up to a page size of 64k).  We will have to set aside 192k of address space for the data segment so that library 2's segments (which are fixed relative to each other) can fit in after library 1's segments.  Hence we waste 128k of address space.  However, we don't waste memory because nothing needs to be mapped into this space.  Furthermore, this is really fragmentation rather than wastage because mmap() could still allocate from these gaps.  Note that space in the code region can be similarly wasted if the library's data segment is larger than the code segment, but it is more usual for the code segment to be larger.
+This segment layout wastes some data address space.  Suppose library 1's code segment is 192k and its data segment is 64k (after rounding up to a page size of 64k).  We will have to set aside 192k of address space for the data segment so that library 2's segments (which are fixed relative to each other) can fit in after library 1's segments.  Hence we waste 128k of address space.  However, we don't waste memory because nothing needs to be mapped into this space.  Furthermore, this is really fragmentation rather than wastage because mmap() could still allocate from these gaps.  Note that space in the code region can be similarly wasted if the library's data segment is larger than the code segment, but it is more usual for the code segment to be larger.
 
 === Deferring the choice of segment gap size ===
 There are two ways in which we might defer the choice of segment gap size until after linking the .so:
