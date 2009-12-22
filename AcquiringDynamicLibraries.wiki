@@ -93,4 +93,4 @@ This provides extra flexibility that is not available to typical applications on
 
 Though we have this extra flexibility we will still have all the versioning mechanisms that are available in ELF shared libraries normally:  libraries can opt to provide stable ABIs and declare interfaces via [http://en.wikipedia.org/wiki/Soname sonames] and ELF symbol versioning; we get the benefit of separate compilation.
 
-Upgrading libraries is the responsibility of the web app.
+Upgrading libraries is the responsibility of the web app.  A web app may choose to delegate this responsibility to another site by fetching libraries from that site.
