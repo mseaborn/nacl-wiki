@@ -137,6 +137,9 @@ Allocation will be less straightforward when each library's code and data segmen
  * Add a system call for enumerating existing mappings or enumerating unmapped ranges (perhaps within a specified range).
  * Remove the `start=NULL` variant of the mmap() syscall and require allocation of address space to be done in user space (that is, in the untrusted NaCl process) by an mmap() library call that records allocations.
 
+=== Implications for debuggers ===
+Debuggers that assume that each ELF object is contiguous in address space may get confused because ELF objects will appear to them to overlap.  The same applies to debugging tools such as backtrace generators.  These tools may need fixing to correctly map addresses to symbol names.
+
 == Interface 2: InterleavedCode ==
 In this interface scheme, NaCl's mmap() call is extended to provide a verify-and-map-code operation.  Code and data may be interleaved in the NaCl process's address space.  Code may be mapped with page granularity, which is 64k for compatibility with Windows.
 
