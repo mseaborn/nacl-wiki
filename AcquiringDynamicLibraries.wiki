@@ -38,6 +38,11 @@ The current NaCl Javascript API does not allow Javascript code to receive messag
 
 Implementing this in the NaCl NPAPI plugin will require using [https://developer.mozilla.org/en/NPN_PluginThreadAsyncCall NPN_PluginThreadAsyncCall()].
 
+=== Initial socket connections ===
+The current interface assumes that the Javascript code will be sending requests to the NaCl process.  The NaCl plugin creates the NaCl process with a BoundSocket descriptor.  The NaCl process is expected to start by going into an `imc_accept()` loop on this descriptor to receive connections from Javascript.
+
+We would like to remove this assumption and allow the reverse arrangement.  It should be possible to start the NaCl process with a SocketAddress descriptor -- or ideally, an array of NaCl descriptors of any descriptor type.  The NaCl process should be able to send `open()` requests early on and should not need to call `imc_accept()` on startup.
+
 === Call-return over IMC ===
 There are two ways we might implement call-return on top of IMC sockets.
 
