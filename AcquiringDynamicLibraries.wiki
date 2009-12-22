@@ -25,7 +25,9 @@ The basic interface for fetching files is a Javascript API.  We need a way to ho
 
 NaCl processes will open files by making requests over IPC, using NaCl IMC sockets.  Javascript code running in the browser can handle these requests and call `__urlAsNaclDesc()` on behalf of the NaCl process.  Javascript objects can provide a virtual file namespace that may contain a Unix-like file layout.
 
- * This solves a bootstrap problem.  The NaCl file namespace does not need to be implemented by another NaCl process that would need to load its own files somehow.
+The `open()` library function will be implemented as a remote procedure call which sends a message across an IMC socket and expects to receive a reply message containing a file descriptor.  This `open()` implementation will be used by the dynamic linker and can be made available in libc/libnacl.
+
+ * This solves a bootstrap problem.  The NaCl file namespace does not need to be implemented by another NaCl process that would need to load its own files somehow.  The file namespace does not have to be implemented by trusted code.
  * This allows namespaces to be defined in a flexible way.  Rules for mapping filenames to URLs can be written in a scripting language.
  * The task of mapping filenames to URLs is not computationally intensive so using Javascript should not be a performance problem.  Javascript code passes NaCl file descriptors around.  File data does not need to be copied to or from Javascript strings.
  * We can provide a sample implementation or standard library that implements the Javascript side and provides the kind of file namespaces that developers are likely to need.
