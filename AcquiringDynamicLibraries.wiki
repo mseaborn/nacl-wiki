@@ -20,9 +20,9 @@ In principle, any mechanism that Javascript code can currently use for fetching 
 
 However, the main advantage of the latter, NaCl-specific interface is that it can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading (see DynamicLoadingOptions).  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
 
-== How files are requested by NaCl processes ==
-The basic interface for fetching files is a Javascript API.  We need a way to hook that up to Native Client.
+The basic interface for fetching files is therefore a Javascript API.  We need a way to hook that up to Native Client.
 
+== How files are requested by NaCl processes ==
 NaCl processes will open files by making requests over IPC, using NaCl IMC sockets.  Javascript code running in the browser can handle these requests and call `__urlAsNaclDesc()` on behalf of the NaCl process.  Javascript objects can provide a virtual file namespace that may contain a Unix-like file layout.
 
 The `open()` library function will be implemented as a remote procedure call which sends a message across an IMC socket and expects to receive a reply message containing a file descriptor.  This `open()` implementation will be used by the dynamic linker and can be made available in libc/libnacl.
@@ -32,6 +32,11 @@ The `open()` library function will be implemented as a remote procedure call whi
  * The task of mapping filenames to URLs is not computationally intensive so using Javascript should not be a performance problem.  Javascript code passes NaCl file descriptors around.  File data does not need to be copied to or from Javascript strings.
  * We can provide a sample implementation or standard library that implements the Javascript side and provides the kind of file namespaces that developers are likely to need.
  * This design does not involve adding too many NaCl-specific interfaces to trusted code.
+
+=== Receiving messages from NaCl asynchronously in Javascript ===
+The current NaCl Javascript API does not allow Javascript code to receive messages asynchronously from NaCl processes.  We propose to extend the Javascript API to allow this.  Javascript will need to be able to receive `open()` requests from the NaCl process.  Currently the only way to do this is to busy-wait.
+
+Implementing this in the NaCl NPAPI plugin will require using [https://developer.mozilla.org/en/NPN_PluginThreadAsyncCall NPN_PluginThreadAsyncCall()].
 
 === Call-return over IMC ===
 There are two ways we might implement call-return on top of IMC sockets.
@@ -48,6 +53,9 @@ Option 2: Create a new channel for each request:
  * `close(D)`
 
 See [IMCSockets] for a further discussion.
+
+=== Questions ===
+How will this interact with Web Workers?
 
 == Sharing libraries across sites ==
 It will be desirable to share library files across sites, so that the browser does not have to download identical files multiple times.  This issue already occurs for Javascript libraries.  NaCl executables and libraries are expected to be larger than Javascript libraries which makes this issue more important for NaCl.
