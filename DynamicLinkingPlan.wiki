@@ -1,0 +1,45 @@
+#summary Design doc for dynamic linking
+
+= Dynamic linking in Native Client =
+
+_Draft_
+
+== Intro to dynamic linking =
+
+=== Why use dynamic libraries? ===
+ * Aids code sharing.  Allows executables to be smaller.  Allows libraries to occupy the same physical memory when loaded into multiple processes.
+ * Allows library versions to be changed without having to relink executables.
+    * This also makes it easier to comply with the GNU LGPL.
+ * Some programs don't know in advance what they will be linking against.
+    * e.g. CPython's C extension modules. Imports are determined by Python code.
+    * Plugins
+
+=== Disadvantages of dynamic linking ===
+ * Position independent code can be a little slower than fixed-position code on some architectures.  On i386, a register (%ebx) often has to be given over to locating the current library (specifically, its Global Offset Table) because the instruction set lacks a PC-relative addressing mode.
+ * There is a cost to doing linking and symbol lookup at runtime.  This tends to be worse for C++ where there tend to be more symbols, with longer names.  This cost can be avoided by prelinking, but we don't plan on supporting prelinking.  Prelinking is being used less these days because it defeats address space randomisation.
+
+=== Terminology ===
+These terms all mean much the same thing:
+ * dynamic library
+ * shared library
+ * shared object
+ * dynamic shared object (DSO)
+ * `.so` file
+
+The dynamic linker sometimes goes by other names:
+ * `ld.so`
+ * `ld-linux.so.2` in GNU libc
+ * `rtld`, "run time `ld`" (where `ld` means "link editor")
+
+== Changes involved ==
+
+ * Toolchain changes:
+    * binutils: Basic -fPIC code generation.  <em>-- Committed: fixed bug in the assembler.</em>
+    * binutils: Ensure the linker generates correct PLT entries that pass the validator.  <em>-- Committed.</em>
+    * binutils: Linker TLS instruction sequence rewriting.  <em>-- Binutils patch written but not committed.</em>
+    * Linker scripts.
+    * The above will have to be done for ARM and x86-64 as well.
+ * Trusted runtime changes:
+    * Extend sel_ldr to be able to load `ld.so`.
+ * Port glibc.  I have already done a basic port of glibc.
+    * Add scripts to build glibc as part of the NaCl tree (as an alternative to nacl-newlib), on Buildbot, to prevent regressions.
