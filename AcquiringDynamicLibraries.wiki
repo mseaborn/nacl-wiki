@@ -43,6 +43,32 @@ The current interface assumes that the Javascript code will be sending requests 
 
 We would like to remove this assumption and allow the reverse arrangement.  It should be possible to start the NaCl process with a SocketAddress descriptor -- or ideally, an array of NaCl descriptors of any descriptor type.  The NaCl process should be able to send `open()` requests early on and should not need to call `imc_accept()` on startup.
 
+=== Prototype implementation ===
+I wrote a prototype of this earlier in 2009.  As an example web app I implemented a [http://lackingrhoticity.blogspot.com/2009/06/python-standard-library-in-native.html Python read-eval-print loop (REPL)], using CPython running under Native Client using dynamic linking.  It is able to use Python extension modules such as Sqlite.  The prototype works in Firefox on Linux.
+
+The code is in Git:
+ * [http://repo.or.cz/w/nativeclient.git/blob/7b77b13ebfae704ac4492827d4431b5e70789c37:/imcplugin/hello.html hello.html]: contains the Javascript side of the Python REPL
+ * [http://repo.or.cz/w/nativeclient.git/blob/7b77b13ebfae704ac4492827d4431b5e70789c37:/imcplugin/imcplugin.c imcplugin.c]: a minimal trusted NPAPI plugin for Native Client allowing Javascript to send and receive asynchrous messages
+ * [http://repo.or.cz/w/nativeclient.git/blob/7b77b13ebfae704ac4492827d4431b5e70789c37:/imcplugin/demo.py demo.py]: the Python code
+
+`imcplugin` provides the following interfaces to Javascript:
+
+ * `plugin.get_file(url_string, function(nacl_file) { ... })`
+
+   Fetches a file from the given URL.  When the file becomes available, the plugin calls the callback function passing a Javascript wrapper object for a NaCl file descriptor.  This simple interface lacks error handling for when the URL cannot be fetched.
+
+ * `plugin.launch(nacl_file, [arg1, arg2, ...], function(msg) { ... }) -> proc`
+
+   Spawns a NaCl process.  Under the hood, this runs `sel_ldr`.
+    * Takes a NaCl file object specifying the executable to run.
+    * Takes an array of strings to pass as command line arguments which the NaCl process receives via main().
+    * Takes a callback function which receives messages from the NaCl process.  Each message is a string.
+    * Returns an object which can be used to send messages to the process.  
+
+ * `proc.send(string_arg, [nacl_file, ...])`
+
+   Sends a message to the process.  Messages consist of an array of bytes (represented as a Javascript string) and an array of file descriptor wrapper objects.  (The latter array may of course be empty.)
+
 === Call-return over IMC ===
 There are two ways we might implement call-return on top of IMC sockets.
 
