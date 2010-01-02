@@ -115,6 +115,11 @@ There are two ways in which we might defer the choice of segment gap size until 
 
    We could use this to change sets of libraries and executables en masse from one segment gap size to another.  So if a gap size of 256MB turns out to be too small and we want to load more than 256MB of code, we can rewrite our ELF objects to use a gap size of 300MB without having to rebuild them.
 
+   There are two potential obstacles:
+    * The linker does not generate relocations for the code and data it generates at link time, such as PLT entries' references to the GOT.  This could be fixed; otherwise, it seems to be possible to infer the relocations.
+    * If the linker performs rewrites of TLS accesses, it does not update the relocations to match the new code (see [http://www.sourceware.org/ml/binutils/2006-02/msg00354.html this mailing list post]).  This could be fixed; otherwise, it should not be a problem if these TLS rewrites are rare.
+   I have written a prototype implementation of a tool to perform this rewrite.
+
  * Sliding Segment Gap with TEXTRELs (SSG-textrel):
 
    Extend ELF with a new Program Headers format in which code and data segments are not fixed relative to each other.  In this scenario, each dynamic relocation gains an extra flag to say whether it is relative to code or data, and the dynamic linker is extended to understand these relocations.
