@@ -101,6 +101,8 @@ To link a shared library with a segment gap of 256MB, we would instead use:
   . = 0x10000000;
 }}}
 
+The same effect can also be achieved without a linker script change by using the `ld` option `--section-start .rodata=0x10000000`.
+
 === Address space wastage ===
 This segment layout wastes some data address space.  Suppose library 1's code segment is 192k and its data segment is 64k (after rounding up to a page size of 64k).  We will have to set aside 192k of address space for the data segment so that library 2's segments (which are fixed relative to each other) can fit in after library 1's segments.  Hence we waste 128k of address space.  However, we don't waste memory because nothing needs to be mapped into this space.  Furthermore, this is really fragmentation rather than wastage because mmap() could still allocate from these gaps.  Note that space in the code region can be similarly wasted if the library's data segment is larger than the code segment, but it is more usual for the code segment to be larger.
 
