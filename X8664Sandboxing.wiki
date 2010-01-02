@@ -1,0 +1,53 @@
+#summary Example instruction sequences used on nacl-x86-64
+
+== Function return ==
+C code:
+{{{
+void foo() {}
+}}}
+
+Assembler fragment:
+{{{
+	nacljmp	%r11d,%r15
+}}}
+
+Disassembly fragment:
+{{{
+   7:	41 83 e3 e0          	and    $0xffffffffffffffe0,%r11d
+   b:	4d 01 fb             	add    %r15,%r11
+   e:	41 ff e3             	jmpq   *%r11
+}}}
+
+== Memory read ==
+C code:
+{{{
+int get_word(int *x) { return *x; }
+}}}
+
+Assembler fragment:
+{{{
+	movl	%nacl:(%r15,%rax), %eax
+}}}
+
+Disassembly fragment:
+{{{
+  2a:	89 c0                	mov    %eax,%eax
+  2c:	41 8b 04 07          	mov    (%r15,%rax,1),%eax
+}}}
+
+== Memory write ==
+C code:
+{{{
+int put_word(int *x) { *x = 0x100; }
+}}}
+
+Assembler fragment:
+{{{
+	movl	$256, %nacl:(%r15,%rax)
+}}}
+
+Disassembly fragment:
+{{{
+  4a:	89 c0                	mov    %eax,%eax
+  4c:	41 c7 04 07 00 01 00 	movl   $0x100,(%r15,%rax,1)
+}}}
