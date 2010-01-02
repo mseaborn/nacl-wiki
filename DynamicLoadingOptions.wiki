@@ -79,7 +79,7 @@ If NaCl's dynamic loading facility does not support interleaved code and data, w
  * `0x10180000`: library 2 data
 This example assumes that at most 256MB (`0x10000000`) is set aside for loading code.
 
-Once an ELF shared library is linked to become a .so file, its code and data segments are fixed relative to each other (with a caveat).  The ELF shared library is relocatable, but whatever offset the code segment is moved by, the data segment must be moved by too.  This is what the ELF Program Headers format assumes, and any dynamic loader will assume.  This means the size of the gap between segments gets linked in to the shared library at link time.  Shared libraries linked with different segment gap sizes will be difficult to load together (because of the difficulty of allocating address space), so we may want to choose a standard segment gap size, such as 256MB.
+Once an ELF shared library is linked to become a .so file, its code and data segments are fixed relative to each other (with the caveat that `--emit-relocs` causes `ld` to retain the relocations that were applied).  The ELF shared library is relocatable, but whatever offset the code segment is moved by, the data segment must be moved by too.  This is what the ELF Program Headers format assumes, and any dynamic loader will assume.  This means the size of the gap between segments gets linked in to the shared library at link time.  Shared libraries linked with different segment gap sizes will be difficult to load together (because of the difficulty of allocating address space), so we may want to choose a standard segment gap size, such as 256MB.
 
 Let's call this scheme Big Segment Gap (BSG).
 
@@ -111,11 +111,11 @@ There are two ways in which we might defer the choice of segment gap size until 
 
  * Movable Segment Gap (MSG):
 
-   Use `ld`'s `--emit-relocs` option.  This is the caveat mentioned above.  This tells `ld` to include all ELF relocations in the output.  It may be possible to use this information to rewrite the .so file to move the segments relative to each other.  However, it is not clear that this is the purpose of `--emit-relocs`, and it may be easier to simply re-link the .so file from the original inputs to `ld`.
+   Use `ld`'s `--emit-relocs` option.  This tells `ld` to include all ELF relocations in the output.  It may be possible to use this information to rewrite the .so file to move the segments relative to each other.  However, it is not clear that this is the purpose of `--emit-relocs`, and it may be easier to simply re-link the .so file from the original inputs to `ld`.
 
    We could use this to change sets of libraries and executables en masse from one segment gap size to another.  So if a gap size of 256MB turns out to be too small and we want to load more than 256MB of code, we can rewrite our ELF objects to use a gap size of 300MB without having to rebuild them.
 
- * Sliding Segment Gap (SSG):
+ * Sliding Segment Gap with TEXTRELs (SSG-textrel):
 
    Extend ELF with a new Program Headers format in which code and data segments are not fixed relative to each other.  In this scenario, each dynamic relocation gains an extra flag to say whether it is relative to code or data, and the dynamic linker is extended to understand these relocations.
 
