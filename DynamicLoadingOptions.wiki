@@ -133,7 +133,7 @@ When code is compiled with `-fPIC`, many of the TEXTRELs will come from referenc
 
    The dynamic linker would have to make a NaCl syscall to relocate a GOT entry.  This would add overhead for lazy symbol binding (PLTGOT entries), but GOT relocations for eager symbol binding can be done in bulk.  The syscall's implementation can be simple: the trusted runtime just has to check that the 32 byte block being written to starts with a HLT instruction.  Note that this assumes we are not using HLTs at the starts of blocks for some other scheme, such as the proposed SFI-invariant-preserved-across-blocks scheme.  Direct jumps into blocks starting with a HLT would have to be disallowed.
 
-   Finding data segment addresses by adding a constant to `%ebx` via `R_386_GOTOFF` (e.g. taking the address of a static variable or a string literal) would no longer work.  These addresses could be added as GOT entries.
+   Finding data segment addresses (e.g. addresses of static variables or string literals) by adding a constant to `%ebx` (via `R_386_GOTOFF`) on x86 or by PC-relative addressing on other architectures would no longer work.  These addresses could be added as GOT entries.
 
 === Allocating address space at runtime ===
 The dynamic linker normally allocates address space for a library by first mmapp()ing a region large enough for the whole library, both code and data segments, which assumes that the segments are contiguous.  It passes a `NULL` `start` argument to mmap(), so the kernel chooses the start address.  The kernel keeps track of what parts of address space have been allocated so the process doesn't have to.
