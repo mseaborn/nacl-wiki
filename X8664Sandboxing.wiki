@@ -35,6 +35,8 @@ Disassembly fragment:
   2c:	41 8b 04 07          	mov    (%r15,%rax,1),%eax
 }}}
 
+The instruction `mov %eax,%eax` is not a no-op; it truncates `%rax` to 32 bits.
+
 == Memory write ==
 C code:
 {{{
@@ -70,3 +72,5 @@ Disassembly fragment:
  10b:	01 00 00 
 			106: R_X86_64_PC32	.bss-0x8
 }}}
+
+RIP-relative addressing is always safe.  You can only use 2GB offset from %rip (x86-64 limitation) and so can not address anything outside of protected area, which has 40GB unmapped gaps before and after.
