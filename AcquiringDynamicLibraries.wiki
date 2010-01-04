@@ -110,8 +110,10 @@ We might also wish to allow decentralised sharing of files.  For example, sites 
 
 This problem is not unique to NaCl, so we should not adopt a solution which is NaCl-specific.
 
-== Prefetching ==
-The naive approach is to fetch each library file as ld.so requests them.  We could reduce latency by listing all the libraries we expect to load up-front.  The Javascript code can request the files on startup, to fetch them into the browser's cache.  This would just mean that the requests are pipelined.
+== Prefetching files ==
+The simplest approach to fetching library files is to fetch them one by one, as ld.so does synchronous open() calls.  However, this means the inbound network connection will be idle after the end of a file is received by the client and before ld.so's request for the next file is received by the server.  This costs one network round trip per file.
+
+We could reduce the time taken to fetch the whole set of files by pipelining the requests.  A simple way to do this, which does not involve changing the dynamic linker, is to list up-front all the libraries we expect to load.  The Javascript code could request the files on startup in order to pre-populate the browser's cache.
 
 == Versioning ==
 As with static linking, each web app gets to choose its own version of libc and other libraries.  Furthermore, different NaCl processes in the same web app can use different libc versions.  Libc is not supplied by the browser.
