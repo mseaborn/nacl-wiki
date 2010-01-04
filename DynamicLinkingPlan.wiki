@@ -7,8 +7,11 @@ _Draft_
 == Intro to dynamic linking =
 
 === Why use dynamic libraries? ===
- * Aids code sharing.  Allows executables to be smaller.  Allows libraries to occupy the same physical memory when loaded into multiple processes.
+ * Dynamic linking reduces resource consumption:
+    * Allows executables to be smaller.  Reduces download time and disc space usage.
+    * Allows libraries to occupy the same physical memory when loaded into multiple processes.
  * Allows library versions to be changed without having to relink executables.
+    * This makes it easier to upgrade to newer versions of libraries, and to switch between different implementations of the same library interface.
     * This also makes it easier to comply with the GNU LGPL.
  * Some programs don't know in advance what they will be linking against.
     * e.g. CPython's C extension modules. Imports are determined by Python code.
@@ -17,6 +20,7 @@ _Draft_
 === Disadvantages of dynamic linking ===
  * Position independent code can be a little slower than fixed-position code on some architectures.  On i386, a register (%ebx) often has to be given over to locating the current library (specifically, its Global Offset Table) because the instruction set lacks a PC-relative addressing mode.
  * There is a cost to doing linking and symbol lookup at runtime.  This tends to be worse for C++ where there tend to be more symbols, with longer names.  This cost can be avoided by prelinking, but we don't plan on supporting prelinking.  Prelinking is being used less these days because it defeats address space randomisation.
+ * Dynamic linking makes it easier to choose combinations of libraries and executables that have not been tested together and that interact badly.
 
 === Terminology ===
 These terms all mean much the same thing:
