@@ -34,7 +34,8 @@ The dynamic linker sometimes goes by other names:
 == Changes involved ==
 
  * Toolchain changes:
-    * binutils: Basic -fPIC code generation.  <em>-- Committed: fixed bug in the assembler.</em>
+    * gcc: -fPIC code generation.  <em>-- This already worked for the nacl-x86 compiler.</em>
+    * binutils: -fPIC code generation.  <em>-- Committed: fixed bug in the assembler.</em>
     * binutils: Ensure the linker generates correct PLT entries that pass the validator.  <em>-- Committed.</em>
     * binutils: Linker TLS instruction sequence rewriting.  <em>-- Binutils patch written but not committed.</em>
     * Linker scripts.
