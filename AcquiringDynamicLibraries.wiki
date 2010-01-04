@@ -110,6 +110,19 @@ We might also wish to allow decentralised sharing of files.  For example, sites 
 
 This problem is not unique to NaCl, so we should not adopt a solution which is NaCl-specific.
 
+== Trust relationship between Javascript and NaCl process ==
+In the above scheme, there are two principals:
+ * the untrusted NaCl process running under the NaCl trusted runtime;
+ * the Javascript code running on the web page under the browser
+
+The NaCl process depends on the Javascript code to provide its execution environment.  The Javascript code provides all the code running in the NaCl process.  The Javascript code therefore has at least as much authority as the NaCl process.
+
+This is at odds with the current same origin policy, described in [http://code.google.com/p/nativeclient/issues/detail?id=238 issue 238].  In the current scheme, executable `http://a.com/foo.nexe` can be embedded in the page `http://b.com`.  Javascript on `b.com`'s page can use `__urlAsNaClDesc()` to fetch an `a.com` URL, getting a file descriptor in return.  However, only the NaCl process can use the file descriptor to read the file's contents.  The NaCl process therefore has strictly greater authority than the Javascript.  However, it has no trusted path for fetching files from `a.com`.  This is a dangerous situation which is likely to lead to XRSF-like Confused Deputy vulnerabilities.  `foo.nexe` is expected to distrust the messages and file descriptors it receives from the page; this is difficult or impossible to achieve.  It is incompatible with the dynamic library scenario above in which the NaCl process must trust the library data supplied by the page.
+
+We propose that if `__urlAsNaClDesc()` (or a similar API) is to follow a same origin policy at all, it should use the origin of the page, not the origin of the executable's URL.
+
+It may be that directly embedding a NaCl plugin object across origins should not be permitted at all.  In this case, it would still be possible to embed a NaCl plugin object across origins indirectly, through a cross-origin iframe.  In such a scenario, one is embedding a combination of Javascript and NaCl code in which the latter can legitimately trust the former.
+
 == Prefetching files ==
 The simplest approach to fetching library files is to fetch them one by one, as ld.so does synchronous open() calls.  However, this means the inbound network connection will be idle after the end of a file is received by the client and before ld.so's request for the next file is received by the server.  This costs one network round trip per file.
 
