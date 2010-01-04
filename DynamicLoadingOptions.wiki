@@ -45,6 +45,8 @@ One proposed implementation for this interface works as follows:
     * Copies the code into the writable view of the dynamic code region, in reverse order:  high addresses are copied first, for safety in the presence of multiple threads.
 
 Pros:
+ * Allow greater _defense-in-depth_ for x86-32 systems, where segment protection is available.
+ * Keep the TCB simple and smaller.
  * Memory mappings for code do not need to be changed after the NaCl process has been started, so we do not need to worry about race conditions involving the underlying OS's mmap calls.
  * Allows small pieces of code to be loaded (<4k, <64k), so this is suitable for loading JITted code.
 
