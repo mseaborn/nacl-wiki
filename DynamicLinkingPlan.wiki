@@ -43,3 +43,32 @@ The dynamic linker sometimes goes by other names:
     * Extend sel_ldr to be able to load `ld.so`.
  * Port glibc.  I have already done a basic port of glibc.
     * Add scripts to build glibc as part of the NaCl tree (as an alternative to nacl-newlib), on Buildbot, to prevent regressions.
+
+
+== Possible dynamic linker implementations ==
+
+There are a number of existing dynamic linkers that we could port to Native Client:
+
+ * GNU libc's dynamic linker
+    * A basic port of glibc and its dynamic linker to NaCl already exists.
+    * glibc is licensed under the GNU LGPL.
+    * glibc is quite large.
+ * The dynamic linker from Android's Bionic C library
+    * BSD-style licence.
+    * Bionic is derived from a BSD Unix libc.
+    * Bionic includes a dynamic linker that appears to have been written specially for Android.
+    * The linker may contain Android-specific assumptions, e.g. using Android's prelinking scheme; supporting limited amounts of thread local storage.
+ * The dynamic linker from a BSD libc
+ * dietlibc has dynamic linking support.  Licensed under the GNU GPL
+ * uClibc has dynamic linking support.  Licensed under the GNU LGPL
+
+Dynamic linkers tend to be closely coupled to an associated libc, such that it is not possible to upgrade the dynamic linker without upgrading libc.so or vice versa.
+
+For example, in glibc, ld.so and libc.so have the following interdependencies:
+
+ * Memory allocation:  ld.so depends on libc.so.  ld.so needs to allocate memory dynamically and uses malloc() and free(), which come from libc.so.  (During startup, ld.so provides its own malloc/free implementations which cannot free memory.  These get replaced after libc.so is loaded because they are defined as weak symbols.)
+ * Thread Local Storage:  libc.so makes assumptions about how ld.so organises thread-local storage in order to access TLS quickly.
+    * Libraries can contain thread-local variables (those declared with `__thread`) and ld.so has the responsibility of allocating storage for them.  ld.so has to set up the `%gs` register on i386 on startup, and it implements ELF's `__tls_get_addr` function.
+    * Many of the syscall wrappers that libc.so provides access TLS in order to check for thread cancellation points.
+
+In addition, ld.so statically links to the same (or similar) syscall wrappers that libc.so uses.
