@@ -35,6 +35,12 @@ The dynamic linker sometimes goes by other names:
  * `ld-linux.so.2` in GNU libc
  * `rtld`, "run time `ld`" (where `ld` means "link editor")
 
+== Related design documents ==
+
+The following issues are reasonably lengthy so I have split them out into separate documents:
+ * DynamicLoadingOptions: Interleaved Code vs. Contiguous Code, and the implications for libraries of the latter.
+ * AcquiringDynamicLibraries: How the dynamic linker acquires data from library files.
+
 == Changes involved ==
 
  * Toolchain changes:
