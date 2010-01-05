@@ -59,7 +59,7 @@ sel_ldr can load ld.so, which in turns loads the executable.  This requires litt
 
 Suppose we load ld.so at the bottom of address space, at 0x20000.  This is where statically linked, ET_EXEC executables are loaded at the moment; sel_ldr currently only supports loading such executables.  There are two ways to implement loading ld.so at this address:
  * Change sel_ldr to support loading ET_DYN executables (such as ld.so), but load them with the fixed address of 0x20000.  This is a small change.
- * Link ld.so as ET_DYN but rewrite its ELF headers in a post-link step to be ET_DYN with a load address of 0x20000.
+ * Link ld.so as ET_DYN but rewrite its ELF headers in a post-link step to be ET_EXEC with a load address of 0x20000.
 
 Alternatively, we could load ld.so at a higher address.  sel_ldr could take an extra parameter to specify the ELF object's load address, or it could default to loading the object at the highest possible address in the code region.
 
