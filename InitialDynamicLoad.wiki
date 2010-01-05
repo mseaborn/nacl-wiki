@@ -68,6 +68,10 @@ ld.so normally contains ELF Program Headers that are currently rejected by sel_l
 
 These headers have two uses:
  * ld.so can read them during initialisation.  Currently, only the non-essential `PT_GNU_RELRO` is used this way.  ld.so locates the `.dynamic` section statically via the symbol `_DYNAMIC` rather than by searching for `PT_DYNAMIC`.
- * They can be returned by libc's public interface `dl_iterate_phdr`, which is useful for garbage collectors, debuggers, etc.
+ * They can be returned by libc's public interface `dl_iterate_phdr()`, which is useful for garbage collectors, debuggers, etc.
+
+The ELF Program Headers are normally included at the start of the ELF object's text segment.  We cannot do this under NaCl, because this data will not validate as code.  But we also cannot move the Program Headers to the data segment because, while in principle they can live at any offset in the ELF file, it is only at the start of the file that file offsets are the same as in-memory offsets.  glibc's ld.so is taking a shortcut by assuming that it can find its own Program Headers in memory at runtime using `e_phoff` from its own ELF header.
+
+If we want to support a `dl_iterate_phdr()` that lists ld.so (which could be desirable for debugging tools), we will probably need to copy ld.so's Program Headers into ld.so's data segment as a post-link step.  This is a small point and may not be important.
 
 == Interface 3: move ELF parsing out of sel_ldr ==
