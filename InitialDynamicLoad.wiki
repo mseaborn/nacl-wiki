@@ -27,3 +27,20 @@ In Native Client, for portability and testability reasons, ideally we do not wan
 Furthermore, address space is likely to be more constrained under NaCl, both quantitatively (a 1GB limit) and qualitatively (a code/data split).
 
 For these reasons, it may be better to leave load address choices to untrusted code.
+
+== Possible layouts ==
+ * Load ld.so at 0x20000 (the bottom of available address space).
+    * This is simple and involves only minimal changes to `sel_ldr`.  However, it does not take advantage of the relocatability of ld.so.
+    * We could pick a larger standard address at which to load the executable, e.g. 0x01000000 (16MB).  This places limits on how big ld.so and the executable can grow, though not severe limits.
+    * Alternatively, we could attempt to place the executable at the top of the code region, so that executables grow downwards from 256MB.  Hence we have a standard executable end address rather than a standard start address.  This would require linker changes.  It involves fixing knowledge of the code region size in executables.
+ * Load the executable at 0x20000 and either:
+    * load ld.so immediately above, or
+    * load ld.so at the top of the code region.
+
+=== Heap placement ===
+If we adopt the Big Segment Gap scheme, address space looks like this:
+ * 0-256MB: ELF code segments can mapped here
+ * 256-512MB: ELF data segments are mapped here
+It may be desirable to place the heap at 512MB so that its expansion does not limit, and is not limited by, mapping of libraries.
+
+If ld.so is loaded at a high address, we can arrange for the heap to start just before 512MB, at the end of ld.so's data segment's BSS, reusing an otherwise wasted page and saving upto 4k or 64k.
