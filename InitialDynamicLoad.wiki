@@ -77,7 +77,7 @@ The ELF Program Headers are normally included at the start of the ELF object's t
 If we want to support a `dl_iterate_phdr()` that lists ld.so (which could be desirable for debugging tools), we will probably need to copy ld.so's Program Headers into ld.so's data segment as a post-link step.  This is a small point and may not be important.
 
 == Interface 3: move ELF parsing out of sel_ldr ==
-Instead of passing an ELF executable to sel_ldr, the invoker can pass a list of mapping instructions.  Each instruction specifies a code or data segment to map/copy into memory.  Each segment can come from a different file.
+Instead of passing an ELF executable to sel_ldr, the invoker can pass a list of mapping instructions.  Each instruction specifies a code or data segment to map/copy into memory.  The primary difference from ELF loading is that each segment can come from a different file.
 
 This arrangement means that ELF parsing can be moved out of the trusted codebase.  ELF parsing could be done by untrusted NaCl code or Javascript code.  Doing this in Javascript would avoid bootstrapping problems.  Using Javascript for this should not be a performance problem because the task is simple and ELF Program Headers are only a small amount of data.
 
