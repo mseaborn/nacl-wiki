@@ -1,0 +1,29 @@
+#summary Loading the dynamic linker and executable
+
+= Loading the dynamic linker and executable =
+
+_Draft_
+
+== Introduction ==
+
+On a typical ELF system such as Linux, the kernel is normally responsible for loading both the executable and the dynamic linker.  The executable is invoked by filename with execve().  The kernel loads the executable into the process, and looks for a PT_INTERP entry in its ELF Program Headers; this specifies the filename of the dynamic linker (/lib/ld-linux.so.2 for glibc on Linux).  If there is a PT_INTERP entry, the kernel loads this file too.
+
+Either of these two ELF objects can be relocatable (ET_DYN) or require loading at a fixed position in address space (ET_EXEC).  Most often, the dynamic linker is relocatable and the executable is fixed-position with a standard base address (0x08048000 on i386).  Sometimes the executable is relocatable too (these are known as PIEs - position-independent executables).  For relocatable objects, the kernel chooses the load address.
+
+There is another way to load the two ELF objects:  the dynamic linker can be invoked directly with execve().  If passed the filename of an executable, the dynamic linker will load the executable itself.
+
+There are two ways in which we might wish to do this differently in Native Client's `sel_ldr`.
+
+=== Finding the dynamic linker ===
+Linux looks up PT_INTERP in a file namespace.  In NaCl, however, there is no built-in filesystem so it is not appropriate for `sel_ldr` to interpret the PT_INTERP filename.  The second method -- invoking the dynamic linker directly -- is more appropriate to NaCl.
+
+=== Address space allocation ===
+Linux makes address space allocation decisions.
+ * Allocation choices have varied between versions of Linux.  Sometimes libc.so and ld.so are placed below the executable, sometimes above.
+ * The heap (`brk()`-allocated memory) goes after whichever object was invoked with execve().  Normally it does not matter whether this is ld.so or libc.so.  (The one exception I have encountered is where invoking an old version of Emacs through ld.so failed, because it caused the heap to be placed at a top-bit-set address, and Emacs wanted to use the top address bit for GC purposes.)
+
+In Native Client, for portability and testability reasons, ideally we do not want address space allocation decisions to change between versions of NaCl.  We want behaviour to be as deterministic as possible.
+
+Furthermore, address space is likely to be more constrained under NaCl, both quantitatively (a 1GB limit) and qualitatively (a code/data split).
+
+For these reasons, it may be better to leave load address choices to untrusted code.
