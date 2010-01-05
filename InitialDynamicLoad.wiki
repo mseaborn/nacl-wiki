@@ -61,6 +61,8 @@ Suppose we load ld.so at the bottom of address space, at 0x20000.  This is where
  * Change sel_ldr to support loading ET_DYN executables (such as ld.so), but load them with the fixed address of 0x20000.  This is a small change.
  * Link ld.so as ET_DYN but rewrite its ELF headers in a post-link step to be ET_DYN with a load address of 0x20000.
 
+Alternatively, we could load ld.so at a higher address.  sel_ldr could take an extra parameter to specify the ELF object's load address, or it could default to loading the object at the highest possible address in the code region.
+
 === ld.so's PHDRs ===
 ld.so normally contains ELF Program Headers that are currently rejected by sel_ldr, in particular `PT_DYNAMIC`, `PT_GNU_EH_FRAME` and `PT_GNU_RELRO`.  (`objdump -x /lib/ld-linux.so.2` also lists `PT_GNU_STACK`, but this is not relevant to NaCl because the stack is never executable.)  Again there are two ways to deal with these, depending on how much we want to change sel_ldr:
  * Change sel_ldr to ignore unrecognised Program Headers.  This has no security implications.  It is what most ELF loaders do.  Most ELF executable loaders look only at `PT_LOAD` headers.
@@ -75,3 +77,12 @@ The ELF Program Headers are normally included at the start of the ELF object's t
 If we want to support a `dl_iterate_phdr()` that lists ld.so (which could be desirable for debugging tools), we will probably need to copy ld.so's Program Headers into ld.so's data segment as a post-link step.  This is a small point and may not be important.
 
 == Interface 3: move ELF parsing out of sel_ldr ==
+Instead of passing an ELF executable to sel_ldr, the invoker can pass a list of mapping instructions.  Each instruction specifies a code or data segment to map/copy into memory.  Each segment can come from a different file.
+
+This arrangement means that ELF parsing can be moved out of the trusted codebase.  ELF parsing could be done by untrusted NaCl code or Javascript code.  Doing this in Javascript would avoid bootstrapping problems.  Using Javascript for this should not be a performance problem because the task is simple and ELF Program Headers are only a small amount of data.
+
+This scheme means we do not need to worry about whether sel_ldr supports ET_DYN executables or whether it rejects Program Header entries that it does not recognise.
+
+The main advantage of this scheme is not so much the reduction in trusted code (instead of parsing ELF, we parse a different format), but the increase in flexibility.  It reduces the need to bootstrap a process from inside the process.
+
+"sel_ldr" would no longer be an accurate name because it would no longer be an ELF loader!
