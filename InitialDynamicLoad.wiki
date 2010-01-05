@@ -4,6 +4,8 @@
 
 _Draft_
 
+<wiki:toc/>
+
 == Introduction ==
 
 On a typical ELF system such as Linux, the kernel is normally responsible for loading both the executable and the dynamic linker.  The executable is invoked by filename with execve().  The kernel loads the executable into the process, and looks for a PT_INTERP entry in its ELF Program Headers; this specifies the filename of the dynamic linker (/lib/ld-linux.so.2 for glibc on Linux).  If there is a PT_INTERP entry, the kernel loads this file too.
@@ -15,11 +17,11 @@ There is another way to load the two ELF objects:  the dynamic linker can be inv
 There are two ways in which we might wish to do this differently in Native Client's `sel_ldr`.
 
 === Finding the dynamic linker ===
-Linux looks up PT_INTERP in a file namespace.  In NaCl, however, there is no built-in filesystem so it is not appropriate for `sel_ldr` to interpret the PT_INTERP filename.  The second method -- invoking the dynamic linker directly -- is more appropriate to NaCl.
+The Linux kernel looks up PT_INTERP in a file namespace.  In NaCl, however, there is no built-in filesystem so it is not appropriate for `sel_ldr` to interpret the PT_INTERP filename.  The second method -- invoking the dynamic linker directly -- is more appropriate to NaCl.
 
 === Address space allocation ===
-Linux makes address space allocation decisions.
- * Allocation choices have varied between versions of Linux.  Sometimes libc.so and ld.so are placed below the executable, sometimes above.
+The Linux kernel makes address space allocation decisions:
+ * Allocation decisions have varied between versions of Linux.  Sometimes libc.so and ld.so are placed below the executable, sometimes above.  Additionally, recent Linux versions perform address space randomisation.
  * The heap (`brk()`-allocated memory) goes after whichever object was invoked with execve().  Normally it does not matter whether this is ld.so or libc.so.  (The one exception I have encountered is where invoking an old version of Emacs through ld.so failed, because it caused the heap to be placed at a top-bit-set address, and Emacs wanted to use the top address bit for GC purposes.)
 
 In Native Client, for portability and testability reasons, ideally we do not want address space allocation decisions to change between versions of NaCl.  We want behaviour to be as deterministic as possible.
@@ -44,3 +46,17 @@ If we adopt the Big Segment Gap scheme, address space looks like this:
 It may be desirable to place the heap at 512MB so that its expansion does not limit, and is not limited by, mapping of libraries.
 
 If ld.so is loaded at a high address, we can arrange for the heap to start just before 512MB, at the end of ld.so's data segment's BSS, reusing an otherwise wasted page and saving upto 4k or 64k.
+
+== Interface 1: sel_ldr loads both ==
+We could change sel_ldr to load two ELF objects instead of one, in order to load both the executable and dynamic linker.  The interface for starting a NaCl process could take two file descriptors.
+
+This involves adding extra complexity to the trusted codebase.  Later options show that this is not necessary.
+
+== Interface 2: sel_ldr loads ld.so ==
+sel_ldr can load ld.so, which in turns loads the executable.  This requires little or no change to sel_ldr.
+
+Suppose we load ld.so at the bottom of address space, at 0x20000.  This is where statically linked, ET_EXEC executables are loaded at the moment; sel_ldr currently only supports loading such executables.  There are two ways to implement loading ld.so at this address:
+ * Change sel_ldr to support loading ET_DYN executables (such as ld.so), but load them with the fixed address of 0x20000.  This is a small change.
+ * Link ld.so as ET_DYN but rewrite its ELF headers in a post-link step to be ET_DYN with a load address of 0x20000.
+
+== Interface 3: move ELF parsing out of sel_ldr ==
