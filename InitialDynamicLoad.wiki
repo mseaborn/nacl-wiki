@@ -19,7 +19,7 @@ There is another way to load the two ELF objects:  the dynamic linker can be inv
 There are two ways in which we might wish to do this differently in Native Client's `sel_ldr`.
 
 === Finding the dynamic linker ===
-The Linux kernel looks up PT_INTERP in a file namespace.  In NaCl, however, there is no built-in filesystem so it is not appropriate for `sel_ldr` to interpret the PT_INTERP filename.  The second method -- invoking the dynamic linker directly -- is more appropriate to NaCl.
+The Linux kernel looks up PT_INTERP in a file namespace.  In NaCl, however, there is no built-in filesystem so it is not appropriate for `sel_ldr` to interpret the PT_INTERP filename (see AcquiringDynamicLibraries).  The second method -- invoking the dynamic linker directly -- is more appropriate to NaCl.
 
 === Address space allocation ===
 The Linux kernel makes address space allocation decisions:
@@ -28,7 +28,7 @@ The Linux kernel makes address space allocation decisions:
 
 In Native Client, for portability and testability reasons, ideally we do not want address space allocation decisions to change between versions of NaCl.  We want behaviour to be as deterministic as possible.
 
-Furthermore, address space is likely to be more constrained under NaCl, both quantitatively (a 1GB limit) and qualitatively (a code/data split).
+Furthermore, address space is likely to be more constrained under NaCl, both quantitatively (a 1GB limit) and qualitatively (a code/data split -- see DynamicLoadingOptions).
 
 For these reasons, it may be better to leave load address choices to untrusted code.
 
