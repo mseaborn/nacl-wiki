@@ -61,4 +61,13 @@ Suppose we load ld.so at the bottom of address space, at 0x20000.  This is where
  * Change sel_ldr to support loading ET_DYN executables (such as ld.so), but load them with the fixed address of 0x20000.  This is a small change.
  * Link ld.so as ET_DYN but rewrite its ELF headers in a post-link step to be ET_DYN with a load address of 0x20000.
 
+=== ld.so's PHDRs ===
+ld.so normally contains ELF Program Headers that are currently rejected by sel_ldr, in particular `PT_DYNAMIC`, `PT_GNU_EH_FRAME` and `PT_GNU_RELRO`.  (`objdump -x /lib/ld-linux.so.2` also lists `PT_GNU_STACK`, but this is not relevant to NaCl because the stack is never executable.)  Again there are two ways to deal with these, depending on how much we want to change sel_ldr:
+ * Change sel_ldr to ignore unrecognised Program Headers.  This has no security implications.  It is what most ELF loaders do.  Most ELF executable loaders look only at `PT_LOAD` headers.
+ * Change ld.so so that it does not contain the headers that sel_ldr does not like.  As before, this can be done as a post-link step, so that we do not have to modify the linker to omit `PT_DYNAMIC` etc. when linking with `-shared`.
+
+These headers have two uses:
+ * ld.so can read them during initialisation.  Currently, only the non-essential `PT_GNU_RELRO` is used this way.  ld.so locates the `.dynamic` section statically via the symbol `_DYNAMIC` rather than by searching for `PT_DYNAMIC`.
+ * They can be returned by libc's public interface `dl_iterate_phdr`, which is useful for garbage collectors, debuggers, etc.
+
 == Interface 3: move ELF parsing out of sel_ldr ==
