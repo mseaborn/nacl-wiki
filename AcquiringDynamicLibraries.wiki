@@ -20,7 +20,7 @@ In principle, any mechanism that Javascript code can currently use for fetching 
 
 However, using the latter, NaCl-specific descriptor-based interface has two advantages:
  * It reduces the need to copy data between processes via sockets.
- * It can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading (see DynamicLoadingOptions).  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
+ * It can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading; see [DynamicLoadingOptions#mmapping_code_to_share_memory mmapping code] in DynamicLoadingOptions.  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
 
 The basic interface for fetching files is therefore a Javascript API.  We need a way to hook that up to Native Client.
 
