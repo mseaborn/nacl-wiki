@@ -14,11 +14,13 @@ Each library and executable can be fetched from a URL.
 
 There are at least two interfaces through which libraries can be fetched for use in NaCl processes:
  * XMLHttpRequest
- * NaCl's `__urlAsNaClDesc()`, a method provided to Javascript on the NaCl plugin object
+ * NaCl's `__urlAsNaClDesc()`, a method provided to Javascript on the NaCl plugin object.  This returns a NaCl file descriptor via an asynchronous callback.
 
 In principle, any mechanism that Javascript code can currently use for fetching data can be used for fetching libraries.
 
-However, the main advantage of the latter, NaCl-specific interface is that it can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading (see DynamicLoadingOptions).  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
+However, using the latter, NaCl-specific descriptor-based interface has two advantages:
+ * It reduces the need to copy data between processes via sockets.
+ * It can be used with an mmap() interface which has the potential to allow library and executable code to be mapped rather than copied into memory.  Whether this potential can be realised depends on the underlying mechanism for dynamic loading (see DynamicLoadingOptions).  If mapping can be used, it means that two NaCl processes using the same library will share physical memory for the library, provided that the library is retained in the browser's cache.
 
 The basic interface for fetching files is therefore a Javascript API.  We need a way to hook that up to Native Client.
 
