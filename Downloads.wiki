@@ -11,7 +11,7 @@ be sure to use the latest version.
 
 Here are the current "tarball" downloads:
 
-  * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_linux_782a_2010_01_08.tgz Source with prebuilt binaries and SDK: Linux] (42M - sha1 f3b247081b48ad671eb57553d564c68fd4f9eef9)
+  * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_linux_782a_2010_01_08.tgz Source with prebuilt binaries and SDK: Linux] (40M - sha1 f3b247081b48ad671eb57553d564c68fd4f9eef9)
   * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_mac_782_2009_09_25a.tgz Source with prebuilt binaries and SDK: Mac] (37M - sha1 9c2fe0aba3feff8f806b0caf6fbcb0a16cc26645)
   * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_windows_782_2010_01_07.zip Source with prebuilt binaries and SDK: Windows] (65M - sha1 2ec9c47b2b1f5ca5678da3d26d48e747cebe5325)
 
