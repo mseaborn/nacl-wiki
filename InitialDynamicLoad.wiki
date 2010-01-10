@@ -79,7 +79,7 @@ If we want to support a `dl_iterate_phdr()` that lists ld.so (which could be des
 == Interface 3: move ELF parsing out of sel_ldr ==
 Instead of passing an ELF executable to sel_ldr, the invoker can pass a list of mapping instructions.  Each instruction specifies a code or data segment to map/copy into memory.  The primary difference from ELF loading is that each segment can come from a different file.
 
-This arrangement means that ELF parsing can be moved out of the trusted codebase.  ELF parsing could be done by untrusted NaCl code or Javascript code.  Doing this in Javascript would avoid bootstrapping problems.  Using Javascript for this should not be a performance problem because the task is simple and ELF Program Headers are only a small amount of data.
+This arrangement means that ELF parsing can be moved out of the trusted codebase.  ELF parsing could be done by untrusted NaCl code or Javascript code.  Doing this in Javascript would avoid bootstrapping problems.  Using Javascript for this should not be a performance problem because, even though Javascript's string manipulation facilities are limited, the task is simple and ELF Program Headers comprise only a small amount of data.
 
 This scheme means we do not need to worry about whether sel_ldr supports ET_DYN executables or whether it rejects Program Header entries that it does not recognise.
 
