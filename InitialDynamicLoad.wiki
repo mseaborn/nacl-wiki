@@ -101,3 +101,27 @@ The traditional way to pass a filename is via a Unix-style argv list of strings 
 `launch_with_argv()` has the disadvantage that it introduces a new type of message that is only used in the special case of process startup.
 
 If we use generic messages to supply argv, we might want to remove the existing argv mechanism from `sel_ldr` so that NaCl does not have two competing mechanisms for argv.
+
+== Initial load using existing interfaces ==
+Here is how the initial load can be done using existing browser interfaces where possible:
+
+HTML:
+{{{
+<embed src="path/to/ld.so.2" type="application/x-nacl-srpc"/>
+}}}
+
+Javascript:
+{{{
+nacl_elt.startup_argv(["arg0", "path/to/executable", "arg1", "arg2"])
+}}}
+
+ld.so code in NaCl process:
+{{{
+fd = imc_accept(initial_fd);
+message = imc_recvmsg(fd);
+// decode argv from message
+// continue rest of startup using argv
+}}}
+
+ * ld.so is ET_EXEC with a start address of 0x20000.
+ * executable is ET_EXEC with a start address of 0x1000000.
