@@ -209,7 +209,6 @@ Pros:
  * Less need to pre-allocate address space (or actual memory) to trade off expected code and data sizes.
  * Closer to existing ABIs.
  * More amenable to allowing memory occupied by libraries to be shared between processes.
- * Could reduce the need to have the ELF loader as trusted code.  Startup could reduce to mmap operations: the invoker could provide a list of segments to map on startup.  Parsing the ELF executable could be done in an untrusted Javascript library.
 
 Cons:
  * May require the underlying OS to provide a mechanism to map pages atomically.  Linux has mremap(), which overwrites the destination mappings.  Windows does not have an equivalent; the original pages must be unmapped first.  However, it may be sufficient to have an mprotect() call which can switch executable permission on.
