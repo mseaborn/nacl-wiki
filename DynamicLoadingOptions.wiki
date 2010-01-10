@@ -212,7 +212,7 @@ Pros:
  * Closer to existing ABIs.
 
 Cons:
- * May require the underlying OS to provide a mechanism to map pages atomically.  Linux has mremap(), which overwrites the destination mappings.  Windows does not have an equivalent; the original pages must be unmapped first.  However, it may be sufficient to have an mprotect() call which can switch executable permission on.
+ * May require the underlying OS to provide a mechanism to map pages atomically.  Linux has mremap(), which overwrites the destination mappings.  Windows does not have an equivalent; the original pages must be unmapped first (see [WindowsDLLInjectionProblem WindowsDLLInjectionProblem]).  However, it may be sufficient to have an mprotect() call which can switch executable permission on.
 
 == Hybrid interfaces ==
 We could combine the benefits of interleaved code and data with the benefits of loading chunks of code that are smaller than page size.  NaCl could provide operations to map some HLT-filled pages with code, and incrementally fill those pages with validated code using the HLT-overwriting technique above.
@@ -225,7 +225,7 @@ Code is loaded in chunks.  If chunks are allowed to contain internal, unaligned 
 
 === Dealing with multiple threads ===
 What happens in the presence of multi-threading?  We must deal with the case where other threads are executing the code that we are attempting to unload.
- * For IC-HLTRewrite:  Although it appears to be possible to overwrite HLTs safely, going in the opposite direction -- overwriting multi-byte instructions with HLTs -- probably cannot be made safe.  This means we need a way to "park" the other threads.  It would be good if the OS provides a way to pause threads; otherwise, the threads must voluntarily perform NaCl syscalls to enter a parked state.  If we solve this problem it may help with loading code as well as unloading code.
+ * For IC-HLTRewrite:  Although it appears to be possible to overwrite HLTs safely, going in the opposite direction -- overwriting multi-byte instructions with HLTs -- probably cannot be made safe.  This means we need a way to "park" the other threads.  It would be good if the OS provides a way to pause threads; otherwise, the threads must voluntarily perform NaCl syscalls to enter a parked state.  If we solve this problem it may help with loading code as well as unloading code.  On Windows, SuspendThread() can be used (see [WindowsDLLInjectionProblem WindowsDLLInjectionProblem]).
  * For InterleavedCode:  If we unmap a page (or remove its execute permission), any thread executing code from that page should eventually fault.  The problem is that we must find some way to ensure that the thread has had a chance to execute (or else is not currently executing code from that page) before mapping new code into the same location.
 
 == mmapping code to share memory ==
