@@ -47,4 +47,6 @@ switch(get_machine_type()) {
 
 get_machine_type() can be a function which returns a constant at runtime, in which case we will link code that will never be run.  Alternatively, get_machine_type() could be a compiler/linker intrinsic.  The linker and/or code generator would perform an optimisation to drop all but the code path for the targeted architecture.
 
+In terms of programming language design, this is a more principled approach than using a preprocessor for conditional compilation.  It has the advantage that the compiler type checks all variants of the code.  When relying on preprocessor conditionals, it easy to make changes that fail to build for some architectures or some sets of options.
+
 All the targeted architectures will use ILP32 with the same struct layout, so we can use ELFCLASS32 for all binaries, even on x86-64.
