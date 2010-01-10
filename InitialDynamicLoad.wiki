@@ -7,7 +7,7 @@ _Draft_
 <wiki:toc/>
 
 == Overview ==
-This document discusses how address space should be laid out when a dynamic linker and an executable are loaded, and how this can be orchestrated with sel_ldr.
+This document discusses how address space should be laid out when a dynamic linker and an executable are loaded, and how this can be orchestrated with sel_ldr and its associated in-browser interface.
 
 == Background ==
 On a typical ELF system such as Linux, the kernel is normally responsible for loading both the executable and the dynamic linker.  The executable is invoked by filename with execve().  The kernel loads the executable into the process, and looks for a PT_INTERP entry in its ELF Program Headers; this specifies the filename of the dynamic linker (/lib/ld-linux.so.2 for glibc on Linux).  If there is a PT_INTERP entry, the kernel loads this file too.
