@@ -86,3 +86,18 @@ This scheme means we do not need to worry about whether sel_ldr supports ET_DYN 
 The main advantage of this scheme is not so much the reduction in trusted code (instead of parsing ELF, we parse a different format), but the increase in flexibility.  It reduces the need to bootstrap a process from inside the process.
 
 "sel_ldr" would no longer be an accurate name because it would no longer be an ELF loader!
+
+== Passing arguments from the web browser ==
+If the dynamic linker is responsible for loading the executable, it requires a mechanism for receiving either the filename of the executable (which it can pass to open(), which works as described in AcquiringDynamicLibraries) or a file descriptor for the executable.
+
+The traditional way to pass a filename is via a Unix-style argv list of strings (as used in `main()`/`execve()`).  This is such a widely used interface that it would make sense to support it in NaCl.  Currently `sel_ldr` supports passing argv to the NaCl process, but this is not exposed in the browser interface.  We have a number of options for supporting argv from the browser:
+
+ * `launch_with_argv()`:  Provide a Javascript method for launching a NaCl process that takes an argv list-of-strings parameter (as in [AcquiringDynamicLibraries#Prototype_implementation the prototype implementation]).
+ * Generic IMC messages:  On startup, the NaCl process does `imc_accept()` + `imc_recvmsg()` to receive a message containing argv, which Javascript code must send.
+ * Generic startup message:  Allow Javascript code to provide a blob of data to copy into the NaCl process on startup.  This dovetails with interface 3 above in which Javascript code specifies segment layout in detail.
+    * This could be a blob with which to initialise the stack.  argv and envp are stored at the top of the stack on ELF systems.  This data structure contains pointers, so whoever provides the blob needs to know what address it will be loaded at.
+    * The blob could contain argv and envp in some other format.
+
+`launch_with_argv()` has the disadvantage that it introduces a new type of message that is only used in the special case of process startup.
+
+If we use generic messages to supply argv, we might want to remove the existing argv mechanism from `sel_ldr` so that NaCl does not have two competing mechanisms for argv.
