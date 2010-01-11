@@ -59,7 +59,7 @@ Cons:
     * We could run out of swap space, cause thrashing or (on Linux) trigger the OOM killer if many NaCl processes are running.
     * We lose the ability to do useful resource accounting for web sites using NaCl.
  * Does not allow memory occupied by libraries to be shared between processes.
- * On ARM, data segment accesses can potentially use fewer instructions or use immediates instead of loads when the data segment is close to the code segment.  A large segment gap could make data segment accesses slower. /robertm: this effect is minor and can probably be ignored/
+ * On ARM, data segment accesses can potentially use fewer instructions or use immediates instead of loads when the data segment is close to the code segment.  A large segment gap could make data segment accesses slower. [robertm: this effect is minor and can probably be ignored]
 
 === Implementation: CC-MProtect ===
 We could fix the memory usage problem of CC-HLTRewrite by using page protections.  Instead of filling the entire dynamic code region with HLTs on startup, we initially set the page mappings in the read view to be unreadable (no permission bits set).  Whenever we need to allocate a page, we use the write view to fill it with HLTs, and then make the read view mapping readable using mprotect().  This assumes that the OS allocates pages on demand, when we write the HLTs rather than when we map the pages.
@@ -110,6 +110,9 @@ The same effect can also be achieved without a linker script change by using the
 
 === Address space wastage ===
 This segment layout wastes some data address space.  Suppose library 1's code segment is 192k and its data segment is 64k (after rounding up to a page size of 64k).  We will have to set aside 192k of address space for the data segment so that library 2's segments (which are fixed relative to each other) can fit in after library 1's segments.  Hence we waste 128k of address space.  However, we don't waste memory because nothing needs to be mapped into this space.  Furthermore, this is really fragmentation rather than wastage because mmap() could still allocate from these gaps.  Note that space in the code region can be similarly wasted if the library's data segment is larger than the code segment, but it is more usual for the code segment to be larger.
+
+=== Address space layout diagram ===
+[http://nativeclient.googlecode.com/svn/wiki/images/nacl-address-space.png]
 
 === Deferring the choice of segment gap size ===
 There are two ways in which we might defer the choice of segment gap size until after linking the .so:
