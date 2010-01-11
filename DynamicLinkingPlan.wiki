@@ -17,7 +17,7 @@ _Draft_
 
  * Allows library versions to be changed without having to relink executables.
     * This makes it easier to upgrade to newer versions of libraries, and to switch between different implementations of the same library interface.
-    * This also makes it easier to comply with the GNU LGPL.
+    * This also makes it easier to comply with the GNU LGPL. c.f. http://en.wikipedia.org/wiki/LGPL, though static linking is not completely ruled out by the LGPL
  * Some programs don't know in advance what they will be linking against.
     * e.g. CPython's C extension modules. Imports are determined by Python code.
     * Plugins
@@ -63,6 +63,7 @@ The following issues are reasonably lengthy so I have split them out into separa
     * Extend sel_ldr to be able to load `ld.so`.
  * Port glibc.  I have already done a basic port of glibc.
     * Add scripts to build glibc as part of the NaCl tree (as an alternative to nacl-newlib), on Buildbot, to prevent regressions.
+    * robertm: explain the benfits of using glibc over newlib
 
 
 == Possible dynamic linker implementations ==
