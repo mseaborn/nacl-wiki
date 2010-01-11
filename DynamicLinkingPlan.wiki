@@ -26,7 +26,8 @@ _Draft_
 === Disadvantages of dynamic linking ===
  * Position independent code can be a little slower than fixed-position code on some architectures.  On i386, a register (%ebx) often has to be given over to locating the current library (specifically, its Global Offset Table) because the instruction set lacks a PC-relative addressing mode.
  * There is a cost to doing linking and symbol lookup at runtime.  This tends to be worse for C++ where there tend to be more symbols, with longer names.  This cost can be avoided by prelinking, but we don't plan on supporting prelinking.  Prelinking is being used less these days because it defeats address space randomisation.
- * Dynamic linking makes it easier to choose combinations of libraries and executables that have not been tested together and that interact badly.
+ * Dynamic linking makes it easier to choose combinations of libraries and executables that have not been tested together and that interact badly ("dll hell")
+ * the increase in complexity of a system with dynamic linking also makes it more vulnerable to attacks
 
 === Terminology ===
 These terms all mean much the same thing:
