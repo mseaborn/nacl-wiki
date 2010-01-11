@@ -11,9 +11,9 @@ _Draft_
 === Why use dynamic libraries? ===
  * Dynamic linking reduces resource consumption:
     * Allows executables to be smaller.  Reduces download time and disc space usage.
-    * Allows libraries to occupy the same physical memory when loaded into multiple processes. 
+    * Allows libraries to occupy the same physical memory when loaded into multiple processes. robertm: this would also save validation overhead 
     * robertm: it would be nice to have some data on memory savings
-
+    * robertm: Note: some of the proposed implementation will not allow us to realize the benefit of sharing a library with multiple processes.
 
  * Allows library versions to be changed without having to relink executables.
     * This makes it easier to upgrade to newer versions of libraries, and to switch between different implementations of the same library interface.
