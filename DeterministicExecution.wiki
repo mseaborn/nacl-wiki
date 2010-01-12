@@ -6,7 +6,12 @@ Some users of NaCl (web apps and non-web apps) may want to run guest code and be
 
 Use cases:
  * Build systems:  Run a compiler and be sure that it always produces the same output.
+    * In this case, determinism across versions of NaCl is desirable.
+    * This could be useful for a NaCl code generation service.
+    * Enables dependable memoization.
  * High-integrity app containers:  Although web apps are not confined, there could be web apps that host confined guest code.  e.g. Host a text editor that cannot leak the text it edits to its creator over overt channels, and cannot receive new instructions from its creator at all.
+    * In this case, determinism in the presence of other processes on the machine is important, and determinism across versions of NaCl matters less because the latter conveys little information.
+ * Distributed protocols in which hosts need to be able to independently derive the same information from some shared inputs.
 
 Confinement:  Although it is not in general possible to prevent programs _writing_ to covert channels ("wall-banging"), it is possible to prevent programs _reading_ from covert channels ("wall-listening") by denying access to sources of non-determinism.  Hence though it is not possible to fully achieve _information confinement_ (preventing a process from leaking data to a conspirator), it is possible to achieve _authority confinement_ (preventing a process from receiving instructions from a conspirator).
 
