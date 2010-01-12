@@ -240,3 +240,29 @@ If we were to support this, we would have to ensure that the mapped code will no
  * Only allow file descriptors for files in the browser's cache to be mapped as code.  It appears that NaCl currently has this constraint -- `__urlAsNaClDesc()` is currently the only way of obtaining file FDs for NaCl programs running in the browser.  This would rely on the browser never to modify a fully-fetched cached file after it has been returned through `__urlAsNaClDesc()`.  If NaCl is running as an NPAPI plugin in an arbitrary browser, it may not be safe to rely on this, because NPAPI likely does not guarantee that cached files will not be changed.
 
  * NaCl could operate its own code cache.  When a NaCl untrusted process does a NaCl-`mmap()` to map code from a downloaded file, the NaCl runtime makes a copy of the file in its cache, or reuses an existing identical copy in the cache, and does an OS-level `mmap()` from that file.  This has the advantage that two processes would not have to fetch the same library through the same URL in order to achieve memory sharing.  Furthermore, it does not rely on NaCl programs using an FD-based mmap() interface to achieve memory sharing; a "load code from memory" interface could also introduce sharing.
+
+== Proposed NaCl-syscall interface ==
+The basic syscall interface would be:
+{{{
+/* Load code from memory */
+int nacl_copy_code(void *src_addr, void *dest_addr, size_t size);
+}}}
+
+`dest_addr` must be non-NULL: it is the caller's responsibility to allocate address ranges in the code region.  In a higher level interface provided by a library, the library would allocate addresses and would record which parts of the code region have been allocated so far.
+
+`dest_addr` need not be page-aligned.
+
+We can also provide a convenience interface:
+{{{
+/* Load code from file descriptor. */
+int nacl_map_code(int filedesc, int file_offset, void *dest_addr, size_t size);
+}}}
+
+This can be implemented as a library function or as a second syscall.
+
+If `nacl_map_code()` is a library function, a CC-HLTRewrite implementation will involve copying the code three times:
+ * Untrusted library read()s code into a temporary buffer.
+ * Trusted runtime copies code into its own temporary buffer to validate.
+ * Trusted runtime copies code to destination.
+
+If `nacl_map_code()` is a syscall, it can avoid the first copy.
