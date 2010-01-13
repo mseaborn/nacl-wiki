@@ -24,6 +24,7 @@ Confinement:  Although it is not in general possible to prevent programs _writin
     * Multiple threads
     * Multiple processes
     * It may be possible to construct safe forms of multi-process concurrency that don't expose non-determinism.
+ * x86 CPUID instruction.  This is not only used to get the CPU type.  It is also before RDTSC for its side effect of synchronising the CPU.  We could permit the side-effect-only usage by requiring CPUID to be followed an instruction that overwrites the target register, `%eax`.
  * sleep() and nanosleep(), _if_ they return the remaining time.  If they don't return a time, they are not very useful in the absence of concurrency (safe but useless).
  * Memory allocation success/failure:  When allocation fails, don't return an error directly to the guest process.  Return the error to the host process, which can decide how to handle it, e.g. abort the guest.
  * Allocation policies for address space (addresses chosen by mmap()) and FDs (FD numbers chosen by open()).
