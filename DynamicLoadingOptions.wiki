@@ -7,7 +7,11 @@ _Draft_
 <wiki:toc/>
 
 == Introduction ==
-Native Client needs to ensure that only validated code can be executed.  This requires a mechanism to separate code and data.  If we are to extend Native Client to support dynamic loading of code, there are two classes of interface we might provide for doing it:
+Native Client needs to ensure that only validated code can be executed.  This requires a mechanism to separate code and data.  We would like to extend Native Client to support dynamic loading of code.  There are two main use cases for this:
+ * Dynamic libraries
+ * Language implementations with JIT (just-in-time) compilers
+
+There are two types of interface that we might provide for loading code dynamically:
  * InterleavedCode:  Code can be loaded with a validate-and-mmap operation which allows code and data to be interleaved in address space.  This can be implemented using the [http://en.wikipedia.org/wiki/NX_bit no-execute (NX) bit], which is supported by some but not all systems.  On older x86 systems that do not support NX page protection, we can use a "Harvard architecture" approach in which the x86 code and data segments are disjoint.
  * ContiguousCode:  A contiguous range of address space (typically at the bottom of address space) is reserved for code.  Only validated code can be loaded into this range, and nothing can be executed outside this range.
 
