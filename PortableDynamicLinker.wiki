@@ -50,3 +50,8 @@ get_machine_type() can be a function which returns a constant at runtime, in whi
 In terms of programming language design, this is a more principled approach than using a preprocessor for conditional compilation.  It has the advantage that the compiler type checks all variants of the code.  In contrast, using preprocessor conditionals can produce a combinatorial explosion of compile configurations which are hard to test; it is easy to make changes that fail to build on some configurations.
 
 All the targeted architectures will use ILP32 with the same struct layout, so we can use ELFCLASS32 for all binaries, even on x86-64.
+
+== Caveat ==
+Suppose someone ports NaCl to PowerPC.  This is not very useful to PowerPC users if existing web apps' copies of ld.so are portable binaries but these predate the addition of PowerPC support.  ld.so would need to support relocations for PowerPC (`R_PPC_*`).
+
+There could be a mechanism for the browser/NaCl to supply overrides.  NaCl would provide a copy of ld.so for the local architecture.  The web app would _voluntarily_ use this instead of its own copy (assuming glibc versions match up).
