@@ -35,14 +35,15 @@ Confinement:  Although it is not in general possible to prevent programs _writin
 || Timers || yes || yes ||
 || Concurrency || yes || yes ||
 || CPUID || no || yes ||
-|| Allocation success/failure || maybe || yes ||
+|| Allocation success/failure || maybe: depends whether it makes system-wide allocation limits visible || yes ||
 || Allocation layout || no || yes ||
 || Short read/writes || depends what causes them || yes ||
 || getpid() || yes, if launching new processes is allowed || yes ||
 
 == Related work ==
  * [http://code.google.com/p/joe-e/ Joe-E], a subset of Java:  Joe-E allows methods to be statically verified as functionally pure and deterministic.  See [http://www.cs.berkeley.edu/~daw/papers/pure-ccs08.pdf Verifiable Functional Purity in Java], Matthew Finifter, Adrian Mettler, Naveen Sastry, David Wagner; October 2008.
- * Caja
+ * [http://code.google.com/p/google-caja/ Caja], a subset of Javascript.  Caja is being extended to provide a [http://code.google.com/p/google-caja/issues/detail?id=1175 deterministic subset].
+    * [http://code.google.com/p/google-caja/wiki/SourcesOfNonDeterminism Sources of non-determinism] in Javascript
 
 == Caveats ==
 Determinism only applies within a given target architecture.  Assuring that, for example, ARM and x86-32 give the same results is out of scope.
