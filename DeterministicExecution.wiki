@@ -31,6 +31,15 @@ Confinement:  Although it is not in general possible to prevent programs _writin
  * read()/write(): short reads/writes.
  * getpid()
 
+|| *Source* || *Need to constrain for confinement?* || *Need to constrain for build system determinism?* ||
+|| Timers || yes || yes ||
+|| Concurrency || yes || yes ||
+|| CPUID || no || yes ||
+|| Allocation success/failure || maybe || yes ||
+|| Allocation layout || no || yes ||
+|| Short read/writes || depends what causes them || yes ||
+|| getpid() || yes, if launching new processes is allowed || yes ||
+
 == Related work ==
  * Joe-E
  * Caja
