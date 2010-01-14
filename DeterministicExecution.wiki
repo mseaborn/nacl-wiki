@@ -41,7 +41,7 @@ Confinement:  Although it is not in general possible to prevent programs _writin
 || getpid() || yes, if launching new processes is allowed || yes ||
 
 == Related work ==
- * Joe-E
+ * [http://code.google.com/p/joe-e/ Joe-E], a subset of Java:  Joe-E allows methods to be statically verified as functionally pure and deterministic.  See [http://www.cs.berkeley.edu/~daw/papers/pure-ccs08.pdf Verifiable Functional Purity in Java], Matthew Finifter, Adrian Mettler, Naveen Sastry, David Wagner; October 2008.
  * Caja
 
 == Caveats ==
