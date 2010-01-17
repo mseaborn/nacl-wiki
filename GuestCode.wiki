@@ -1,0 +1,16 @@
+#summary Establishing a sandbox within Native Client's sandbox
+
+= Guest code in Native Client =
+
+== Introduction ==
+Web apps may wish to run _guest code_ under Native Client -- that is, code which runs with less authority than the web app itself.  The guest code is less trusted than the main web app.
+
+For example, guest code might not be allowed to use the cookies for the web app's origin.  Guest code might have limited access to the DOM.
+
+== Requirements ==
+ * No sources of ambient authority, i.e. syscalls that provide authority without requiring a descriptor argument
+    * open(): only available in debug mode
+ * Ability to choose what descriptors a NaCl process is started with
+
+== See also ==
+ * DeterministicExecution: a restriction that could be applied to some guest code
