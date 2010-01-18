@@ -1,8 +1,8 @@
-#summary Removing sources of non-determinism
+#summary Disabling sources of non-determinism for guest code
 
 = Deterministic execution =
 
-Some users of NaCl (web apps and non-web apps) may want to run guest code and be assured that its execution is deterministic.
+Some users of NaCl (web apps and non-web apps) may want to run [GuestCode guest code] and be assured that its execution is deterministic.
 
 Use cases:
  * Build systems:  Run a compiler and be sure that it always produces the same output.
