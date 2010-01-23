@@ -13,7 +13,7 @@ Here are the current "tarball" downloads:
 
   * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_linux_782a_2010_01_22.tgz Source with prebuilt binaries and SDK: Linux] (40M - sha1 caf55c6a4470cbede54216482058725be72927a5)
   * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_mac_782_2010_01_22.tgz Source with prebuilt binaries and SDK: Mac] (37M - sha1 1484dca44e1a47eb052e41dc4e32a19a20102965)
-  * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_windows_782a_2010_01_08.zip Source with prebuilt binaries and SDK: Windows] (65M - sha1 5a222c32fcb060532f1657c40b51c02e7a4682fb)
+  * [http://build.chromium.org/buildbot/snapshots/nacl_tarballs/nacl_windows_782a_2010_01_22.zip Source with prebuilt binaries and SDK: Windows] (65M - sha1 6c832875a0dffe82855923f5b58f3ae791c507ee)
 
 See the
 [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html Getting Started guide] for instructions on extracting and installing the Native Client files.
