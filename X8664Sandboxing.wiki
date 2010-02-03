@@ -37,6 +37,8 @@ Disassembly fragment:
 
 The instruction `mov %eax,%eax` is not a no-op; it truncates `%rax` to 32 bits.
 
+Sandboxing of reads is optional.  Without it, we get integrity but not necessarily confidentiality, depending on what else is mapped into address space.  sel_ldr would need to be careful not to map sensitive information.  We may need to worry about the presence of other DLLs (see [WindowsDLLInjectionProblem]).  We would want sandboxing of reads in cases where we want to enforce DeterministicExecution.
+
 == Memory write ==
 C code:
 {{{
