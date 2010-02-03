@@ -22,3 +22,4 @@ If the mmap() operation fails, a DLL has been injected, and `sel_ldr` has to abo
 
 == See also ==
  * [http://en.wikipedia.org/wiki/DLL_injection DLL injection] on Wikipedia
+ * [X8664Sandboxing]: the potential presence of DLLs affects whether we want to do sandboxing of read instructions
