@@ -30,7 +30,7 @@ Confinement:  Although it is not in general possible to prevent programs _writin
  * Allocation policies for address space (addresses chosen by mmap()) and FDs (FD numbers chosen by open()).
  * read()/write(): short reads/writes.
  * getpid()
- * Non-sandboxing of reads:  On ARM and x86-64, memory reads will not normally be sandboxed for performance reasons.
+ * Non-sandboxing of reads:  On ARM and [X8664Sandboxing x86-64], memory reads will not normally be sandboxed for performance reasons.
  * Default setting of the "extended precision" flag for x87 floating point arithmetic ([http://code.google.com/p/nativeclient/issues/detail?id=253 issue 253]).
 
 || *Source* || *Need to constrain for confinement?* || *Need to constrain for build system determinism?* ||
