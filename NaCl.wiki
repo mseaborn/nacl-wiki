@@ -1,0 +1,3 @@
+= Introduction =
+
+NaCl is an abbreviation frequently used when referrring to NativeClient.
