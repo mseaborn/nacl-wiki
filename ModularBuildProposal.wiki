@@ -13,7 +13,15 @@ I propose that we modularise the build system for NaCl so that it has the follow
  # There is a common interface that each module provides for building itself.
  # The build tool can be replaced with another.  The description of the module set is separate from the modules themselves.
 
-This is as opposed to a monolithic build system.  The main characteristic of a monolithic build is that any part of the build can reference any other part via relative filenames.
+In practice, this means that each module should:
+ # Locate its dependencies through environment variables and explicitly-passed arguments.  Modules should not reach outside their source/build directories to find dependencies using relative pathnames.  (However, for practical reasons, using some system-installed dependencies, i.e. programs in /usr, is OK.)
+ # Support `--prefix` (or an equivalent).
+ # Support build dirs that are separate from source dirs (not essential, but preferable).
+ # Support the `DESTDIR` argument to `make install` or an equivalent.  (If `DESTDIR` is missing, we can work around this using `--prefix`, but it's a pain.)
+
+We contrast modular build systems to monolithic build systems.  The main characteristic of a monolithic build is that any part of the build can reference any other part via relative filenames.
+
+== Applicability to Native Client ==
 
 There are three areas where we might wish to apply this:
  * The toolchain: binutils, gcc (pre-gcc and the full gcc), newlib, libnacl, pthread library, etc.  This is currently built by tools/Makefile, which invokes Scons.  There is a separate script for building the ARM toolchain.
