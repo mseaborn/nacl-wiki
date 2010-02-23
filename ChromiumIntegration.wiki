@@ -1,0 +1,17 @@
+#summary How Chromium's NaCl integration works
+
+== Build system ==
+
+Most of NaCl, including the trusted runtime and tests, is built using Scons.  However, Chromium ignores NaCl's Scons build system and uses Gyp to build NaCl (in the same way as it ignores Webkit's own build system).  This is why there are `*.gyp` and `*.gypi` files in the NaCl tree, though the NaCl standalone build doesn't use them.  These Gyp files cover NaCl's trusted code but not tests.
+
+== sel_ldr ==
+
+On some systems, the code that is normally in sel_ldr is statically linked into the chromium executable.  (The Gyp build also has a target to build a standalone sel_ldr, but this is mainly for testing purposes.)
+
+== Platform support ==
+
+|| *Platform* || *Chromium process* || *NaCl process* || *Sandbox supported?* ||
+|| Linux, x86-32 || 32-bit || 32-bit || no ||
+|| Linux, x86-64 || 64-bit || 64-bit (currently) || no ||
+|| Windows, x86-32 || 32-bit || 32-bit || yes ||
+|| Windows, x86-64 || 32-bit || 64-bit || yes ||
