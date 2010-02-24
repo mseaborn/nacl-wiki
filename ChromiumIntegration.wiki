@@ -10,7 +10,7 @@ On some systems, the code that is normally in sel_ldr is statically linked into 
 
 == Platform support ==
 
-|| *Platform* || *Chromium process* || *NaCl process* || *Sandbox supported?* ||
+|| *Platform* || *Chromium process* || *NaCl process* || *Outer sandbox supported?* ||
 || Linux, x86-32 || 32-bit || 32-bit || no(1) ||
 || Linux, x86-64 || 64-bit || 64-bit (currently)(2) || no(1) ||
 || Windows, x86-32 || 32-bit || 32-bit || yes ||
