@@ -1,7 +1,7 @@
 #summary Making NaCl work with Chromium's Linux sandbox
 
 == Introduction ==
-Currently NaCl's Chromium integration does not work when combined with Chromium's Linux sandbox (specifically, the SUID sandbox).  Using NaCl under Chromium requires the options `--internal-nacl --no-sandbox` (e.g. see [http://googlechromereleases.blogspot.com/2010/02/dev-channel-update_12.html this announcement]).
+Currently NaCl's Chromium integration does not work when combined with Chromium's [http://code.google.com/p/chromium/wiki/LinuxSandboxing Linux sandbox] (specifically, the [http://code.google.com/p/chromium/wiki/LinuxSUIDSandbox SUID sandbox]).  Using NaCl under Chromium requires the options `--internal-nacl --no-sandbox` (e.g. see [http://googlechromereleases.blogspot.com/2010/02/dev-channel-update_12.html this announcement]).
 
 == Tasks ==
 The following things need to be done to make this work:
@@ -9,5 +9,7 @@ The following things need to be done to make this work:
  * Make the combination work without `--no-sandbox`.  This means making the renderer process work.
     * Currently the plugin gives an assertion failure when it fails to open `/dev/urandom`, killing the renderer process.  The fix is to open `/dev/urandom` before switching on sandboxing.
     * The SRPC plugin tries to open `/dev/shm/XXX` to use shared memory, which fails.
- * Ensure that standalone sel_ldr can work under the sandbox.  Test this by running NaCl's test cases in this sandbox.
- * Ensure that the sel_ldr side of the NaCl plugin works under the sandbox.  Is there a way of testing this in isolation from the web browser?
+ * Make sel_ldr run under the sandbox:
+    * Ensure that standalone sel_ldr can work under the sandbox.  Test this by running NaCl's test cases in this sandbox.  (Some tests will work but others require filesystem access and will not work.)
+    * Ensure that the sel_ldr side of the NaCl plugin works under the sandbox.  Is there a way of testing this in isolation from the web browser?
+    * Hook it up in Chromium so that sel_ldr is launched in the sandbox.
