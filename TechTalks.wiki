@@ -38,3 +38,6 @@ Past tech talks:
   * 28 May 2009: Google I/O
   * 24 June 2009: Velocity Conference
   * 8 October 2009: University of Washington
+  * 15 December 2009: Max Plank Institute, Saarbruken, Germany
+  * 18 December 2009: Ecole Polytechnique Federale de Lausanne, Switzerland
+  * 25 February 2010: Colorado University, Boulder
