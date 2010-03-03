@@ -13,6 +13,9 @@ There is currently no design doc for our Platform Qualification routine, a check
 == x86-Specific Checks ==
   * We require the CPUID instruction.  We also require that it works.
 
+== x86-64-Specific Checks ==
+  * We require NX support to be present in both the CPU and OS.
+
 == ARM-Specific Checks ==
   * We require a minimum architecture of ARMv7 (currently v7-A, to be precise).  (Note: this could be relaxed to ARMv6T2 without correctness impact, but we'd lose parity with x86's atomic ops by losing `ldrexd` and `strexd`.)
   * We may need to detect the particular FPU variation and scribble incompatible instructions with HLTs.  ("May" because, in practice, the FPU ops are often coprocessor ops, and we can reason about their effects without knowing which precise rev we're dealing with -- since we can reliably decode unknown instructions in the coprocessor space.)
@@ -21,7 +24,7 @@ There is currently no design doc for our Platform Qualification routine, a check
 _This is broken out only because we're not sure whether we can reasonably expect all ARM kernels to support XN._
 
   * We require the underlying operating system to correctly configure XN bits for our non-executable sections.
-  * We require the boundary between text and data to fall at the edge of a page.
+  * We require the boundary between text and data to fall at the edge of a page.  (Not enforced by PQ per se, just noting it here.)
 
 === ARM w/o XN support ===
   * We require the boundary between text and data to fall at a power of two from the base address.
