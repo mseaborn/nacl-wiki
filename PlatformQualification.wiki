@@ -1,0 +1,36 @@
+#summary The system that ensures NaCl can safely run on your computer.
+
+= Introduction =
+
+There is currently no design doc for our Platform Qualification routine, a check which runs as the sandbox starts.  This page is intended to evolve into such a design doc.
+
+= Things We Need To Check =
+
+== Cross-Architecture Common Checks ==
+  * We must be able to secure a contiguous chunk of VA space (currently 1GiB) that meets the architecture's requirements.  (Note: this is not actually verified during platform qualification, but during address-space squatting.  Note also that this may change from moment to moment on Windows.)
+  * The CPU must not be on a blacklist (TBD) of CPU models with known issues.  (How the CPU is identified is architecture-specific.)
+
+== x86-Specific Checks ==
+  * We require the CPUID instruction.  We also require that it works.
+
+== ARM-Specific Checks ==
+  * We require a minimum architecture of ARMv7 (currently v7-A, to be precise).  (Note: this could be relaxed to ARMv6T2 without correctness impact, but we'd lose parity with x86's atomic ops by losing `ldrexd` and `strexd`.)
+  * We may need to detect the particular FPU variation and scribble incompatible instructions with HLTs.  ("May" because, in practice, the FPU ops are often coprocessor ops, and we can reason about their effects without knowing which precise rev we're dealing with -- since we can reliably decode unknown instructions in the coprocessor space.)
+
+=== ARM with XN support ===
+_This is broken out only because we're not sure whether we can reasonably expect all ARM kernels to support XN._
+
+  * We require the underlying operating system to correctly configure XN bits for our non-executable sections.
+  * We require the boundary between text and data to fall at the edge of a page.
+
+=== ARM w/o XN support ===
+  * We require the boundary between text and data to fall at a power of two from the base address.
+
+== Linux-Specific Checks (All Archs) ==
+  * SysV SHM must be supported and pass certain feature tests, including interacting predictably with mmap (see `src/trusted/platform_qualify/linux/sysv_shm_and_mmap.c`).
+
+== Mac OS X-Specific Checks (All Archs) ==
+_No checks currently implemented._
+
+== Windows-Specific Checks (All Archs) ==
+  * `GetVersionEx` must be present, operational, and indicate Windows 5.1 (XP) or later.
