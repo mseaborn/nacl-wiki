@@ -21,4 +21,4 @@ On some systems, the code that is normally in sel_ldr is statically linked into 
  # See LinuxOuterSandbox
  # Alternatively, we could use a 32-bit sel_ldr process with 64-bit browser/renderer processes.
  # For simplicity, Chromium uses the same 32-bit executable on both 32-bit and 64-bit Windows.  However, we cannot use the 32-bit sel_ldr on Windows 64, because these versions of Windows drop support for setting up x86 segmentation, which the x86-32 version of NaCl relies on.
- # sel_ldr for Mac OS X will use the sandbox facility (http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man7/sandbox.7.html)
+ # sel_ldr for Mac OS X will use the sandbox facility before starting the main thread.  See http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man7/sandbox.7.html
