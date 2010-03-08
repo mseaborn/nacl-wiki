@@ -6,7 +6,17 @@ Most of NaCl, including the trusted runtime and tests, is built using Scons.  Ho
 
 == sel_ldr ==
 
-On some systems, the code that is normally in sel_ldr is statically linked into the chromium executable.  (The Gyp build also has a target to build a standalone sel_ldr, but this is mainly for testing purposes.)
+On some systems, the code that is normally in sel_ldr is statically linked into the Chromium executable.  (The Gyp build also has a target to build a standalone sel_ldr, but this is mainly for testing purposes.)
+
+Linking sel_ldr into Chromium has some advantages:
+ * It reduces version skew issues.
+ * It makes it easier to run sel_ldr inside the sandbox.  On Linux, sel_ldr can be launched by forking Chromium's Zygote process, which is already set up to be sandboxed.  This can also reduce per-instance startup costs a little.
+ * It makes it easier for sel_ldr to link to Chromium-specific code (e.g. code specific to the Chromium Linux sandbox).
+
+However, there also some good reasons to build sel_ldr as a separate executable:
+ * On Windows 64, sel_ldr needs to be a 64-bit executable, while Chromium itself is 32-bit, so they cannot be linked together.
+ * On ARM, sel_ldr needs to get control early in the process startup in order to reserve the bottom chunk of address space.
+ * Even on x86-32, address space is relatively limited, so it would be beneficial to avoid loading non-NaCl Chromium code into sel_ldr's address space.
 
 == Platform support ==
 
