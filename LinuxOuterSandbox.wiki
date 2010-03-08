@@ -21,3 +21,6 @@ Running NaCl under the seccomp sandbox raises the following issues:
     * Immediate problem:  NaClCommonDescMakeBoundSock() in nrd_xfer.c goes into an infinite loop because NaClBoundSocket() repeatedly fails.
     * We should probably abandon [IMCSockets]' concept of SocketAddress/BoundSockets having names.  We can use Linux SOCK_SEQPACKET sockets for these endpoints instead; these will be unforgeable, not just unguessable.
  * x86's RDTSC instruction.  See [http://groups.google.com/group/native-client-discuss/browse_frm/thread/9ec643194eef0461/0ff10fbdff26db2f this thread].
+
+== Breakpad ==
+The Linux SUID sandbox marks sandboxed processes as undumpable, which stops them from being ptrace()'d.  This appears to prevent the Breakpad crash reporting system from working, since Breakpad currently uses ptrace() to read processes' state.
