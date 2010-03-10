@@ -2,8 +2,8 @@
 
 == Design documents ==
 
- * [https://docs.google.com/a/google.com/Doc?docid=0AST9ueNHMPmXZGM5eDcza2ZfNmN4NDQ2ZGM1&hl=en Chromium integration for Win32, Linux and Mac]
- * [https://docs.google.com/a/google.com/Doc?docid=0AST9ueNHMPmXZGM5eDcza2ZfM2hoYnd0cmd3&hl=en Chromium integration for Win64]
+ * [Chromium integration for Win32, Linux and Mac]
+ * [Chromium integration for Win64]
 
 == Build system ==
 
