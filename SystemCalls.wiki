@@ -1,0 +1,72 @@
+#summary Native Client system calls
+
+The syscall numbers are defined in [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/src/trusted/service_runtime/include/bits/nacl_syscalls.h src/trusted/service_runtime/include/bits/nacl_syscalls.h].
+
+ * close
+ * read
+ * write
+ * lseek
+
+ * sysbrk
+ * mmap
+ * munmap
+
+ * getdents
+
+ * exit
+ * getpid
+ * sched_yield
+ * sysconf
+
+ * gettimeofday
+ * clock
+ * nanosleep
+
+ * imc_makeboundsock
+ * imc_accept
+ * imc_connect
+ * imc_sendmsg
+ * imc_recvmsg
+ * imc_mem_obj_create:  create shared memory segment
+ * imc_socketpair
+
+ * mutex_create
+ * mutex_lock
+ * mutex_trylock
+ * mutex_unlock
+ * cond_create
+ * cond_wait
+ * cond_signal
+ * cond_broadcast
+ * cond_timed_wait_abs
+ * sem_create
+ * sem_wait
+ * sem_post
+ * sem_get_value
+
+ * thread_create
+ * thread_exit
+ * tls_init
+ * thread_nice
+ * tls_get
+
+ * srpc_get_fd:  what is this for?
+
+== No-ops ==
+ * null: for testing purposes only
+ * ioctl: not implemented
+
+== Debug mode syscalls ==
+ * open
+ * stat
+ * chmod
+
+ * multimedia_init
+ * multimedia_shutdown
+ * video_init
+ * video_shutdown
+ * video_update
+ * video_poll_event
+ * audio_init
+ * audio_shutdown
+ * audio_stream
