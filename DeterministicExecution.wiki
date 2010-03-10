@@ -50,6 +50,7 @@ Confinement:  Although it is not in general possible to prevent programs _writin
 == See also ==
  * [http://code.google.com/p/v8/issues/detail?id=436 V8 issue 436] about x87 extended precision
  * [http://code.google.com/p/nativeclient/issues/detail?id=84 NaCl issue 84] about RDTSC and side channels
+ * SystemCalls
 
 == Caveats ==
 Determinism only applies within a given target architecture.  Assuring that, for example, ARM and x86-32 give the same results is out of scope.
