@@ -2,11 +2,13 @@
 
 The syscall numbers are defined in [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/src/trusted/service_runtime/include/bits/nacl_syscalls.h src/trusted/service_runtime/include/bits/nacl_syscalls.h].
 
+File descriptor operations:
  * close
  * read
  * write
  * lseek
 
+Memory allocation:
  * sysbrk
  * mmap
  * munmap
@@ -18,10 +20,12 @@ The syscall numbers are defined in [http://code.google.com/p/nativeclient/source
  * sched_yield
  * sysconf
 
+Timers:
  * gettimeofday
  * clock
  * nanosleep
 
+[IMCSockets IMC socket] calls:
  * imc_makeboundsock
  * imc_accept
  * imc_connect
@@ -30,6 +34,7 @@ The syscall numbers are defined in [http://code.google.com/p/nativeclient/source
  * imc_mem_obj_create:  create shared memory segment
  * imc_socketpair
 
+Synchronisation operations:
  * mutex_create
  * mutex_lock
  * mutex_trylock
@@ -44,6 +49,7 @@ The syscall numbers are defined in [http://code.google.com/p/nativeclient/source
  * sem_post
  * sem_get_value
 
+Threading operations:
  * thread_create
  * thread_exit
  * tls_init
@@ -61,6 +67,7 @@ The syscall numbers are defined in [http://code.google.com/p/nativeclient/source
  * stat
  * chmod
 
+Sound/graphics interfaces for standalone mode; superseded by NPAPI plugin interfaces:
  * multimedia_init
  * multimedia_shutdown
  * video_init
@@ -70,3 +77,7 @@ The syscall numbers are defined in [http://code.google.com/p/nativeclient/source
  * audio_init
  * audio_shutdown
  * audio_stream
+
+== Omissions ==
+ * dup
+ * dup2
