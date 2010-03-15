@@ -14,3 +14,5 @@ For example, guest code might not be allowed to use the cookies for the web app'
 
 == See also ==
  * DeterministicExecution: a restriction that could be applied to some guest code
+ * SystemCalls
+ * Caja's [http://code.google.com/p/google-caja/wiki/FlashBridge Flash bridge]: this indicates that Flash has the ability to run guest code to some extent
