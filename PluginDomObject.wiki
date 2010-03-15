@@ -1,0 +1,19 @@
+#summary Interface provided by the plugin's DOM object
+
+Using the `<embed>` element creates a plugin DOM object.  The NaCl plugin object has the following methods:
+
+ * `__urlAsNaClDesc`
+ * `__shmFactory`
+ * `__socketAddressFactory`
+ * `__defaultSocketAddress`
+ * `__nullPluginMethod`
+
+It has the following properties:
+
+ * `height`
+ * `width`
+ * `src`
+ * `__moduleReady`
+ * `videoUpdateMode`
+
+These methods and properties are hooked up in [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/src/trusted/plugin/srpc/plugin.cc plugin/srpc/plugin.cc].
