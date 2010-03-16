@@ -28,6 +28,7 @@ However, there also some good reasons to build sel_ldr as a separate executable:
 || *Platform* || *Chromium process* || *NaCl process* || *Outer sandbox supported?* ||
 || Linux, x86-32 || 32-bit || 32-bit || yes(1) ||
 || Linux, x86-64 || 64-bit || 64-bit (currently)(2) || yes(1) ||
+|| Linux, ARM || 32-bit || 32-bit || in principle, yes(1) ||
 || Windows, x86-32 || 32-bit || 32-bit || yes ||
 || Windows, x86-64 || 32-bit(3) || 64-bit || yes ||
 || Mac OS X, x86-32 || 32-bit || 32-bit || no(4) ||
