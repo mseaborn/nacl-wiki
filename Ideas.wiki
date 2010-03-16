@@ -1,5 +1,19 @@
 #summary Project Ideas for Native Client.
 
+=== Summer Projects for Google Summer of Code ===
+  * Port the FlightGear flight simulator to Native Client. See http://www.flightgear.org. Difficulty: Hard
+  * Port the Frets on Fire music game to Native Client. See: http://fretsonfire.sourceforge.net. Difficulty: Hard
+  * Port the Freeciv game to Native Client. See http://freeciv.net. Difficulty: Hard
+  * Port the MAME arcade game simulator to Native Client. See http://mamedev.org. Difficulty: Hard
+  * Port the GIMP image editor to Native Client. Difficulty: Hard
+  * Implement deterministic execution for Native Client. Difficulty: Very Hard
+  * Create a test suite for Basic Platform Independent NPAPI. Difficulty: Hard
+  * Platform Independent NPAPI. Subprojects: 2D, Events, NPAPI. Difficulty: Hard
+  * Create an infrastructure for automated testing of audio synthesis. Difficulty: Very Hard
+  * Create an infrastructure for automated testing of GPU-based graphics. Difficulty: Very Hard
+
+=== General Project Areas ===
+
 === Testing ===
   * Contribute tests. We always need more tests.
   * Write fuzzing tests for Native Client module interfaces.
