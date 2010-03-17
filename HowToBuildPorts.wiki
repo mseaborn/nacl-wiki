@@ -1,0 +1,7 @@
+#summary How to build x86-64 NaCl
+
+== Building on Linux ==
+ * Check out the NaCl source using gclient
+ * `sudo apt-get install libsdl1.2-dev` # There may be other dependencies
+ * `cd native_client/tools && make CROSSARCH=nacl64 GCC_VERSION=4.4.3 SDKLOC=$(cd .. && echo $(pwd)/src/third_party/nacl_sdk/linux64/sdk)`
+ * `cd native_client && ./scons --mode=dbg-linux platform=x86-64`
