@@ -14,7 +14,7 @@ How you should get the Native Client source code depends on what you want to do 
 <dd> Get the source code and build it.  Getting buildable source code requires Subversion and the Chromium depot tools. Building Native Client requires Python and a platform-dependent build environment. Instructions are in *Getting buildable source code*, below. </dd>
 
 <dt> *To use a pre-built version*: </dt>
-<dd> <a href="http://code.google.com/p/nativeclient/wiki/Downloads?tm=2">Download a tarball</a>. Currently, the tarball has the full, buildable source code for Native Client. Over time, we intend to reduce the tarball's size and scope so that it becomes an SDK containing only the files that developers need to create, debug, and test Native Client modules. </dd>
+<dd> <a href="http://code.google.com/p/nativeclient/wiki/Downloads?tm=2">Download a tarball</a>. Currently, the tarball has the full, buildable source code for Native Client. Over time, we intend to reduce the tarball's size and scope so that it contains only the files that developers need to create, debug, and test Native Client modules. </dd>
 </dl>
 
 
