@@ -5,6 +5,15 @@
 It will soon become possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
 At first, Valgrind be able to debug only the trusted code base. Later in 2010 we plan to enable testing the untrusted code too. 
 
+= Terminology =  
+  * *Valgrind* is a binary translation system. 
+  * *Memcheck* is a Valgrind-based memory error detector which finds these bugs:
+     * Memory leaks
+     * Uninitialized memory reads
+     * Out of bound memory accesses
+     * Accesses to free-ed heap
+     * Some more 
+
 = Running Valgrind/Memcheck=
 Currently, Valgrind for NaCl is supported only on Linux x86_64. From `native_client` directory you can run it like this: 
 {{{
@@ -25,12 +34,11 @@ src/third_party/valgrind/bin/memcheck.sh --help
 }}}
 
 = Implementation details =
-
-
 Valgrind treats the NaCl process (`sel_ldr`) as any other regular Linux process. 
-The only difference is when NaCl mmaps 84G of memory, Valgrind ignores this allocation. 
+The only difference is when NaCl mmaps 84G for untrusted region, Valgrind ignores this allocation. 
+So, initially, all memory within untrusted region is treated by Memcheck as unaccessible.
 
-Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where the code resides. 
+Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where put the untrusted code. 
 
 The rest of the memory in untrusted part is currently ignored by Memcheck because heap, stack and bss are marked with `mprotect` before the first use (right?). 
 In order to find bugs in untrusted code we will have to annotate untrusted malloc with VALGRIND_MAKE_MEM_UNDEFINED. 
