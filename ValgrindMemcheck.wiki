@@ -1,0 +1,36 @@
+#summary Running Valgrind/Memcheck on NaCl
+
+= Introduction =
+
+It will soon become possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
+At first, Valgrind be able to debug only the trusted code base. Later in 2010 we plan to enable testing the untrusted code too. 
+
+= Running Valgrind/Memcheck=
+Currently, Valgrind for NaCl is supported only on Linux x86_64. From `native_client` directory you can run it like this: 
+{{{
+./scons MODE=nacl,dbg-linux   platform=x86-64  sdl=none  run_under=src/third_party/valgrind/bin/memcheck.sh,--log-file=mc.log scale_timeout=20  run_hello_world_test
+}}}
+
+  * `run_under` allows you to pass the name of the tool under which you want to run tests. If the tool has options, pass them after comma: 'tool,--opt1,--opt2'. (the tool name and the parameters can not contain commas)
+  * `scale_timeout=20` multiplies all timeouts by 20 (Remember, valgrind is slow!).
+  * `src/third_party/valgrind/bin/memcheck.sh` is a modified valgrind binary which can run on NaCl. 
+  * The most useful valgrind parameters: 
+    * `--log-file=<file_name>`: put warnings to a file instead of `stderr`.
+    * `--error-exitcode=<N>`: if at least one warning is reported, exit with this error code (by default, valgrind uses the program's exit code)
+    * `--leak-check=no|yes|full`: Perform leak checking (default: yes)
+
+For more options, see the [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs Memcheck manual] or type
+{{{
+src/third_party/valgrind/bin/memcheck.sh --help
+}}}
+
+= Implementation details =
+
+
+Valgrind treats the NaCl process (`sel_ldr`) as any other regular Linux process. 
+The only difference is when NaCl mmaps 84G of memory, Valgrind ignores this allocation. 
+
+Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where the code resides. 
+
+The rest of the memory in untrusted part is currently ignored by Memcheck because heap, stack and bss are marked with `mprotect` before the first use (right?). 
+In order to find bugs in untrusted code we will have to annotate untrusted malloc with VALGRIND_MAKE_MEM_UNDEFINED. 
