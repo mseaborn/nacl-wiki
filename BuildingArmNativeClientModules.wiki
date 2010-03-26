@@ -1,6 +1,6 @@
-Building Arm Native Client Modules
+#summary Building Native Client Modules For ARM Platforms
 
-=Building Arm Native Client Modules=
+=Building Native Client Modules For ARM Plaforms=
 
 ==Obtaining Toolchains== 
 
