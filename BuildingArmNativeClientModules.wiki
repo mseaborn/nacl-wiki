@@ -54,6 +54,12 @@ NOTE:
 
 ==Running Simple Tests==
 
+== Build an ARM Validator Running on X86==
+
+{{{
+./scons targetplatform=arm sdl=none arm-ncval-core
+}}}
+
 ===Exercise the trusted toolchain===
 {{{
 cd .../native_client/
@@ -92,8 +98,25 @@ and *barebones_hello_world.nexe* to the ARM machine and run
 .../sel_ldr -f .../barebones_hello_world.nexe
 }}}
 
+If you do run inside QEMU, using the options: *-d cpu,in_asm,exec*
+generates a trace file into: /tmp/qemu.log 
 
 ===Running Lots of Tests In the Harness===
 {{{
 ./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test smoke_tests
+}}}
+
+
+==Advanced Topics==
+
+===Rebuilding Newlib===
+
+{{{
+tools/llvm/setup_arm_newlib.sh
+}}}
+
+===Rebuilding Other Base Libraries===
+
+{{{
+./scons  MODE=nacl_extra_sdk  platform=arm  sdl=none  naclsdk_mode=manual  naclsdk_validate=0  extra_sdk_clean extra_sdk_update_header install_libpthread  extra_sdk_update
 }}}
