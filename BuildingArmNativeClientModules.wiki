@@ -16,7 +16,7 @@ The untrusted toolchain builds nacl modules.
 
 You can download working toolchains using
 {{{
-./scons --download platform=arm
+./scons --download platform=arm sdl=none
 }}}
 
 You can also build the toolchains yourself using:
