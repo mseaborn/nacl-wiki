@@ -19,7 +19,7 @@ Currently, Valgrind for NaCl is supported only on Linux x86_64. From `native_cli
     * `--error-exitcode=<N>`: if at least one warning is reported, exit with this error code (by default, valgrind uses the program's exit code)
     * `--leak-check=no|yes|full`: Perform leak checking (default: yes)
 
-For more options, see the [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs Memcheck manual] or type
+For more options, see the [http://valgrind.org/docs/manual/mc-manual.html Memcheck manual] or type
 {{{
 src/third_party/valgrind/bin/memcheck.sh --help
 }}}
