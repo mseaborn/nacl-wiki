@@ -2,9 +2,30 @@
 
 =Building Native Client Modules For ARM Plaforms=
 
+NOTE: ARM development is only supported for linux systems
+
+==Configure Your System For Emulation Voa QEMU ==
+
+*You only need to do this once per machine*
+
+As root, edit /etc/sysctl.conf, e.g.
+
+sudo vi /etc/sysctl.conf
+
+Add a line to the end of the file reading
+
+vm.mmap_min_addr = 16384
+
+Alternatively run:
+
+everytime you reboot:
+
+echo "16384" > /proc/sys/vm/mmap_min_addr
+
+
 ==Obtaining Toolchains== 
 
-NOTE: ARM (cross) toolchains are only available for linux systems
+*You need to do this once for every checkout of the tree*
 
 You will need two toolchains: a trusted one and an untrusted one which live in
 
