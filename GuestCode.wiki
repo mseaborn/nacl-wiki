@@ -7,6 +7,10 @@ Web apps may wish to run _guest code_ under Native Client -- that is, code which
 
 For example, guest code might not be allowed to use the cookies for the web app's origin.  Guest code might have limited access to the DOM.
 
+== Use cases ==
+ * A web app may wish to embed and run NaCl code written by other people, e.g. gadgets that extend the web app's functionality.
+ * A web app may wish to use code that it controls without fully trusting it, such as complex legacy libraries (perhaps for image or video decoding) that might have buffer overrun vulnerabilities.  The web app does not want an attacker (who provides a malicious video file) to gain access to the web app's cookies.
+
 == Requirements ==
  * No sources of ambient authority
     * In NaCl, this means there should be no system calls that provide authority without requiring a descriptor argument.
