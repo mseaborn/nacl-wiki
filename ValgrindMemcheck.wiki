@@ -38,7 +38,7 @@ Valgrind treats the NaCl process (`sel_ldr`) as any other regular Linux process.
 The only difference is when NaCl mmaps 84G for untrusted region, Valgrind ignores this allocation. 
 So, initially, all memory within untrusted region is treated by Memcheck as unaccessible.
 
-Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where put the untrusted code. 
+Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where we put the untrusted code. 
 
 The rest of the memory in untrusted part is currently ignored by Memcheck because heap, stack and bss are marked with `mprotect` before the first use (right?). 
 In order to find bugs in untrusted code we will have to annotate untrusted malloc with VALGRIND_MAKE_MEM_UNDEFINED. 
