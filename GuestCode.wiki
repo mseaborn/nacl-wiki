@@ -8,9 +8,12 @@ Web apps may wish to run _guest code_ under Native Client -- that is, code which
 For example, guest code might not be allowed to use the cookies for the web app's origin.  Guest code might have limited access to the DOM.
 
 == Requirements ==
- * No sources of ambient authority, i.e. syscalls that provide authority without requiring a descriptor argument
-    * open(): only available in debug mode
- * Ability to choose what descriptors a NaCl process is started with
+ * No sources of ambient authority
+    * In NaCl, this means there should be no system calls that provide authority without requiring a descriptor argument.
+    * open(): On Unix, this is a source of ambient authority, but in NaCl it is only available outside the browser when in debug mode, which is OK.
+ * No unavoidably-granted authority
+    * In NaCl, this means it should be possible to choose what descriptors a NaCl process is started with.
+    * Currently, the `<embed>` element always starts NaCl processes with a descriptor that provides access to the DOM, providing access to all of the web app's ambient authority (cookies, etc.).  There is no way to start a process other than `<embed>`, so no way to start a new process without this descriptor.
 
 == See also ==
  * DeterministicExecution: a restriction that could be applied to some guest code
