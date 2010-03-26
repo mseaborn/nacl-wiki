@@ -1,0 +1,76 @@
+=Building Arm Native Client Modules=
+
+==Obtaining Toolchains== 
+
+NOTE: ARM (cross) toolchains are only available for linux systems
+
+You will need two toolchains: a trusted one and an untrusted one which live in
+
+  * .../native_client/compiler/linux_arm-trusted/
+  * ../native_client/compiler/linux_arm-untrusted/
+
+The trusted toolchain builds  browser plugins, sel_ldr, etc.
+The untrusted toolchain builds nacl modules.
+
+You can download working toolchains using
+{{{
+./scons --download platform=arm
+}}}
+
+You can also build the toolchains yourself using:
+
+{{{
+cd .../native_client/
+tools/llvm/trusted-toolchain-creator.sh  trusted_sdk
+tools/llvm/toolchain-creator.sh   untrusted_sdk
+}}}
+NOTE:
+  * this requires network access
+  * there will be an error messages about $1 being undefined - ignore it
+  * the last step will take for ever
+
+==Running Simple Tests==
+
+===Exercise the trusted toolchain===
+{{{
+cd .../native_client/
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 sel_ldr
+}}}
+
+===Exercise the untrusted toolchain===
+{{{
+cd .../native_client/
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 barebones_hello_world.nexe
+}}}
+
+===Running a Simple Test In the Harness===
+{{{
+cd .../native_client/
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test
+}}}
+
+To see what goes on under the hood here add *--verbose* to the commandline (and maybe *sysinfo=* to suppress some other messages)
+{{{
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test --verbose sysinfo=
+}}}
+
+You should see something like:
+{{{
+...
+/usr/local/google/ArmHardwareImages/gclients/gclient-nacl1/native_client/compiler/linux_arm-trusted/qemu-arm -cpu cortex-a8 -L /usr/local/google/ArmHardwareImages/gclients/gclient-nacl1/native_client/compiler/linux_arm-trusted/arm-2009q3/arm-none-linux-gnueabi/libc /usr/local/google/ArmHardwareImages/gclients/gclient-nacl1/native_client/scons-out/opt-linux-arm/staging/sel_ldr -f /usr/local/google/ArmHardwareImages/gclients/gclient-nacl1/native_client/scons-out/nacl-arm/obj/tests/sysbasic/barebones_hello_world.nexe
+...
+}}}
+
+You should be able to run this very same command line from your shell.
+Notice, that we are using qemu to run this test.
+If you want to run this test on real hardware you need to copy *sel_ldr*
+and *barebones_hello_world.nexe* to the ARM machine and run
+{{{
+.../sel_ldr -f .../barebones_hello_world.nexe
+}}}
+
+
+===Running Lots of Tests In the Harness===
+{{{
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test smoke_tests
+}}}
