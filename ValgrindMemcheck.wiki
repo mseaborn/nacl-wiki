@@ -2,8 +2,11 @@
 
 = Introduction =
 
-It will soon become possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
-At first, Valgrind be able to debug only the trusted code base. Later in 2010 we plan to enable testing the untrusted code too. 
+It is possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
+So far Valgrind is able to debug only the trusted code base. 
+Later in 2010 we plan to enable testing the untrusted code too. 
+
+Currently, Valgrind for NaCl is supported only on *Linux x86_64*.
 
 = Terminology =  
   * *Valgrind* is a binary translation system. 
