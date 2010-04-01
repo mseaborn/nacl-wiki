@@ -1,4 +1,4 @@
-# Top Level Wiki Page
+#summary Top Level Wiki Page
 
 = Resources for Native Client Executable Developers (SDK users) =
 
@@ -8,6 +8,7 @@
 
   * BuildSystems
   * GypBuild
+  * ChromiumIntegration  
 
 = Details =
 
