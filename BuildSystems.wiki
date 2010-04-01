@@ -31,7 +31,7 @@ The usual excuses:
 For SCons it is: SConstruct, `**/build.scons`, `**/nacl.scons`
 There are also relevant configuration files in `site_scons/site_tools/*`
 
-For Gyp it is: `**/*.gyp`
+For Gyp it is: `**/*.gyp` and `**/*.gypi`
 
 ==What is the difference between trusted and untrusted code?==
 
