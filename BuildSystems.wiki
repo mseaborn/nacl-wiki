@@ -26,10 +26,10 @@ The usual excuses:
 ==Which files contain build system information?==
 
 
-For SCons it is: SConstruct, **/build.scons, **/nacl.scons
-There are also relavant configuration files in site_scons/site_tools/*
+For SCons it is: SConstruct, `**/build.scons`, `**/nacl.scons`
+There are also relavant configuration files in `site_scons/site_tools/*`
 
-For Gyp it is: **/*.gyp
+For Gyp it is: `**/*.gyp`
 
 ==What is the difference between trusted and untrusted code?==
 
@@ -40,22 +40,22 @@ For Gyp it is: **/*.gyp
 It is compiled using regular compilers.
 Bugs in trusted code can compromise system security, hence the name.
 As far as the build system is concerned trusted code
-is described in **/build.scons files.
+is described in `**/build.scons` files.
 The Gyp system only code trusted code.
-"trusted code" lives in src/trusted/**
+"trusted code" lives in `src/trusted/**`
 
 "untrusted code" encompasses components like:
 * quake and other examples of Native Client executables
 * libraries necessary to build quake
 It is compiled using special sandboxing compilers.
 As far as the build system is concerned trusted code
-is described in **/nacl.scons files.
-"trusted code" lives in src/untrusted/**
-and also in tests/**
+is described in `**/nacl.scons` files.
+"trusted code" lives in `src/untrusted/**`
+and also in `tests/**`
 
 Some code can be compiled either as trusted or shared code, e.g.
 libraries that facilitate communication between trusted and untrusted code.
-Such code typically lives in src/shared/** and has both build.scons
+Such code typically lives in `src/shared/**` and has both build.scons
 and nacl.scons files.
 
 
@@ -75,7 +75,7 @@ MODE=nacl,dbg-windows
   * build both (trusted code will be unoptimized)- you must be on a windows system
 
 
-NOTE: if you do not specify MODE, "opt-<system-os>" will be assumed.
+NOTE: if you do not specify MODE, "`opt-<system-os>`" will be assumed.
 NOTE: if you want to run integration tests, you need to build both trusted and untrusted code simultaneously, because those tests involve running untrusted code
 under the control of trusted code.
 
@@ -85,7 +85,7 @@ under the control of trusted code.
 
 
 Just like any cross compilation enviroment, there are some hairy
-configuration issues which are controled by  BUILD_ARCH, TARGET_ARCH, etc.
+configuration issues which are controlled by  BUILD_ARCH, TARGET_ARCH, etc.
 to force conditional compilation and linkage.
 
 It helps to revisit the terminology of a cross compiler to better understand
@@ -107,7 +107,7 @@ TARGET_PLATFORM: The sandbox system that is being enforced by the trusted code.
 
 The BUILD_PLATFORM is closest in nature to the HOST_SYSTEM, the
 TARGET_PLATFORM is closest to the TARGET_SYSTEM.
-We do not have and an eqivalent to BUILD_SYSTEM since we just assume
+We do not have and an equivalent to BUILD_SYSTEM since we just assume
 and x86 (either 32 or 64 system).
 
 
@@ -126,7 +126,7 @@ NOTE:
 
 There is no TARGET_OS, since Native Client executables are OS independent.
 
-The BUILD_OS is usually tested for using scons expressions like
+The BUILD_OS is usually tested for using SCons expressions like
 "env.Bit('windows')" you cannot really control it as it is inherited from the
 system you are building on, the BUILD_SYSTEM in cross compiler speak.
 
