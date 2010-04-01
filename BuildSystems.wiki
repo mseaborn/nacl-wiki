@@ -21,15 +21,17 @@ The usual excuses:
 
   * Inherent complexity.
   * Historical reasons.
-  * Enthropy requires no maintenance.
+  * Entropy requires no maintenance.
   * ...
+
 
 
 ==Which files contain build system information?==
 
 
 For SCons it is: SConstruct, `**/build.scons`, `**/nacl.scons`
-There are also relevant configuration files in `site_scons/site_tools/*`
+There are also relevant configuration files in `site_scons/site_tools/*`,
+and random Python scripts located here and there.
 
 For Gyp it is: `**/*.gyp` and `**/*.gypi`
 
@@ -69,11 +71,12 @@ or both and how. Examples:
 
 MODE=nacl
   * just build untrusted code
+  * note that this doesn't build all of the untrusted code. If you don't specify a trusted platform (e.g. MODE=opt-linux,nacl) most of the tests will not be built. 
 
 MODE=opt-linux
   * just build (optimized) trusted code - you must be on a Linux system
 
-MODE=nacl,dbg-windows
+MODE=nacl,dbg-win
   * build both (trusted code will be unoptimized)- you must be on a Windows system
 
 
@@ -142,6 +145,8 @@ Enumeration of all  BUILD_PLATFORMs:
 (x86, 32, mac)
 (arm, 32, linux)   // the 32 is implicit as there is no 64bit arm
 (x86, 64, windows)
+
+_*Special note for Windows users:* The Windows command-line build currently relies on vcvarsXX.bat being called to set up the environment. The compiler's target subarchitecture (32,64) is selected by the version of vcvars that you called (vcvars32/vcvars64). If you call vcvars32 and then build with platform=x86-64, you will get "target mismatch" errors._
 
 Enumeration of all TARGET_PLATFORMs:
 (x86, 32)
