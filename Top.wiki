@@ -2,9 +2,9 @@
 
 = Resources for Native Client Executable Developers (SDK users) =
 
-  * 
+  * [Porting]
 
-= Resources (Plugin Code Developers) =
+= Resources for Plugin Code Developers =
 
   * BuildSystems
   * GypBuild
