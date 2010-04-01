@@ -1,5 +1,7 @@
 #summary Build Systems FAQ
 
+<wiki:toc max_depth="2" />
+
 ==What build system(s) is Native Client using?==
 
 
@@ -175,7 +177,7 @@ so mistakes have no consequences.
 
 
 
-= Details =
+
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
