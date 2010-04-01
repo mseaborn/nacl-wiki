@@ -1,4 +1,4 @@
-#build systems faq
+#summary Build Systems FAQ
 
 ==What build system(s) is Native Client using?==
 
