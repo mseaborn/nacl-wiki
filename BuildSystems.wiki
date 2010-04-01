@@ -3,7 +3,7 @@
 ==What build system(s) is Native Client using?==
 
 
-The primary build system use by Native Client is SCons.
+The primary build system used by Native Client is SCons.
 (c.f. http://www.scons.org/ )
 For historical reasons we are not using plain SCons but an
 extension call Hammer.
@@ -27,7 +27,7 @@ The usual excuses:
 
 
 For SCons it is: SConstruct, `**/build.scons`, `**/nacl.scons`
-There are also relavant configuration files in `site_scons/site_tools/*`
+There are also relevant configuration files in `site_scons/site_tools/*`
 
 For Gyp it is: `**/*.gyp`
 
@@ -45,8 +45,8 @@ The Gyp system only code trusted code.
 "trusted code" lives in `src/trusted/**`
 
 "untrusted code" encompasses components like:
-* quake and other examples of Native Client executables
-* libraries necessary to build quake
+  * quake and other examples of Native Client executables
+  * libraries necessary to build quake
 It is compiled using special sandboxing compilers.
 As far as the build system is concerned trusted code
 is described in `**/nacl.scons` files.
@@ -69,13 +69,14 @@ MODE=nacl
   * just build untrusted code
 
 MODE=opt-linux
-  * just build (optimized) trusted code - you must be on a linux system
+  * just build (optimized) trusted code - you must be on a Linux system
 
 MODE=nacl,dbg-windows
-  * build both (trusted code will be unoptimized)- you must be on a windows system
+  * build both (trusted code will be unoptimized)- you must be on a Windows system
 
 
 NOTE: if you do not specify MODE, "`opt-<system-os>`" will be assumed.
+
 NOTE: if you want to run integration tests, you need to build both trusted and untrusted code simultaneously, because those tests involve running untrusted code
 under the control of trusted code.
 
@@ -84,25 +85,26 @@ under the control of trusted code.
 ==What is the meaning of BUILD_ARCH, TARGET_ARCH, etc.  ?==
 
 
-Just like any cross compilation enviroment, there are some hairy
+Just like any cross compilation environment, there are some hairy
 configuration issues which are controlled by  BUILD_ARCH, TARGET_ARCH, etc.
 to force conditional compilation and linkage.
 
-It helps to revisit the terminology of a cross compiler to better understand
+It helps to revisit the terminology used by cross compilers to better understand
 Native Client (c.f. http://www.airs.com/ian/configure/configure_5.html ):
 
 
-BUILD_SYSTEM: The system on which the tools will be build (initially)
+  BUILD_SYSTEM: The system on which the tools will be build (initially)
 
-HOST_SYSTEM: The system on which the tools will run is called the host system.
+  HOST_SYSTEM: The system on which the tools will run is called the host system.
 
-TARGET_SYSTEM: The system for which the tools generate code is called the target system.
+  TARGET_SYSTEM: The system for which the tools generate code is called the target system.
 
-For NaCl we only have TWO of these, sadly they have confusing names:
 
-BUILD_PLATFORM: The system on which the trusted code runs.
+For NaCl we only have *two* of these, sadly they have confusing names:
 
-TARGET_PLATFORM: The sandbox system that is being enforced by the trusted code.
+  BUILD_PLATFORM: The system on which the trusted code runs.
+
+  TARGET_PLATFORM: The sandbox system that is being enforced by the trusted code.
 
 
 The BUILD_PLATFORM is closest in nature to the HOST_SYSTEM, the
@@ -120,7 +122,7 @@ Conceptually we have
 
 and
 
-TARGET_PLATFORM = (TARGET_ARCH. TARGET_SUBARCH)
+ TARGET_PLATFORM = (TARGET_ARCH. TARGET_SUBARCH)
 
 NOTE:
 
