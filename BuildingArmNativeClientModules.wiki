@@ -63,19 +63,19 @@ NOTE:
 ===Exercise the trusted toolchain===
 {{{
 cd .../native_client/
-./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 sel_ldr
+./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_validate=0 sel_ldr
 }}}
 
 ===Exercise the untrusted toolchain===
 {{{
 cd .../native_client/
-./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 barebones_hello_world.nexe
+./scons MODE=nacl,opt-linux platform=arm sdl=none  naclsdk_validate=0 barebones_hello_world.nexe
 }}}
 
 ===Running a Simple Test In the Harness===
 {{{
 cd .../native_client/
-./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test
+./scons MODE=nacl,opt-linux platform=arm sdl=none  naclsdk_validate=0 run_barebones_hello_world_test
 }}}
 
 To see what goes on under the hood here add *--verbose* to the commandline (and maybe *sysinfo=* to suppress some other messages)
@@ -103,7 +103,7 @@ generates a trace file into: /tmp/qemu.log
 
 ===Running Lots of Tests In the Harness===
 {{{
-./scons MODE=nacl,opt-linux platform=arm sdl=none naclsdk_mode=manual naclsdk_validate=0 run_barebones_hello_world_test smoke_tests
+./scons MODE=nacl,opt-linux platform=arm sdl=none  naclsdk_validate=0 run_barebones_hello_world_test smoke_tests
 }}}
 
 
@@ -118,5 +118,5 @@ tools/llvm/setup_arm_newlib.sh
 ===Rebuilding Other Base Libraries===
 
 {{{
-./scons  MODE=nacl_extra_sdk  platform=arm  sdl=none  naclsdk_mode=manual  naclsdk_validate=0  extra_sdk_clean extra_sdk_update_header install_libpthread  extra_sdk_update
+./scons  MODE=nacl_extra_sdk  platform=arm  sdl=none  naclsdk_validate=0  extra_sdk_clean extra_sdk_update_header install_libpthread  extra_sdk_update
 }}}
