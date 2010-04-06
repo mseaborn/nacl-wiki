@@ -12,7 +12,7 @@ The following things need to be done to make this work:
  * Make sel_ldr run under the sandbox:
     * Ensure that standalone sel_ldr can work under the sandbox.  Test this by running NaCl's test cases in this sandbox.  (Some tests will work but others require filesystem access and will not work.)
     * Ensure that the sel_ldr side of the NaCl plugin works under the sandbox.  Is there a way of testing this in isolation from the web browser?
-    * Hook it up in Chromium so that sel_ldr is launched in the sandbox.
+    * Hook it up in Chromium so that sel_ldr is launched in the sandbox. - DONE
 
 == Seccomp sandbox ==
 Running NaCl under the seccomp sandbox raises the following issues:
