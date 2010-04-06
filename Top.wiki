@@ -13,5 +13,5 @@
 = Sandboxing Details and Compiler Ports =
 
   * X8664Sandboxing    
-  * ARMSandboxing 
+  * [ARMSandboxing]
   * OCaml Port http://code.google.com/p/nacl-ocaml/
