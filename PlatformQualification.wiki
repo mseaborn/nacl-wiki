@@ -87,7 +87,7 @@ SysV SHM must be supported and pass certain feature tests, including interacting
 
 *Rationale:* _unclear_
 
-*May change:* with kernel upgrades.  (Note that with Ksplice this does not imply a reboot necessarily.)
+*May change:* with kernel upgrades.  (Note that with Ksplice this does not imply a reboot necessarily, though Ksplice currently isn't capable of this sort of change.)
 
 *Method:* See source implementation.
 
