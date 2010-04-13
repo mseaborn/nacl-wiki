@@ -4,6 +4,20 @@
 
 There is currently no design doc for our Platform Qualification routine, a check which runs as the sandbox starts.  This page is intended to evolve into such a design doc.
 
+= Background =
+
+Native Client relies on hardware features on all platforms, even those where we use Software Fault Isolation:
+   * On both x86 platforms, we rely on the instruction decoder's behavior, which must match our validator in terms of instruction length, etc.
+   * On x86-32, we rely on the hardware segment registers.
+   * On x86-64 and ARM, we rely on Data Execution Prevention being present and active.  (Intel calls this XD; AMD calls it NX; ARM calls it XN; because of this babel we've chosen the vendor-neutral term DEP.)
+
+We also require certain features to be present in the operating system.
+
+We cannot blindly assume that our requirements are met, because of variations in the hardware and software beneath us:
+   * We support a range of x86 implementations (currently dating back to the 80486).  Older machines may decode newer instructions (e.g. SSE3) differently or incorrectly.
+   * DEP is a recent feature on both x86 and ARM.  On x86, it can be disabled in the BIOS.  On ARM, it requires a relatively recent Linux kernel.
+   * Linux is infinitely configurable, and can be compiled without features we rely on (such as SysV SHM).
+
 = Things We Need To Check =
 
 == Cross-Architecture Common Checks ==
@@ -37,3 +51,8 @@ _No checks currently implemented._
 
 == Windows-Specific Checks (All Archs) ==
   * `GetVersionEx` must be present, operational, and indicate Windows 5.1 (XP) or later.
+
+= How the Checks Happen =
+
+  * `sel_main` calls NaClOsIsSupported, which does rudimentary OS version checking on Windows and some SysV SHM analysis on Linux.
+  * The `platform_qual_test` standalone binary (in `src/trusted/platform_qualify`) exercises the rest of the checks...but is invoked from what?
