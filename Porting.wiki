@@ -114,9 +114,9 @@ Eventually, you need to remove all file access or substitute URLs for files.
 [PENDING: put example here]
 </wiki:comment>
 
-=== Use libunimpl if necessary ===
+=== Use libnosys if necessary ===
 
-The `unimpl` library defines some POSIX routines that aren't implemented by Native Client. It can help you successfully compile programs that have calls to these unimplemented routines. Of course, you should make sure that your module doesn't really _depend_ on those calls.
+The `nosys` library defines some POSIX routines that aren't implemented by Native Client. It can help you successfully compile programs that have calls to these unimplemented routines. Of course, you should make sure that your module doesn't really _depend_ on those calls. The toolchain will issue link time warnings on each used symbol from this library.
 
 == See also ==
 
