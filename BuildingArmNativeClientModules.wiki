@@ -29,8 +29,8 @@ echo "16384" > /proc/sys/vm/mmap_min_addr
 
 You will need two toolchains: a trusted one and an untrusted one which live in
 
-  * .../native_client/compiler/linux_arm-trusted/
-  * ../native_client/compiler/linux_arm-untrusted/
+  * .../native_client/toolchain/linux_arm-trusted/
+  * ../native_client/toolchain/linux_arm-untrusted/
 
 The trusted toolchain builds  browser plugins, sel_ldr, etc.
 The untrusted toolchain builds nacl modules.
