@@ -45,3 +45,32 @@ Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientr
 
 The rest of the memory in untrusted part is currently ignored by Memcheck because heap, stack and bss are marked with `mprotect` before the first use (right?). 
 In order to find bugs in untrusted code we will have to annotate untrusted malloc with VALGRIND_MAKE_MEM_UNDEFINED. 
+
+== Changes in valgrind ==
+The patch to make valgrind work for NaCl (both trusted and untrusted code) is in progress. Here is a short summary. 
+
+  * Allow mmap of 88G:
+    * Change N_PRIMARY_BITS from 19 to 22 in memcheck/mc_main.c, set magic constants accordingly. 
+    * Ignore all mmaps greater than 84G (notify_tool_of_mmap in coregrind/m_syswrap/syswrap-generic.c)
+    * Set `aspacem_maxAddr = (Addr)0x4000000000 - 1; // 256G` (coregrind/m_aspacemgr/aspacemgr-linux.c)
+  * Increase VG_N_SEGMENTS and VG_N_SEGNAMES.
+  * Increase VG_N_THREADS in include/pub_tool_threadstate.h (from 500 to 10000). 
+  * Notify Valgrind about the NaCl's untrusted memory region: 
+    * add one more client request VG_USERREQ__NACL_MEM_START (coregrind/pub_core_clreq.h and coregrind/m_scheduler/scheduler.c)
+    * Intercept NaCl's StopForDebuggerInit (coregrind/m_replacemalloc/vg_replace_malloc.c). 
+  * Load debug info from .nexe file:
+    * Modify di_notify_mmap (coregrind/m_debuginfo/debuginfo.c) 
+  * valgrind.h: 
+    * replace `long long` with uint64_t (otherwise NaCl won't be built with default gcc flags)
+    * Align  __SPECIAL_INSTRUCTION_PREAMBLE using `.align 32\n\t`.
+    * Align after VALGRIND_CALL_NOREDIR_RAX so that the return address is 32-byte aligned. 
+    * Use `xchgq %%r14,%%r14\n\t` instead of  `xchgq %%rdx,%%rdx\n\t` in VALGRIND_CALL_NOREDIR_RAX
+    * In CALL_FN_* use `sub $128,%%esp; addq %%r15,%%rsp`  instead of `subq $128,%%rsp`
+  * VEX: when storing the return address for NaCl call-noredir (`xchgq %%r14,%%r14\n\t`) in VEX/priv/guest_amd64_toIR.c, make the address 32-byte aligned.
+  
+
+
+    
+
+
+  
