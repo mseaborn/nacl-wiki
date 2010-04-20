@@ -61,13 +61,8 @@ The patch to make valgrind work for NaCl (both trusted and untrusted code) is in
     * Intercept NaCl's StopForDebuggerInit (coregrind/m_replacemalloc/vg_replace_malloc.c). 
   * Load debug info from .nexe file:
     * Modify di_notify_mmap (coregrind/m_debuginfo/debuginfo.c) 
-  * valgrind.h: 
-    * replace `long long` with uint64_t (otherwise NaCl won't be built with default gcc flags)
-    * Align  __SPECIAL_INSTRUCTION_PREAMBLE using `.align 32\n\t`.
-    * Align after VALGRIND_CALL_NOREDIR_RAX so that the return address is 32-byte aligned. 
-    * Use `xchgq %%r14,%%r14\n\t` instead of  `xchgq %%rdx,%%rdx\n\t` in VALGRIND_CALL_NOREDIR_RAX
-    * In `CALL_FN_*` use `sub $128,%%esp; addq %%r15,%%rsp`  instead of `subq $128,%%rsp`
-  * VEX: when storing the return address for NaCl call-noredir (`xchgq %%r14,%%r14\n\t`) in VEX/priv/guest_amd64_toIR.c, make the address 32-byte aligned.
+  * valgrind.h (TODO(kcc))
+  
   
 TODOs:
   * get rid of `Warning: client switching stacks?  SP change: 0x404e0b8 --> 0xbffffff80` in some clean way.
