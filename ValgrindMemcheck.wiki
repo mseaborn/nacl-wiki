@@ -61,7 +61,7 @@ The patch to make valgrind work for NaCl (both trusted and untrusted code) is in
     * Intercept NaCl's StopForDebuggerInit (coregrind/m_replacemalloc/vg_replace_malloc.c). 
   * Load debug info from .nexe file:
     * Modify di_notify_mmap (coregrind/m_debuginfo/debuginfo.c) 
-  * valgrind.h (TODO(kcc))
+  * valgrind.h, see here: http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/src/third_party/valgrind/nacl_valgrind.h
   
   
 TODOs:
