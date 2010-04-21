@@ -45,7 +45,7 @@ You can also build the toolchains yourself using:
 {{{
 cd .../native_client/
 tools/llvm/trusted-toolchain-creator.sh  trusted_sdk
-tools/llvm/toolchain-creator.sh   untrusted_sdk
+tools/llvm/untrusted-toolchain-creator.sh   untrusted_sdk
 }}}
 NOTE:
   * this requires network access
