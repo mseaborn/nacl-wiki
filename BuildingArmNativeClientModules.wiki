@@ -111,12 +111,14 @@ generates a trace file into: /tmp/qemu.log
 
 ===Rebuilding Newlib===
 
+NOTE: this may or may not work, it is always safer to build the entire TC from scratch
 {{{
-tools/llvm/setup_arm_newlib.sh
+tools/llvm/untrusted-toolchain-creator.sh  newlib
 }}}
 
 ===Rebuilding Other Base Libraries===
 
+NOTE: this may or may not work, it is always safer to build the entire TC from scratch
 {{{
-./scons  MODE=nacl_extra_sdk  platform=arm  sdl=none  naclsdk_validate=0  extra_sdk_clean extra_sdk_update_header install_libpthread  extra_sdk_update
+tools/llvm/untrusted-toolchain-creator.sh extrasdk
 }}}
