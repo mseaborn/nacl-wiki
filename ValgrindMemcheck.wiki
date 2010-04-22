@@ -37,6 +37,10 @@ For more options, see the [http://valgrind.org/docs/manual/mc-manual.html Memche
 src/third_party/valgrind/bin/memcheck.sh --help
 }}}
 
+=Build bot=
+We have a simplistic [http://build.chromium.org/buildbot/nacl/waterfall?builder=karmic64-valgrind build bot] which we will enhance over time. 
+
+
 = Implementation details =
 Valgrind treats the NaCl process (`sel_ldr`) as any other regular Linux process. 
 The only difference is when NaCl mmaps 84G for untrusted region, Valgrind ignores this allocation. 
