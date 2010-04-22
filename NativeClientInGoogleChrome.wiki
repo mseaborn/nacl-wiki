@@ -46,8 +46,7 @@ For details about what each example and test contains, see the [http://nativecli
 
 = Known issues =
 
-    * Graphics and audio from native code don't work yet. Think of Native Client as a windowless plug-in. Proposed NPAPI improvements ([http://groups.google.com/group/native-client-announce/browse_thread/thread/3607403cbc165499 announcement], [https://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI spec]) will provide access to video and audio.
-    * Native Client in Google Chrome has been tested only on Windows. It probably doesn't work on Mac or Linux.
+    * Graphics and audio from native code don't work unless you're using the proposed NPAPI improvements ([http://groups.google.com/group/native-client-announce/browse_thread/thread/3607403cbc165499 announcement], [https://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI spec]). These new 2D and 3D APIs provide access to video and audio.
     * In some Dev-channel builds of Google Chrome, enabling Native Client requires disabling the Google Chrome sandbox.
 
 
