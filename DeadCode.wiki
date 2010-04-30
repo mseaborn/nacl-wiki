@@ -15,3 +15,6 @@ The following is dead code, i.e. not reachable from public interfaces or covered
 
  * `NaClAppDtor()` in sel_ldr.c, and the various functions it calls.
     * This is not completely dead, but it is rarely called.  sel_ldr normally just does exit() to shut down the process.  I think `NaClAppDtor()` is only called if sel_ldr gets an error during startup.
+
+ * The field `holding_sr_locks` in `struct NaClAppThread`, and anything that sets it.  (Nothing reads it.)
+    * The comments in nacl_app_thread.h say this is intended as a way to kill another thread.  It mentions using `pthread_kill()`, but this does not work for killing threads on Linux.
