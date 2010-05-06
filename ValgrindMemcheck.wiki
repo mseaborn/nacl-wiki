@@ -21,7 +21,7 @@ Currently, Valgrind for NaCl is supported only on *Linux x86_64*.
 = Running Valgrind/Memcheck=
 Currently, Valgrind for NaCl is supported only on Linux x86_64. From `native_client` directory you can run it like this: 
 {{{
-./scons MODE=nacl,dbg-linux   platform=x86-64  sdl=none  run_under=src/third_party/valgrind/bin/memcheck.sh,--log-file=mc.log scale_timeout=20  run_hello_world_test
+./scons MODE=nacl,dbg-linux nacl_ccflags=-g   platform=x86-64  sdl=none  run_under=src/third_party/valgrind/bin/memcheck.sh,--log-file=mc.log scale_timeout=20  run_hello_world_test
 }}}
 
   * `run_under` allows you to pass the name of the tool under which you want to run tests. If the tool has options, pass them after comma: 'tool,--opt1,--opt2'. (the tool name and the parameters can not contain commas)
