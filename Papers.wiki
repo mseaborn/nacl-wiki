@@ -2,6 +2,6 @@
 
 We've published the following papers about Native Client technology:
 
-  * [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/nacl_paper.pdf Native Client: A Sandbox for Portable, Untrusted x86 Native Code]
-  * [http://nativeclient.googlecode.com/svn/data/site/NaCl_SFI.pdf Adapting Software Fault Isolation to Contemporary CPU Architectures]
-  * [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl: Portable Native Client Executables]
+  * [http://nativeclient.googlecode.com/svn/data/docs_tarball/nacl/googleclient/native_client/documentation/nacl_paper.pdf Native Client: A Sandbox for Portable, Untrusted x86 Native Code], IEEE Symposium on Security and Privacy, May 2009
+  * [http://nativeclient.googlecode.com/svn/data/site/NaCl_SFI.pdf Adapting Software Fault Isolation to Contemporary CPU Architectures], February 2010
+  * [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl: Portable Native Client Executables], February 2010
