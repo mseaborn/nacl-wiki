@@ -5,13 +5,10 @@
 ==What build system(s) is Native Client using?==
 
 
-The primary build system used by Native Client is SCons.
-(c.f. http://www.scons.org/ )
-For historical reasons we are not using plain SCons but an
-extension call Hammer.
+The primary build system used by Native Client is [http://www.scons.org/ Scons].
+For historical reasons we are not using plain SCons but an extension call Hammer.
 
-The parts of the system shared with Chrome are also built using
-Chrome's build system, Gyp.
+The parts of the system shared with Chrome are also built using Chrome's build system, Gyp.
 
 We also have some Makefiles and some shell scripts for certain build tasks.
 
@@ -30,8 +27,7 @@ The usual excuses:
 
 
 For SCons it is: SConstruct, `**/build.scons`, `**/nacl.scons`
-There are also relevant configuration files in `site_scons/site_tools/*`,
-and random Python scripts located here and there.
+There are also relevant configuration files in `site_scons/site_tools/*`, and random Python scripts located here and there.
 
 For Gyp it is: `**/*.gyp` and `**/*.gypi`
 
@@ -40,32 +36,27 @@ For Gyp it is: `**/*.gyp` and `**/*.gypi`
 
 "trusted code" encompasses components like:
   * the browser plugin
-  * sel_ldr
+  * service runtime (sel_ldr)
 It is compiled using regular compilers.
 Bugs in trusted code can compromise system security, hence the name.
-As far as the build system is concerned trusted code
-is described in `**/build.scons` files.
-The Gyp system only code trusted code.
-"trusted code" lives in `src/trusted/**`
+As far as the build system is concerned trusted code is described in `**/build.scons` files.
+The Gyp system only code trusted code. "trusted code" lives in `src/trusted/**`
 
 "untrusted code" encompasses components like:
   * quake and other examples of Native Client executables
   * libraries necessary to build quake
 It is compiled using special sandboxing compilers.
-As far as the build system is concerned trusted code
-is described in `**/nacl.scons` files.
-"trusted code" lives in `src/untrusted/**`
-and also in `tests/**`
+As far as the build system is concerned trusted code is described in `**/nacl.scons` files.
+"untrusted code" lives in `src/untrusted/**` and also in `tests/**`
 
 Some code can be compiled either as trusted or shared code, e.g.
 libraries that facilitate communication between trusted and untrusted code.
-Such code typically lives in `src/shared/**` and has both build.scons
-and nacl.scons files.
+Such code typically lives in `src/shared/**` and has both build.scons and nacl.scons files.
 
 
 ==How do you use the  MODE= setting when invoking SCons?==
 
-The MODE= setting or its equivalent --mode or used to
+The MODE= setting or its equivalent --mode is used to
 select whether you want to compile trusted or untrusted code
 or both and how. Examples:
 
@@ -94,11 +85,10 @@ Just like any cross compilation environment, there are some hairy
 configuration issues which are controlled by  BUILD_ARCH, TARGET_ARCH, etc.
 to force conditional compilation and linkage.
 
-It helps to revisit the terminology used by cross compilers to better understand
-Native Client (c.f. http://www.airs.com/ian/configure/configure_5.html ):
+It helps to revisit the [http://www.airs.com/ian/configure/configure_5.html terminology] used by cross compilers to better understand Native Client:
 
 
-  BUILD_SYSTEM: The system on which the tools will be build (initially)
+  BUILD_SYSTEM: The system on which the tools will be build (initially) is called the build system.
 
   HOST_SYSTEM: The system on which the tools will run is called the host system.
 
@@ -177,14 +167,3 @@ The flavor of the untrusted code is derived from the TARGET_PLATFORM
 
 Usually BUILD_ARCH == TARGET_ARCH and BUILD_SUBARCH == TARGET_SUBARCH
 so mistakes have no consequences.
-
-
-
-
-
-
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
