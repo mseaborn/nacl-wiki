@@ -1,23 +1,7 @@
 #summary Download Native Client
-#labels Featured
 
-Native Client is a research technology,
-and *we do not consider it secure*.
-We encourage you to experiment with the technology,
-but do so at your own risk.
-Please [Uninstall uninstall the plug-in] when you're not using it for development or testing.
-Whenever you reinstall the plug-in,
-be sure to use the latest version.
+Tarball downloads are no longer available. Instead, go to one of the following places:
 
-Here are the current "tarball" downloads:
+  * [http://code.google.com/p/nativeclient/wiki/Source?tm=4 Source]: Source code for this project
 
-  * [http://build.chromium.org/buildbot/nacl_archive/nacl_tarballs/782a_2010_03_28/nacl_linux_782a_2010_03_28.tgz Source with prebuilt binaries and toolchain: Linux] (40M - sha1 006d1155aa6c2a8bc2f6af6a3f0cad56d533bac2)
-  * [http://build.chromium.org/buildbot/nacl_archive/nacl_tarballs/782a_2010_03_28/nacl_mac_782a_2010_03_28.tgz Source with prebuilt binaries and toolchain: Mac] (37M - sha1 41015a8ccf92cdee1dfbb94dc0620f023cdef85b)
-  * [http://build.chromium.org/buildbot/nacl_archive/nacl_tarballs/782a_2010_03_28/nacl_windows_782a_2010_03_28.zip Source with prebuilt binaries and toolchain: Windows] (65M - sha1 7b25967190ec141256ca1764c26979cb01abb777)
-
-See the
-[http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/getting_started.html Getting Started guide] for instructions on extracting and installing the Native Client files.
-
-For information about the current release, see ReleaseNotes. If you want the latest source code, go to the [http://code.google.com/p/nativeclient/wiki/Source?tm=4 Source] tab.
-
-*Note:* These tarballs are automatically generated and tested, but that doesn't guarantee they'll work. If the latest tarball appears to be broken, please let people know by posting to [http://groups.google.com/group/native-client-discuss Native Client Discuss] and [http://code.google.com/p/nativeclient/issues/list filing a bug].
+  * [http://code.google.com/p/nativeclient-sdk SDK]: Tools for developing software that uses Native Client
