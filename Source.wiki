@@ -2,26 +2,6 @@
 
 *Quick links:* [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse source] | [http://code.google.com/p/nativeclient/source/list recent changes]
 
-== Overview ==
-
-How you should get the Native Client source code depends on what you want to do with it.
-
-<dl>
-<dt> *To just look at the source code* (and not use Native Client): </dt>
-<dd> Browse or download the source code. Instructions are in *Browsing the source code*, below.</dd>
-
-<dt> *To use the latest version*: </dt>
-<dd> Get the source code and build it.  Getting buildable source code requires Subversion and the Chromium depot tools. Building Native Client requires Python and a platform-dependent build environment. Instructions are in *Getting buildable source code*, below. </dd>
-
-<dt> *To use a pre-built version*: </dt>
-<dd> <a href="http://code.google.com/p/nativeclient/wiki/Downloads?tm=2">Download a tarball</a>. Currently, the tarball has the full, buildable source code for Native Client. Over time, we intend to reduce the tarball's size and scope so that it contains only the files that developers need to create, debug, and test Native Client modules. </dd>
-</dl>
-
-
-=== Choosing a source code branch ===
-
-{PENDING: This section will explain trunk vs. stable branches. It will note which one this page uses, and what you should substitute to get other versions of the source code.}
-
 == Browsing the source code ==
 
 If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
