@@ -22,3 +22,8 @@ Tidy ups:
     * This will also speed up the build, because GNU make's wildcard rules take quadratic time, and glibc uses a lot of them.
  * Remove copy of NaCl header files; pull these in from outside at build time
  * Remove dependency on Linux kernel headers
+
+== Version control ==
+nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
+
+This is intended to replace the earlier nacl-glibc branch: http://repo.or.cz/w/glibc/nacl-glibc.git
