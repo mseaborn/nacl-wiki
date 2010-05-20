@@ -26,4 +26,9 @@ Tidy ups:
 == Version control ==
 nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
 
-This is intended to replace the earlier nacl-glibc branch: http://repo.or.cz/w/glibc/nacl-glibc.git
+To check out the code, you can do:
+{{{
+git clone http://src.chromium.org/git/nacl-glibc.git
+}}}
+
+This is intended to replace the earlier nacl-glibc branch, which is at http://repo.or.cz/w/glibc/nacl-glibc.git
