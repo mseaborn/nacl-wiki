@@ -1,0 +1,24 @@
+#summary Tasks for the nacl-glibc port
+
+= nacl-glibc tasks =
+
+Stages:
+ * Build a statically-linked glibc and run a "hello world" program under sel_ldr.  This should work both in `-d` debug mode and with ncval_stubout (which replaces non-validating instructions with HLTs). See http://codereview.chromium.org/2072005/show
+ * Build a dynamically-linked glibc and run ld.so under sel_ldr to print its help message
+ * Run ld.so on a "hello world" executable; this uses libc.so
+ * Run more complex programs, e.g. Python
+ * Run programs in the context of the web browser
+ * Fix all validation failures so that we don't need ncval_stubout
+ * Be able to run glibc's test suite
+
+Build integration:
+ * Set this up on Buildbot
+ * Extend tools/Makefile or tools/modular-build to do the glibc build
+ * Extend the Scons build to be able to run the tests using glibc
+
+Tidy ups:
+ * Change glibc build system not to use wildcard rules (those generated into sysd-rules by Makerules)
+    * This will make it easier to override files in sysdeps/i386 (for example) without having to remove sysdeps/i386 from the search path entirely.
+    * This will also speed up the build, because GNU make's wildcard rules take quadratic time, and glibc uses a lot of them.
+ * Remove copy of NaCl header files; pull these in from outside at build time
+ * Remove dependency on Linux kernel headers
