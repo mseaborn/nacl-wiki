@@ -68,6 +68,7 @@ While exceptions should never happen within a System Call, it is possible that w
 
 = GDB Remote Serial Protocol =
 see: http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/gdb/remote-protocol.html
+
 The RSP is in the form of transactions, consisting of a command issued by the host, which is then acked by the target.  The target then responses which in turn is acked by the host.  
 Generally transactions originate only from the Host to the Target, and the protocol can be processed in lock step.  This is common for debugging stubs, since it simplifies the implementation.   However the protocol supports an optional sequence field which allows for alignment of responses.
 The exception to this rule is ”Step” or “Continue” commands and “Stop” Packets.  Step and Continue commands do not expect an immediate response.  Instead they expect the host to resuming running and not reply until execution is halted again.  
@@ -107,7 +108,7 @@ ACK/NAK:
 
 RESPONSE
 {{{ $<data>#<XS> }}}
-    * <data> can be any valid payload and varies based on original command.
+    * `<data>` can be any valid payload and varies based on original command.
 
 
 ACK/NAK:
