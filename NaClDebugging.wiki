@@ -1,6 +1,3 @@
-#summary NaCl Debugging
-<In Progress>
-
 = Introduction =
 
 == Goal ==
@@ -30,5 +27,5 @@ This library provides a mechanism for the C# based PlugIn to communicate with th
 ==NaClvs.Package==
 The NaClvs.Package implements the plug-in which communicates with Visual Studio to provide a native development and debugging environment within the VS framework.
 
-== The Debug Stub ==
+= The Debug Stub = 
 The debug stub consists of gdb_link, the nacl_debug_stub, and a few changes to the Service Run-time.  It implements the debugging interface provided by gdb_link, 
