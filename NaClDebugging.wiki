@@ -19,10 +19,10 @@ The nacl_target_stub library implements the back end of the gdb debugging stub, 
 === !Dwarf2Reader ===
 Dwarf2reader is a stand alone library for parsing Dwarf debugging information.  The dwarf2reader provides an interface from which one can implement callbacks to process the dwarf data.
 
-=== !Dwarf2XML ===
+=== Dwarf2XML ===
 Dwarf2XML is a helper utility which will take a NEXE and extract the Dwarf data in a more human readable form.  
 
-=== !NaClvs.DebugHelpers ===
+=== !NaClvs.!DebugHelpers ===
 This library provides a mechanism for the C# based PlugIn to communicate with the gdb_link library as well as provide a mechanism to load and process the debugging information.
 
 === !NaClvs.Package ===
