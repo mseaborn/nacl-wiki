@@ -118,32 +118,30 @@ ACK/NAK:
 
 == Supported Commands ==
 Minimal debugging support can be accomplished through reading and writing both registers and memory, as well as signalling when a host should continue, or a when it is stopped.  While it is possible to support windows debugging with a minimal set, modern versions of GDB expect certain other commands to be available as well, and the lack of those features may cause GDB to incorrectly determine that the target is 32 bit instead of 64.
-‘g’  Get Registers
+
+==== ‘g’  Get Registers ====
 Retrieve registers from ‘Active’ thread context.
 
-          o Command
+Command
 
     * `$g#<XS>`
 
-          o Response
+Response
 
     * `$XX..XX#<XS>` where XX..XX is all bytes of the first 16 registers
 
 
-‘G’  Set Registers
+==== ‘G’  Set Registers ====
 Set registers of ‘Active’ thread context.
 Command
-
     * `G<XX..XX>#<XS>` - where XX..XX is all bytes of the first 16 registers
 
 
 Response
-
     * `$OK#<XS>` - Set correctly
     * `$E01#<XS>` - The thread is unavailible
 
-
-‘H’ Select Thread
+==== ‘H’ Select Thread ====
 Select the thread for subsequent operations (`m', `M', `g', `G', et.al.). c depends on the operation to be performed: it should be `c' for step and continue operations, `g' for other operations. The thread designator t... may be -1, meaning all the threads, a thread number, or zero which means pick any thread. Reply:
 Command
 
@@ -157,97 +155,81 @@ Response
     * `$E01#<XS>` - Failed to find thread
 
 
-‘m’ Get Memory
+==== ‘m’ Get Memory ====
 Retrieve memory range from the target process.
 Command
-
     * `$m<addr32/64>,<len16>#<XS>` - Retrieve len bytes from address addr
 
-
 Response
-
     * `$<XX..XX>#<XS>` - Hexidecimal payload
     * `$E01#<XS>` - Failed to parse request
     * `$E02#<XS>` - Failed to read memory (pointer error?)
 
 
-‘M’ Set Memory
+==== ‘M’ Set Memory ====
 Set memory range in the target process.
-Command
 
+Command
     * `$M<addr>,<len>:<data>#<XS>` - Set memory range
 
 
 Response
-
     * `$OK#<XS>`
     * `$E01#<XS>` - Failed to parse request
     * `$E03 #<XS>`- Failed to write to memory (pointer error?)
 
 
-‘T’ Thread Alive
+==== ‘T’ Thread Alive ====
 Determine if a particular thread ID is alive   
 Command
-
     * `T<thread>#<XS>` - Query if thread is alive 
 
-
 Response
-
     * `$OK#<XS>`
     * `$E01#<XS>` - Failed to find thread
 
 
-‘?’ Get Last Signal
+==== ‘?’ Get Last Signal ===
 It is possible (and expected in the GDB case) that the target is already stopped when the host connects.   
 Command
-
     * `?#<XS>` - Fetch last stop reason. 
 
-
 Response
-
     * Stop Packet - See stop packets bellow
 
 
 
-=== Query Packets ===
+== Query Packets ==
 Query packets are an extension of the basic debugging.  The query mechanism is extensible, and while custom queries are allowed, they would not be understood by a vanilla GDB.  The following is the minimum set of standard queries found to be required by a 64b GDB.
 qSupported - Supported Queries
 Requests a list of supported queries.  While in theory it is safe to send an empty response to a query to signal it is not supported, in practice, 64b GDB appears to require the Xfer:features:read query to determine if the target is 32 or 64 bit.
 Command
-
     * `qSupported{:<feature>{;<feature>...}}#<XS>` - Fetch last stop reason. 
 
 
 Response
-
     * `PacketSize=3ff;qXfer:features:read+#<XS>` - Return a max packet size of 0x3FFF and the ability to respond to Xfer feature read requests, such as the target architecture query
 
 
-qfThreadInfo,  qsThreadInfo - Request list of active threads
+==== qfThreadInfo,  qsThreadInfo - Request list of active threads ====
 Obtain a comma separated list of active thread ids from the target. Since there may be too many active threads to fit into one reply packet, this query works iteratively.  The qfThreadInfo requests the list begining at the first ID.  qsThreadInfo requests a list of subsequent threads.  The list is terminated with a lower case ‘l’ (Lower case “L”).
 Command
-
     * `qfThreadInfo#<XS>` - Retreive list of thread from the first
     * `qsThreadInfo#<XS>` - Retreive subsequent list of thread
 
 
 Response
-
     * `m<thread>{,<thread>...} #<XS>` - more availible threads
     * `l#<XS>` - End of list
 
 
-qXfer - Query transfer
+==== qXfer - Query transfer ====
 Requests a list of supported queries.  While in theory it is safe to send an empty response to a query to signal it is not supported, in practice, 64b GDB appears to require the Xfer:features:read query to determine if the target is 32 or 64 bit.
 Command
-
     * `qXfer:features:read:target.xml:<range>#<XS>` - Request target.xml 
 
 
 Response
-
     * `l<target><architecture>i386:x86-64</architecture></target>` - Return 64b target.
 
 
