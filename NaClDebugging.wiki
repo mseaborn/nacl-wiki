@@ -67,7 +67,7 @@ One possible choice is to allow the user to chose if it wants to support unsafe 
 While exceptions should never happen within a System Call, it is possible that while one thread takes an exception, another is in a system call.  It is also possible the the debugger has signaled a force break and the thread of interest is within a system call.  When a thread is put to sleep by the debug thread, it checks first to see if the app thread was in a system call.  If so, it uses the thread context preserved on entry into the system call.   We do copy the context information from the debug thread object into the app thread before waking it up, since this would lead to unexpected behavior.  Instead the stub will signal the debugger with an error if an attempt is made to modify the registers of a thread within a system call.
 
 = GDB Remote Serial Protocol =
-
+see: http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/gdb/remote-protocol.html
 The RSP is in the form of transactions, consisting of a command issued by the host, which is then acked by the target.  The target then responses which in turn is acked by the host.  
 Generally transactions originate only from the Host to the Target, and the protocol can be processed in lock step.  This is common for debugging stubs, since it simplifies the implementation.   However the protocol supports an optional sequence field which allows for alignment of responses.
 The exception to this rule is ”Step” or “Continue” commands and “Stop” Packets.  Step and Continue commands do not expect an immediate response.  Instead they expect the host to resuming running and not reply until execution is halted again.  
@@ -115,7 +115,7 @@ ACK/NAK:
     * `-` The message contained and invalid check sum.
 
 
-Supported Commands
+== Supported Commands ==
 Minimal debugging support can be accomplished through reading and writing both registers and memory, as well as signalling when a host should continue, or a when it is stopped.  While it is possible to support windows debugging with a minimal set, modern versions of GDB expect certain other commands to be available as well, and the lack of those features may cause GDB to incorrectly determine that the target is 32 bit instead of 64.
 ‘g’  Get Registers
 Retrieve registers from ‘Active’ thread context.
@@ -210,7 +210,7 @@ Response
 
 
 
-Query Packets
+=== Query Packets ===
 Query packets are an extension of the basic debugging.  The query mechanism is extensible, and while custom queries are allowed, they would not be understood by a vanilla GDB.  The following is the minimum set of standard queries found to be required by a 64b GDB.
 qSupported - Supported Queries
 Requests a list of supported queries.  While in theory it is safe to send an empty response to a query to signal it is not supported, in practice, 64b GDB appears to require the Xfer:features:read query to determine if the target is 32 or 64 bit.
@@ -250,7 +250,7 @@ Response
     * `l<target><architecture>i386:x86-64</architecture></target>` - Return 64b target.
 
 
-Break/Step/Continue Requests
+=== Break/Step/Continue Requests ===
 ‘Ctrl-C’ Break, ‘s’ Step, or  ‘c’ Continue (Stop Requests)
 Both step and continue with cause execution in the target to start.   A response will not be sent until execution of the target is halted again.    Break is a request to stop a currently running system.  Output “responses” may be sent while execution is taking place.  These responses are informational, and the host should wait for an actual stop response.
 Command
@@ -265,8 +265,7 @@ Response
     * No immediate response, but a stop packet will be issued when the target next stops. 
 
 
-
-Stop Packets
+=== Stop Packets ===
 The following packets are expected while the target is either running, or stopping.  These reponses are also returned when
 
     * `$S<AA>#<XS>` - AA is the signal number
@@ -276,6 +275,6 @@ The following packets are expected while the target is either running, or stoppi
     * `<XS> - XX..XX` is hex encoding of ASCII data. This can happen at any time while the program is running and the debugger should continue to wait for `W', `T', etc.
 
 
-Asynchronous Communication
+=== Asynchronous Communication ===
 While RSP was developed originally for serial (UART) communication, it is often run over TCP.  Since  TCP is a loss less transport, the ACKs are superfluous.  In addition, since GDB supports the concept of a sequence number per packet, it becomes possible for the Host and the Target to communicate asynchronously instead of in lockstep.  
 The target is required to respond to a particular request with it’s sequence number, and since Target side packets do not expect a response (see Stop Packets), it is possible to support a multi-threaded system so long as each packet itself is sent atomically.
