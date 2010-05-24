@@ -1,12 +1,13 @@
 #summary NaCl Debugging
+<In Progress>
 
 = Introduction =
 
 == Goal ==
-The goal is to provide a mechanism for symbolic debugging of the untrusted aspects of Native Client applications, while minimizing impact on the Service Runime and other aspects of the process it runs in.  The trusted service run-time should be invisible to the user much the way that OS system calls are invisible during casual application debugging.
+The goal is to provide a mechanism for symbolic debugging of the untrusted aspects of Native Client applications, while minimizing impact on the Service Run time development and security.  The trusted service run-time should be invisible to the user much the way that OS system calls are invisible during casual application debugging.
 
 == Summary ==
-Both for speed of development, and portability, we have decided to use the GDB serial debug protocol (a.k.a. RSP - Remote Serial Protocol).  This protocol runs between the target (the application being debugged) and the host (the debugger instance, usually GDB).   Using RSP allows us to maintain an avenue for GDB compatibility while focusing on the larger windows audience and enabling windows based debugging tools.  The stub and link libraries discussed here are a portion of the overall solution.
+Both for speed of development, and portability, we have decided to use the GDB serial debug protocol (a.k.a. RSP - Remote Serial Protocol).  This protocol runs between the target (the application being debugged) and the host (the debugger instance, usually GDB).   Using RSP allows us to maintain compatibility with GDB based debuggers while focusing on the larger windows audience to enable windows based debugging tools.  The stub and link libraries discussed here are a portion of the overall solution.
 
 == Components ==
 The entire debugging solution includes connection management, packetization of exchange of messages, control of the target, synchronization with the host, loading, processing, and interpreting debugging (DWARF) information, and interaction with the user through a Visual Studio Plug-In.   This document focuses on the communication and target control aspects which together form the dynamically loadable debug stub.
@@ -15,7 +16,7 @@ The entire debugging solution includes connection management, packetization of e
 Gdb_link is a static standalone library providing an abstraction of the communication between a GDB target and GDB host.  Commutation happens over a GDBTransport, which can be either socket or system pipe based.  Messages are exchanged in the form of discrete GDBPacket objects which are capable of streaming values in and out of them.  Data traversing the GDBTransport conforms to the GDB Remote Serial Protocol to allow a standard GDB process to connect via socket. The library provides an abstract class for defining the host and target, from which implementers can derive a stub or debugger and ensure compatibility.  The gdb_link library provides additional support for GDB/RSP related data such as architecture specific thread context structures, defining register order, enumerating signal/exception, etc...
 
 === nacl_target_stub ===
-The nacl_target_stub library implements the back end of the gdb debugging stub, processing queries and generating responses.  The nacl_debug_stub can be loaded dynamically and provides a single interface similar an ioctl which the Service Run-time can use to provide debugging support.  This reduces the impact and footprint of the debug_stub on the service Run-time.  
+The nacl_target_stub library implements the back end of the gdb debugging stub, handling exceptions, processing queries, and generating responses.  The nacl_debug_stub is loaded dynamically and provides a single interface similar an ioctl which the Service Run-time can use to provide debugging support.  This reduces the impact and footprint of the debug_stub on the service Run-time.  
 
 ===Dwarf2Reader===
 Dwarf2reader is a stand alone library for parsing Dwarf debugging information.  The dwarf2reader provides an interface from which one can implement callbacks to process the dwarf data.
@@ -30,6 +31,4 @@ This library provides a mechanism for the C# based PlugIn to communicate with th
 The NaClvs.Package implements the plug-in which communicates with Visual Studio to provide a native development and debugging environment within the VS framework.
 
 == The Debug Stub ==
-The debug stub, consists of those components needed to interact with GDB.  This consists of gdb_link, the nacl_debug_stub, and a few changes to the Service Run-time.
-
-
+The debug stub consists of gdb_link, the nacl_debug_stub, and a few changes to the Service Run-time.  It implements the debugging interface provided by gdb_link, 
