@@ -15,17 +15,45 @@ Gdb_link is a static standalone library providing an abstraction of the communic
 === nacl_target_stub ===
 The nacl_target_stub library implements the back end of the gdb debugging stub, handling exceptions, processing queries, and generating responses.  The nacl_debug_stub is loaded dynamically and provides a single interface similar an ioctl which the Service Run-time can use to provide debugging support.  This reduces the impact and footprint of the debug_stub on the service Run-time.  
 
-===Dwarf2Reader===
+=== Dwarf2Reader ===
 Dwarf2reader is a stand alone library for parsing Dwarf debugging information.  The dwarf2reader provides an interface from which one can implement callbacks to process the dwarf data.
 
-===Dwarf2XML===
+=== Dwarf2XML ===
 Dwarf2XML is a helper utility which will take a NEXE and extract the Dwarf data in a more human readable form.  
 
-===NaClvs.DebugHelpers===
+=== NaClvsDebugHelpers ===
 This library provides a mechanism for the C# based PlugIn to communicate with the gdb_link library as well as provide a mechanism to load and process the debugging information.
 
-==NaClvs.Package==
+=== NaClvsPackage ===
 The NaClvs.Package implements the plug-in which communicates with Visual Studio to provide a native development and debugging environment within the VS framework.
 
 = The Debug Stub = 
-The debug stub consists of gdb_link, the nacl_debug_stub, and a few changes to the Service Run-time.  It implements the debugging interface provided by gdb_link, 
+The debug stub is activated by checking for a debugging environment variable.  If the environment variable is set, the service run time with attempt to load and use the debugging module.   Once loaded, the debugging module works in co-operation with the parent application (most likely Chrome), for logging debugging information and events.  It is advisable that the parent application do something to make the logging obvious such as opening a console style window, to ensure users to do not accidentally weaken the security of the application by accidentally enabling debugging.
+
+== Communication between the Stub and Service Run-time ==
+Communication with the stub happens through a single library function in the service run-time.  This function is in the form of:
+
+int NaClDebugStubCommand(uint32 CMD, void *data, uint32 size);
+
+Underneath, this function checks for the presence of the debug stub module, if found, prepends version information before calling the dispatch function with in the DLL.  The function will return zero on success, or an error code on failure.  It is not expected that the service run-time will need to handle error cases since the debug stub is not require for correct execution of the Service Runtime.  In addition, any events will be logged, providing the user to determine if the debugging system is working.  However, a non-zero error allows us to indicate that data would normally be passed back within the data block can not be assumed to be valid.  The actual function exported by the library is:
+
+int NaClDebugStubDispatch(uint32 version, uint32 CMD, void *data, uint32 size);
+
+This technique allows us to centralize checking for the presence of the debug stub as well as validating version compatibility.  Within the debug stub, the dispatch function is responsible for validation of the parameters before dispatching to the individual handlers.
+
+== Debugging Events ==
+The debugging stub is interested in several events including load of the NEXE, load of additional modules, creation of threads, and destruction of threads.  
+
+=== Initialization ===
+On initialization of the debugging stub, the stub must be configured with parameters for communication with the outside world, as well as the untrusted memory range.  This includes the address and choice of socket or pipe.  This needs to be the first debug stub command called. 
+
+=== NEXE/Module Load ===
+After load and verification of the NEXE, but before it's execution, the Service Run-time must inform the debug stub the name and path of the NEXE.  Additionally any dynamic module load will also need to inform the debug stub for communication to the debugger.
+
+In the future, we plan to provide an hash of the data and executable sections of the NEXE (excluding debugging sections).  This information can be queried by the debugger to help validate the loaded symbols match the NEXE even if it has been stripped.
+
+=== Thread Creation ===
+On creation of a NaClAppThread, the new thread must call into the debug stub before it switches to the untrusted context.  This allows the debug stub to track the thread as well as change it's signal/exception handler.  To ensure the debugger gets catches the signal/exception, the Service Run-time must guarenty it calls the debug_stub after any other code (such as breakpad) has inserted a handler.
+
+== Processing Exceptions ==
+
