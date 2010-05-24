@@ -43,13 +43,13 @@ int NaClDebugStubDispatch(uint32 version, uint32 CMD, void *data, uint32 size);
 This technique allows us to centralize checking for the presence of the debug stub as well as validating version compatibility.  Within the debug stub, the dispatch function is responsible for validation of the parameters before dispatching to the individual handlers.
 
 == Debugging Events ==
-The debugging stub is interested in several events including load of the NEXE, load of additional modules, creation of threads, and destruction of threads.  
+The debugging stub is interested in several events including load of the NEXE, load of additional modules, creation of threads, and destruction of threads. These events are raised from the TCB by calling !NaClDebugStubCommand(). Of course, this function is a no-op if debugging is not enabled.
 
 === Initialization ===
 On initialization of the debugging stub, the stub must be configured with parameters for communication with the outside world, as well as the untrusted memory range.  This includes the address and choice of socket or pipe.  This needs to be the first debug stub command called.  The debug stub will instantiate a new thread which will responsible for communicating with the debugger.
 
 === NEXE/Module Load ===
-After load and verification of the NEXE, but before it's execution, the Service Run-time must inform the debug stub the name and path of the NEXE.  Additionally any dynamic module load will also need to inform the debug stub for communication to the debugger.
+After load and verification of the NEXE, but before its execution, the Service Run-time must inform the debug stub the name and path of the NEXE.  Additionally, any dynamic module load will also need to inform the debug stub for communication to the debugger.
 
 In the future, we plan to provide an hash of the data and executable sections of the NEXE (excluding debugging sections).  This information can be queried by the debugger to help validate the loaded symbols match the NEXE even if it has been stripped.
 
@@ -60,11 +60,14 @@ On creation of a !NaClAppThread, the new thread must call into the debug stub be
 When an exception takes place, the inserted exception handler will catch the exception or signal, and update it's state in the debug thread object which tracks it (such as storing registers).  The thread will then block on a OS synchronization object.  The debugging thread created at initialization of the debug stub will eventually detect the exception by scanning through the list of active thread objects at which point it will sleep the other threads and signal to the debugger that the NEXE is in an exception state.  When the debugger signals it's time to continue, the debugging thread will mark the debug thread structure with a flag to signal it may continue, it should step, or if the thread should be killed.  It will then signal the thread to allow to clean itself up or destroy itself.  If the thread continues, it will pull the new register state (in case it was modified during debugging) and update the exception context before returning.
 
 === Security Issues ===
-Unfortunately under Windows, the thread context of the excepted thread is actually stored within the untrusted stack of the thread which took this exception.  This allows for a security hole where another malicious thread could modify either the exception context itself, or the return pointers within stack making any function return unsafe.   There are several things we can do in terms of synchronizing the start and stop of various threads, but this really just reduces the size of the exposure window without eliminating it.
+Unfortunately under Windows, the thread context of the excepted thread is stored within the untrusted stack of the thread which took this exception.  This opens a security hole where another malicious thread could modify either the exception context itself, or the return pointers within the stack making, any function return unsafe. In the absence of a Windows sigaltstack() implementation, it seems difficult if not impossible to reliably plug this hole.
+
 One possible choice is to allow the user to chose if it wants to support unsafe debugging.  In the safe case, all excepted threads would be terminated, while in the unsafe case the debuggers provides the stepping and continue features of a normal debugger.
 
 === System Calls ===
-While exceptions should never happen within a System Call, it is possible that while one thread takes an exception, another is in a system call.  It is also possible the the debugger has signaled a force break and the thread of interest is within a system call.  When a thread is put to sleep by the debug thread, it checks first to see if the app thread was in a system call.  If so, it uses the thread context preserved on entry into the system call.   We do copy the context information from the debug thread object into the app thread before waking it up, since this would lead to unexpected behavior.  Instead the stub will signal the debugger with an error if an attempt is made to modify the registers of a thread within a system call.
+While exceptions should never happen within a system call, it is possible that while one thread takes an exception, another is in a system call.  It is also possible that the debugger has signaled a force break and the thread of interest is within a system call.  When the debug stub is asked for context info for a thread, it checks first to see if the app thread was in a system call.  If so, it uses the thread context preserved on entry into the system call.   
+
+When a thread is stopped in user code, we allow alterations to its current context. This is not true for threads stopped in syscalls. We do not copy the context information from the debug thread object into the app thread before waking it up, since this would lead to unexpected behavior.  Instead the stub will signal the debugger with an error if an attempt is made to modify the registers of a thread within a system call.
 
 = GDB Remote Serial Protocol =
 see: http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/gdb/remote-protocol.html
