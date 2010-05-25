@@ -12,9 +12,9 @@ Crash handling is complicated by the fact that crashes can potentially occur in 
 
 == x86-64 Windows ==
 
-64-bit Windows lets us catch faults in trusted code.
+64-bit Windows lets us catch faults in trusted code. The fault handler also runs in the event that an exception is caught in untrusted code; however, we see this as a significant security issue because Windows does not support sigaltstack(). A fault in untrusted code results in trusted code, including operating system code, running on the untrusted stack. To further complicate matters, the exception context--including the CPU state at the time of the fault--appears to be stored on the stack. Code in a separate untrusted thread could hijack the stack and/or reset the context RIP, which would cause the thread to return to an arbitrary unsandboxed code.
 
-TODO: What happens in untrusted code?
+Due to these security concerns, the fault handler must immediately abort if its stack pointer is in the untrusted address space. 
 
 == See also ==
  * [http://code.google.com/p/chromium/wiki/LinuxCrashDumping LinuxCrashDumping] in Chrome
