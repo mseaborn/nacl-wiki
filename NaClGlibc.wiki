@@ -22,6 +22,8 @@ Tidy ups:
     * This will also speed up the build, because GNU make's wildcard rules take quadratic time, and glibc uses a lot of them.
  * Remove copy of NaCl header files; pull these in from outside at build time
  * Remove dependency on Linux kernel headers
+ * Unfork linker scripts: integrate linker script customisations into nacl-binutils, which has a shell script that generates linker scripts.
+    * This might not be feasible because dynamically-linked executables require a different layout and different ELF headers from statically-linked executables.
 
 == Version control ==
 nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
