@@ -10,6 +10,9 @@ Stages:
  * Run programs in the context of the web browser
  * Fix all validation failures so that we don't need ncval_stubout
  * Be able to run glibc's test suite
+ * Port to NaCl-x86-64
+ * Port to NaCl-ARM
+ * Port to PNaCl
 
 Build integration:
  * Set this up on Buildbot
