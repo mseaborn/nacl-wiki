@@ -42,15 +42,16 @@ I have written a prototype replacement for tools/Makefile.
 
 === Pain points ===
 
- * tools/Makefile copies header files into the newlib source tree, which partly violates the model.  It is better if we can separate source directories from build directories, so that source directories are not modified during the build.
+ * nacl-newlib expects to get NaCl header files from its source tree.  This means tools/Makefile must copy the header files into the newlib source tree.  This violates the modular build model.  It is better if we can separate source directories from build directories, so that source directories are not modified during the build.
+    * TODO: Add a `--with-headers=path` option similar to what glibc provides.
 
- * NaCl's Scons build uses "naclsdk_mode=custom:..." as both an input tree and an output tree for nacl_extra_sdk.  build.py tries to use this argument to specify the output tree only (it passes the path of an empty directory).  We could tell scons how to find nacl-gcc by setting PATH instead.  However, scons resets PATH by default.  To work around this I have added the following line to SConstruct:
+ * nacl-newlib installs 32-bit libraries into lib/32, and tools/Makefile works around this to make them visible in lib32.
 
-   {{{
-pre_base_env['ENV']['PATH'] = os.environ['PATH']
-}}}
+ * NaCl's Scons build uses "naclsdk_mode=custom:..." as both an input tree and an output tree for nacl_extra_sdk.  build.py tries to use this argument to specify the output tree only (it passes the path of an empty directory).  We could tell scons how to find nacl-gcc by setting PATH instead.  Scons resets PATH by default, but we disable this by passing USE_ENVIRON=1 (an option that was added for this purpose).
 
  * Is there a way to tell Scons to use a build directory other than `scons-out`?  We need a way to ensure that Scons-built files are rebuilt whenever nacl-gcc is rebuilt.
+
+ * The toolchain patches now require `-p2` to apply.  (This is a minor point, but it is a divergence from the usual practice.)
 
 == See also ==
  * [http://www.dwheeler.com/blog/2009/04/13/ Releasing FLOSS Software], David A. Wheeler
