@@ -1,0 +1,21 @@
+#summary Design outline for a capability-based syscall interface for NaCl
+
+= Problems with existing syscall interface =
+
+== Problem 1: IPC facilities are limited ==
+
+NaCl's IPC facilities (called "IMC") do not easily support capability design patterns.  They are a thin wrapper over what happened to be easy to implement on Windows.
+
+There is no shareable invocation-capability type, such as what is provided in the KeyKOS/EROS family.  Instead, there is a confusing array of socket types, with different properties.
+ * ConnectedSockets are message streams and can send shareable descriptors, but are not themselves shareable.
+ * SocketAddresses are shareable but are likely to be slow.  They don't get garbage collected, unlike ConnectedSockets.
+ * DataOnlySockets are message streams but can't be used to send descriptors; they are shareable, but not reliably so: concurrent use will corrupt the messages.
+ * There are no reliable byte stream sockets, but we would need these to support the semantics of Unix pipes that can be written to concurrently.
+
+The result is that each application is likely to invent its own combination of these socket types to suit its own IPC purposes, and there will be no uniform capability invocation convention.
+
+We could invent a convention (imc_connect()+imc_sendmsg()+imc_recvmsg()+close() given a SocketAddress), but it is likely to be slow.
+
+== Problem 2: Some ambient authority remains ==
+
+NaCl contains a number of ad-hoc system calls such as gettimeofday() and nanosleep().  Currently there is no way to launch a process that doesn't have access to timers, for example.  This is less serious than problem 1, but it would preclude implementing more sophisticated sandboxes.
