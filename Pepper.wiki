@@ -1,0 +1,13 @@
+#summary Pepper interface for browser plugins
+
+== Introduction ==
+
+Pepper is an interface that web browsers (specifically, Chromium) provide for implementing browser plugins.  Pepper started out as an extension to Mozilla's widely-used [http://en.wikipedia.org/wiki/NPAPI NPAPI] interface, but Pepper v2 provides a new API that is not an extension to NPAPI.
+
+[ChromiumIntegration NaCl's integration with Chromium] is implemented using Pepper.  However, NaCl also makes a Pepper-based interface available to web apps over [IMCSockets IPC].
+
+== References ==
+ * http://code.google.com/p/ppapi/: Project containing the interface definitions (C header files)
+    * [http://code.google.com/p/ppapi/wiki/Concepts Concepts] - wiki page
+ * https://wiki.mozilla.org/Plugins:PlatformIndependentNPAPI
+ * [https://mail.mozilla.org/listinfo/plugin-futures plugin-futures] mailing list
