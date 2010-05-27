@@ -33,3 +33,28 @@ There are two basic approaches to providing Unix file descriptor semantics:
  * *FDs-are-caps*:  FDs and capabilities are the same thing.
     * This is the approach that FreeBSD-Capsicum takes.  It extends the set of FD types that the kernel implements.  However, it does not implement any invocation-capability types.  It does not make existing FD operations virtualisable.
     * To a limited extent, this is what NaCl is doing today.  It implements mutexes as a new FD type.
+
+= Proposal =
+
+Continue to use the FDs-are-caps model.
+
+1. Introduce a uniform capability invocation mechanism, with two types of invocation:
+ * sync_call():  Invoke a capability and wait for a reply.
+ * async_call():  Invoke a capability and return immediately.  Can take a return continuation argument.
+
+read(), write() and lseek() become sync_call() invocations instead of built-in syscalls.
+
+2. Introduce new built-in capability types to replace ambient system calls:
+  * _Address space_ capability:  provides mmap(), munmap(), and dyncode_load()
+  * _Timer_ capability:  provides gettimeofday(), nanosleep(), rdtsc()
+  * _Thread spawner_ capability:  provides thread_create()
+  * These calls become methods that are invoked via sync_call().
+  * Making these into capabilities makes these facilities deniable.  By denying access to gettimeofday(), thread_create(), etc., we can enforce deterministic execution.
+  * The capability types would be virtualisable.  We can provide a virtualised view of time by replacing gettimeofday().  Wrapping thread_create() could be useful for debuggers.
+  * These capability types are shareable, which provides more flexibility than Unix normally provides.
+
+We would probably retain some built-in system calls:
+ * tls_init(), which sets up %gs on x86-32.  Making this concurrently invokable by other processes would probably be awkward.  This call sets a register on behalf of the caller, and it is closely coupled to the SFI-based sandboxing mechanism.
+ * thread_exit(): Though it would be nice to be able to delegate the ability to kill a thread to other threads or processes, it can be hard to implement this correctly on all our host OSes.
+
+Question: How would we implement poll() and select()?
