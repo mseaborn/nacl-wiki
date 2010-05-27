@@ -28,6 +28,10 @@ Tidy ups:
  * Unfork linker scripts: integrate linker script customisations into nacl-binutils, which has a shell script that generates linker scripts.
     * This might not be feasible because dynamically-linked executables require a different layout and different ELF headers from statically-linked executables.
 
+Ideally:
+ * Resolve the issue of ld.so being ET_EXEC vs. ET_DYN, so that we don't need two copies of it.
+ * Resolve the issue of the executable's load address (see InitialDynamicLoad), so that we don't constrain address space unnecessarily.
+
 == Version control ==
 nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
 
