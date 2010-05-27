@@ -40,7 +40,9 @@ I have written a prototype replacement for tools/Makefile.
  * I have put the code here for now:  http://github.com/mseaborn/nacl-modular-build
  * To get the code you can do:  `git clone git://github.com/mseaborn/nacl-modular-build.git`
 
-=== Pain points ===
+This is now in the NaCl tree, under [http://code.google.com/p/nativeclient/source/browse/trunk/src/native_client/tools/modular-build tools/modular-build].
+
+== Pain points ==
 
  * nacl-newlib expects to get NaCl header files from its source tree.  This means tools/Makefile must copy the header files into the newlib source tree.  This violates the modular build model.  It is better if we can separate source directories from build directories, so that source directories are not modified during the build.
     * TODO: Add a `--with-headers=path` option similar to what glibc provides.
