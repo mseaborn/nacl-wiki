@@ -4,7 +4,7 @@
 
 == Problem 1: IPC facilities are limited ==
 
-NaCl's IPC facilities (called "IMC") do not easily support capability design patterns.  They are a thin wrapper over what happened to be easy to implement on Windows.
+NaCl's [IMCSockets IPC facilities (called "IMC")] do not easily support capability design patterns.  They are a thin wrapper over what happened to be easy to implement on Windows.
 
 There is no shareable invocation-capability type, such as what is provided in the KeyKOS/EROS family.  Instead, there is a confusing array of socket types, with different properties.
  * ConnectedSockets are message streams and can send shareable descriptors, but are not themselves shareable.
@@ -18,4 +18,18 @@ We could invent a convention (imc_connect()+imc_sendmsg()+imc_recvmsg()+close() 
 
 == Problem 2: Some ambient authority remains ==
 
-NaCl contains a number of ad-hoc system calls such as gettimeofday() and nanosleep().  Currently there is no way to launch a process that doesn't have access to timers, for example.  This is less serious than problem 1, but it would preclude implementing more sophisticated sandboxes.
+NaCl contains a number of ad-hoc [SystemCalls system calls] such as gettimeofday() and nanosleep().  Currently there is no way to launch a process that doesn't have access to timers, for example.  This is less serious than problem 1, but it would preclude implementing more sophisticated sandboxes, such as [DeterministicExecution enforcing deterministic execution].
+
+= Requirements for Unix emulation =
+
+ * Support Unix FD types including pipes and sockets.  (Supporting job control for TTYs is not required -- this mechanism is too weird.)
+ * FD-passing using sendmsg() should work, and FDs should work correctly when shared between processes and used concurrently.
+ * Support poll() and select().
+
+There are two basic approaches to providing Unix file descriptor semantics:
+ * *FDs-atop-caps*:  FDs layered on top of a more basic type of capability.
+    * This is how GNU Hurd works.  FDs are implemented in terms of Mach ports.
+    * Note that this is *not* how Mac OS X works.  In this case, the kernel provides both Mach ports and Unix FDs; one is not implemented in terms of the other.
+ * *FDs-are-caps*:  FDs and capabilities are the same thing.
+    * This is the approach that FreeBSD-Capsicum takes.  It extends the set of FD types that the kernel implements.  However, it does not implement any invocation-capability types.  It does not make existing FD operations virtualisable.
+    * To a limited extent, this is what NaCl is doing today.  It implements mutexes as a new FD type.
