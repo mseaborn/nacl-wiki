@@ -1,0 +1,47 @@
+# How to get the GCC-based Native Client toolchain sources and build them.
+
+= Introduction =
+
+This page describes the structure of source code of the GCC-based Native Client toolchain. The sources are based on stable releases of external packages: Binutils, GCC, Newlib, GDB. They are hosted in two versions: as original external tarballs plus patch queues used mainly on buildbots and the Git repository used mainly by the toolchain developers. The rest of the page addresses the structure of the source repositories, the ways to synchronize patches across them and the build script.
+
+= Prerequisites =
+
+== Installing packages on your system ==
+
+First you need to checkout Native Client [Source]. Refer to HowToBuildPorts for setting up the build environment.
+
+== Setting up environment variables for Git ==
+
+If you are planning to contribute to the toolchain, you will need to use the Git repository. Add similar lines to your `.bashrc` or a shell login script:
+{{{
+export GIT_COMMITTER_NAME="John Doe"
+export GIT_AUTHOR_NAME="Mary Major"
+export GIT_COMMITTER_EMAIL="doe@example.com"
+}}}
+
+= Obtaining the toolchain sources =
+
+You have two options for getting buildable sources.
+
+==  Option 1: Get toolchain sources from tarballs and apply patches ==
+{{{
+cd native_client/tools
+make unpack-src
+}}}
+
+== Option 2: Get toolchain sources from Git ==
+{{{
+cd native_client/tools
+git clone "http://git.chromium.org/git/nacl-toolchain.git" SRC
+make prepare-git-src # Tell the build script that sources are ready
+}}}
+
+= Building the toolchain =
+To build the toolchain you need to choose a target directory where to install toolchain binaries. The variable provided for this is named SDKLOC. 
+{{{
+make clean build SDKLOC="/path/to/your/location"
+}}}
+_note_: Although the build script is written as a Makefile, it does not support incremental rebuilds.
+
+= Structure of the Git repository =
+The Git repository keeps sources for the components in the following subdirectories `binutils`, `gcc`, `newlib`, `gdb`. The branch `master` must reflect the exact state of the sources that can be obtained by unpacking the source tarballs and applying the patches from respective subdirectories in `native_client/tools/patches`. The branch `vendor-src` keeps the sources from the original tarballs unchanged. From time to time the `master` branch should be *rebased* on top of newer revisions of the `vendor-src` branch.
