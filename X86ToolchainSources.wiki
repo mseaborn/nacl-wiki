@@ -1,4 +1,4 @@
-# How to get the GCC-based Native Client toolchain sources and build them.
+#summary How to get the GCC-based Native Client toolchain sources and build them.
 
 = Introduction =
 
