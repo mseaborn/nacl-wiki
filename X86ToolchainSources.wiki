@@ -44,7 +44,7 @@ make clean build SDKLOC="/path/to/your/location"
 _note_: Although the build script is written as a Makefile, it does not support incremental rebuilds.
 
 = Structure of the Git repository =
-The Git repository keeps sources for the components in the following subdirectories `binutils`, `gcc`, `newlib`, `gdb`. The branch `master` must reflect the exact state of the sources that can be obtained by unpacking the source tarballs and applying the patches from respective subdirectories in `native_client/tools/patches`. The branch `vendor-src` keeps the sources from the original tarballs unchanged. From time to time the `master` branch should be *rebased* on top of newer revisions of the `vendor-src` branch.
+The [http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-toolchain.git Git repository] keeps sources for the components in the following subdirectories `binutils`, `gcc`, `newlib`, `gdb`. The branch `master` must reflect the exact state of the sources that can be obtained by unpacking the source tarballs and applying the patches from respective subdirectories in `native_client/tools/patches`. The branch `vendor-src` keeps the sources from the original tarballs unchanged. From time to time the `master` branch should be *rebased* on top of newer revisions of the `vendor-src` branch.
 
 = Code reviews =
 TBD
