@@ -1,4 +1,7 @@
-#summary Native Client Debugging Stub.
+#summary Overview of NaCl debugging design
+
+<wiki:toc />
+
 = Introduction =
 
 == Goal ==
