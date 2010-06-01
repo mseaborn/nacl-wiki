@@ -18,6 +18,7 @@ export GIT_COMMITTER_NAME="John Doe"
 export GIT_AUTHOR_NAME="Mary Major"
 export GIT_COMMITTER_EMAIL="doe@example.com"
 }}}
+Note that the toolchain build on Cygwin is as slow as to make the development process impractical on this platform. The Git build will not succeed on Cygwin.
 
 = Obtaining the toolchain sources =
 
