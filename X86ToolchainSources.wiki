@@ -57,3 +57,7 @@ Prepare your repository for code reviews. You will need to perform this step onl
 git config rietveld.server "codereview.chromium.org"
 git config rietveld.cc "native-client-discuss@googlegroups.com"
 }}}
+Follow the [http://code.google.com/p/chromium/wiki/GitCookbook Git Cookbook] for sending your commit for review. Recommendations: Method #1 is the easiest. Instead of `"git cl"` you can use `git-cl` from `depot_tools`.
+
+= Mirroring to Subversion =
+When a maintainer pushes the patch to the Git repository, s/he is also responsible for committing th corresponding patch to the Native Client Subversion repository in the `native_client/tools/patches` area (preferably without review). Patches are formatted with `git format-patch`.
