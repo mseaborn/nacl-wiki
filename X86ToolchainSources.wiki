@@ -49,7 +49,7 @@ The [http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-toolchain.git Git reposit
 === Branches ===
 The branch `master` must reflect the exact state of the sources that can be obtained by unpacking the source tarballs and applying the patches from respective subdirectories in `native_client/tools/patches`. The branch `vendor-src` keeps the sources from the original tarballs unchanged. From time to time the `master` branch should be *rebased* on top of newer revisions of the `vendor-src` branch.
 === Commits ===
-Commits touching more than one external package are prohibited. The first line of each commit message must start from a string that indicates which component the commit refers to. Allowed starters for commit messages are: `'[binutils] '`, `'[gcc] '`, `'[newlib] '`, `'[gdb] '`. Example commit message: `'[gcc] Make copy-propagated pointers be addressed in Pmode'`. There is a special commit message starter `'[noupstream]'` indicating that this commit is not intended for upstream contribution.
+Commits touching more than one external package are prohibited. The first line of each commit message must start from a string that indicates which component the commit refers to. Allowed starters for commit messages are: `'[binutils] '`, `'[gcc] '`, `'[newlib] '`, `'[gdb] '`. Example commit message: `'[gcc] Make copy-propagated pointers be addressed in Pmode'`. There is a special commit message starter `'[noupstream] '` indicating that this commit is not intended for upstream contribution.
 
 = Code reviews =
 Prepare your repository for code reviews. You will need to perform this step only once per cloned repository.
