@@ -13,6 +13,7 @@ Stages:
  * Port to NaCl-x86-64
  * Port to NaCl-ARM
  * Port to PNaCl
+ * Add a library function for allocating space in the dynamic code area so that JIT compilers can load code without treading on the feet of ld.so
 
 Build integration:
  * Set this up on Buildbot
