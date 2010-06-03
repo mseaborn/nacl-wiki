@@ -37,6 +37,13 @@ For more options, see the [http://valgrind.org/docs/manual/mc-manual.html Memche
 src/third_party/valgrind/bin/memcheck.sh --help
 }}}
 
+==Testing untrusted code==
+*This is work in progress.*
+In order to build valgrind-able untrusted binary run command like this: 
+{{{
+./scons MODE=nacl,dbg-linux nacl_ccflags=-g nacl_linkflags=-lvalgrind:-Wl,-u,have_nacl_valgrind_interceptors platform=x86-64  sdl=none run_memcheck_test
+}}}
+
 =Build bot=
 We have a simplistic [http://build.chromium.org/buildbot/nacl/waterfall?builder=karmic64-valgrind build bot] which we will enhance over time. 
 
