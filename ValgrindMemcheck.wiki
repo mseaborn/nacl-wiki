@@ -41,6 +41,7 @@ src/third_party/valgrind/bin/memcheck.sh --help
 *This is work in progress.*
 In order to build valgrind-able untrusted binary run command like this: 
 {{{
+./scons nacl_ccflags=-g targetplatform=x86-64 sdl=none --mode=nacl_extra_sdk extra_sdk_update
 ./scons MODE=nacl,dbg-linux nacl_ccflags=-g nacl_linkflags=-lvalgrind:-Wl,-u,have_nacl_valgrind_interceptors platform=x86-64  sdl=none run_memcheck_test
 }}}
 
