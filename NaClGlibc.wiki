@@ -14,6 +14,7 @@ Stages:
  * Port to NaCl-ARM
  * Port to PNaCl
  * Add a library function for allocating space in the dynamic code area so that JIT compilers can load code without treading on the feet of ld.so
+ * Ensure that C++ exception handling and dl_iterate_phdr() work.  This may require a way for ld.so to discover its own ELF Program Headers.  We may need to munge ld.so to put a copy of the PHDRs into its data segment.
 
 Build integration:
  * Set this up on Buildbot
