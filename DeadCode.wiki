@@ -20,3 +20,7 @@ The following is dead code, i.e. not reachable from public interfaces or covered
     * The comments in nacl_app_thread.h say this is intended as a way to kill another thread.  It mentions using `pthread_kill()`, but this does not work for killing threads on Linux.
 
  * Memory objects recorded in the mapping list?  Since we don't support mremap() or relocating the address space (a hack that was proposed for Windows but is not implemented), I don't think the memory objects are used.
+
+ * web_worker_stub.c
+
+ * `origin` field in `struct NaClApp`
