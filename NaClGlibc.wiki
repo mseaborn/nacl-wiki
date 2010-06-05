@@ -29,7 +29,7 @@ Tidy ups:
  * Remove dependency on Linux kernel headers
  * Unfork linker scripts: integrate linker script customisations into nacl-binutils, which has a shell script that generates linker scripts.
     * This might not be feasible because dynamically-linked executables require a different layout and different ELF headers from statically-linked executables.
- * Ensure that any unnecessary alignments are removed from the linker scripts in order to keep executable and library sizes down.
+ * Ensure that any unnecessary alignments are removed from the linker scripts in order to keep executable and library sizes down.  A "hello world" executable should be about 7k.
 
 Ideally:
  * Resolve the issue of ld.so being ET_EXEC vs. ET_DYN, so that we don't need two copies of it.
