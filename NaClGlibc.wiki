@@ -31,6 +31,8 @@ Tidy ups:
  * Unfork linker scripts: integrate linker script customisations into nacl-binutils, which has a shell script that generates linker scripts.
     * This might not be feasible because dynamically-linked executables require a different layout and different ELF headers from statically-linked executables.
  * Ensure that any unnecessary alignments are removed from the linker scripts in order to keep executable and library sizes down.  A "hello world" executable should be about 7k.
+ * Test that large static TLS areas work.  Determine what size we should really pass to tls_init().
+ * Ensure that we are building with an appropriate set of compiler error/warning flags.
 
 Ideally:
  * Resolve the issue of ld.so being ET_EXEC vs. ET_DYN, so that we don't need two copies of it.
