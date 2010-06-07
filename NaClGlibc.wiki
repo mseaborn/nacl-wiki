@@ -11,6 +11,7 @@ Stages:
  * Fix all validation failures so that we don't need ncval_stubout
  * Be able to run glibc's test suite
  * Port to NaCl-x86-64
+    * Compiler may need substantial fixing to support `-fPIC`; this is known not to work yet
  * Port to NaCl-ARM
  * Port to PNaCl
  * Add a library function for allocating space in the dynamic code area so that JIT compilers can load code without treading on the feet of ld.so
@@ -34,6 +35,8 @@ Tidy ups:
 Ideally:
  * Resolve the issue of ld.so being ET_EXEC vs. ET_DYN, so that we don't need two copies of it.
  * Resolve the issue of the executable's load address (see InitialDynamicLoad), so that we don't constrain address space unnecessarily.
+ * Ensure that the dynamic linker supports TEXTRELs, i.e. libraries compiled without `-fPIC`.  This is specific to x86-32; ARM and x86-64 do not support TEXTRELs in general.
+    * Normally the dynamic linker maps the code and then performs the relocations.  We would need to refactor this a little to perform the relocations before loading the code.
 
 == Version control ==
 nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
