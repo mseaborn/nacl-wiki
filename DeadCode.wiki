@@ -26,3 +26,5 @@ The following is dead code, i.e. not reachable from public interfaces or covered
  * web_worker_stub.c
 
  * `origin` field in `struct NaClApp`
+
+ * "chroot me" functionality in sel_main.c (NACL_SANDBOX_CHROOT_FD).  This is not strictly dead, but there are no users for it.  There are no tests for it.
