@@ -1,0 +1,42 @@
+#summary Design for replacing use of bind() and connect() on Unix domain sockets
+
+= Replacing use of host OSes' bind() and connect() =
+
+These are notes on how to address [http://code.google.com/p/nativeclient/issues/detail?id=344 issue 344].
+
+== Current protocol ==
+
+In the server process:
+ * imc_makeboundsock() does the following:    
+    * token = ChooseRandomToken()
+    * fd = socket(AF_UNIX)
+    * bind(fd, token) // An error here means two processes chose the same token, which is not supposed to happen.
+    * listen(fd, backlog); // Currently backlog=5 on Mac OS X.  This is bad because it exposes an arbitrary limit to NaCl processes.
+    * return (SocketAddress(token), BoundSocket(fd))
+ * imc_accept(BoundSocket(fd)) does:
+    * sock_fd1 = accept(fd)
+    * return ConnectedSocket(sock_fd1)
+
+In a client process:
+ * imc_connect(SocketAddress(token)) does:
+    * sock_fd2 = socket(AF_UNIX)
+    * connect(sock_fd2, token)
+    * return ConnectedSocket(sock_fd2)
+
+== Replacement protocol ==
+
+In the server process:
+ * imc_makeboundsock() does the following:
+    * client_fd, server_fd = socketpair(AF_UNIX, SOCK_STREAM)
+    * return (SocketAddress(client_fd), BoundSocket(server_fd))
+ * imc_accept(BoundSocket(server_fd)) does:
+    * msg, sock_fd1 = recvmsg(server_fd, single_byte_buffer)
+    * assert msg == "c"
+    * return ConnectedSocket(sock_fd1) // We assume that the FD that is sent to us behaves sanely.
+
+In a client process:
+ * imc_connect(SocketAddress(client_fd)) does:
+    * sock_fd1, sock_fd2 = socketpair()
+    * sendmsg(client_fd, "c", [sock_fd1])
+    * // The problem with this is that it succeeds immediately.  We don't know if our connection request was received.
+    * return ConnectedSocket(sock_fd2)
