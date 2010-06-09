@@ -4,12 +4,12 @@
 
 These are notes on how to address [http://code.google.com/p/nativeclient/issues/detail?id=344 issue 344].
 
-== Current protocol ==
+== What I thought the current protocol was ==
 
 In the server process:
  * imc_makeboundsock() does the following:    
     * token = ChooseRandomToken()
-    * fd = socket(AF_UNIX)
+    * fd = socket(AF_UNIX, SOCK_STREAM)
     * bind(fd, token) // An error here means two processes chose the same token, which is not supposed to happen.
     * listen(fd, backlog); // Currently backlog=5 on Mac OS X.  This is bad because it exposes an arbitrary limit to NaCl processes.
     * return (SocketAddress(token), BoundSocket(fd))
@@ -19,8 +19,28 @@ In the server process:
 
 In a client process:
  * imc_connect(SocketAddress(token)) does:
-    * sock_fd2 = socket(AF_UNIX)
+    * sock_fd2 = socket(AF_UNIX, SOCK_STREAM)
     * connect(sock_fd2, token)
+    * return ConnectedSocket(sock_fd2)
+
+== Current protocol on Linux ==
+
+In the server process:
+ * imc_makeboundsock() does the following:
+    * token = ChooseRandomToken()
+    * fd = socket(AF_UNIX, SOCK_DGRAM)
+    * bind(fd, token) // An error here means two processes chose the same token, which is not supposed to happen.
+    * return (SocketAddress(token), BoundSocket(fd))
+ * imc_accept(BoundSocket(fd)) does:
+    * sock_fd1 = recvmsg(fd)
+    * return ConnectedSocket(sock_fd1)
+
+In a client process:
+ * imc_connect(SocketAddress(token)) does:
+    * sock_fd1, sock_fd2 = socketpair(AF_UNIX, SOCK_SEQPACKET)
+    * sendmsg(global_fd, "", [sock_fd1], address=token) // global_fd is only available if sel_ldr is run with "-X -1"
+    * close(sock_fd2)
+    * // The problem with this is that it succeeds immediately. We don't know if our connection request was received.
     * return ConnectedSocket(sock_fd2)
 
 == Replacement protocol ==
@@ -38,5 +58,6 @@ In a client process:
  * imc_connect(SocketAddress(client_fd)) does:
     * sock_fd1, sock_fd2 = socketpair()
     * sendmsg(client_fd, "c", [sock_fd1])
+    * close(sock_fd1)
     * // The problem with this is that it succeeds immediately.  We don't know if our connection request was received.
     * return ConnectedSocket(sock_fd2)
