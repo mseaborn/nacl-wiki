@@ -1,4 +1,5 @@
 #summary Papers about Native Client technology
+#labels Featured
 
 We've published the following papers about Native Client technology:
 
