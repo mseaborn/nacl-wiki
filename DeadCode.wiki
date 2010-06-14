@@ -23,7 +23,9 @@ The following is dead code, i.e. not reachable from public interfaces or covered
 
  * Memory objects recorded in the mapping list?  Since we don't support mremap() or relocating the address space (a hack that was proposed for Windows but is not implemented), I don't think the memory objects are used.
 
- * web_worker_stub.c
+ * service_runtime/web_worker_stub.c
+
+ * service_runtime/main.c: Some sort of wrapper that uses dlopen()
 
  * `origin` field in `struct NaClApp`
 
