@@ -8,7 +8,10 @@ This page describes the structure of source code of the GCC-based Native Client 
 
 == Installing packages on your system ==
 
-First you need to checkout Native Client [Source]. Refer to HowToBuildPorts for setting up the build environment.
+First you need to checkout Native Client [Source]. Refer to HowToBuildPorts for setting up the build environment. Also Git and Subversion will likely be required for the next steps:
+{{{
+sudo apt-get install gitk
+}}}
 
 == Setting up environment variables for Git ==
 
