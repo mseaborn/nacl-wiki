@@ -4,7 +4,7 @@ This is a design discussion for [http://code.google.com/p/nativeclient/issues/de
 
 == Context: implementation in Plash ==
 
-In Plash, the RPC for doing an open() is fairly straightforward and just involves two syscalls on the same socket:
+In [http://plash.beasts.org Plash], the RPC for doing an open() is fairly straightforward and just involves two syscalls on the same socket:
 
  * sendmsg(socket_fd, request_message); // Send open() request
  * recvmsg(socket_fd, reply_buffer); // Get result, including opened FD
