@@ -59,7 +59,7 @@ Commits touching more than one external package are prohibited. The first line o
 Prepare your repository for code reviews. You will need to perform this step only once per cloned repository.
 {{{
 git config rietveld.server "codereview.chromium.org"
-git config rietveld.cc "native-client-discuss@googlegroups.com"
+git config rietveld.cc "native-client-reviews@googlegroups.com"
 }}}
 Follow the [http://code.google.com/p/chromium/wiki/GitCookbook Git Cookbook] for sending your commit for review. Recommendations: Method #1 is the easiest. Instead of `"git cl"` you can use `git-cl` from `depot_tools`.
 
