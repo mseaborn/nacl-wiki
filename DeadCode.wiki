@@ -32,3 +32,5 @@ The following is dead code, i.e. not reachable from public interfaces or covered
  * "chroot me" functionality in sel_main.c (NACL_SANDBOX_CHROOT_FD).  This is not strictly dead, but there are no users for it.  There are no tests for it.
 
  * ioctl syscall and method.  These are both no-ops.  I shouldn't think we'd ever support an ioctl() syscall, so we should remove the stubs.
+
+ * srpc_get_fd().  This is called, but the result is never used as a file descriptor number.  The result is only ever compared with -1.
