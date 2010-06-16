@@ -13,6 +13,8 @@ It is not ideal that the same bidirectional socket is used for the request and t
 
 The code for this RPC is linked into both ld.so (since this needs to open libraries) and libc.so (since this exports open()).  The two share the same socket FD.  Since the RPC interface is simple, sharing is not a problem.
 
+The process is endowed with socket_fd when it is started, so the dynamic linker does not have to do anything to acquire it.
+
 == Implementation in NaCl browser plugin ==
 
 Doing this RPC when running under the NaCl browser plugin is more complicated, however:
@@ -23,8 +25,8 @@ The workaround is that we can artificially induce the browser/renderer to block 
 
    * NaCl -> plugin: NPN_PluginThreadAsyncCall(closure_id)
    * plugin -> NaCl: call closure_id
-   * NaCl -> plugin: synchronously invoke Javascript object: obj(args)
-   * plugin -> NaCl: return result of obj(args)
+      * NaCl -> plugin: synchronously invoke Javascript object: obj(args)
+      * plugin -> NaCl: return result of obj(args)
    * NaCl -> plugin: return from closure
 
 This does not include any result that obj(args) may wish to return asynchronously, which would involve further messages:
