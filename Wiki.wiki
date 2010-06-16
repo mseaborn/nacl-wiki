@@ -1,0 +1,7 @@
+#summary Where to find info about working with the Native Client implementation
+
+Please don't use this wiki for Native Client documentation. Our main doc index is here:
+
+    <b>[http://www.chromium.org/nativeclient/native-client-documentation-index Native Client Documentation Index]</b>
+
+If you're looking for a page in this wiki, go to the [http://code.google.com/p/nativeclient/w/list wiki index]. New documentation pages for Native Client project should be at http://www.chromium.org/nativeclient.
