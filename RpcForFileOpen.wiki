@@ -47,3 +47,13 @@ This does not include any result that obj(args) may wish to return asynchronousl
 6) The current NaCl-side SRPC/NPAPI library code expects to have control of main().
 
 (2) and (3) make it difficult for multiple users of the connection to coexist in the same process.
+
+== Proposed plugin extension ==
+
+Add a Javascript method to the plugin object:
+
+`plugin.make_socket(callback) -> fd`
+
+This creates a socket pair.  It returns an FD that can be passed to the NaCl process.  It listens for messages sent to this FD and invokes `callback` for every message it receives.  This is implemented by spawning a thread and doing NPN_PluginThreadAsyncCall() for each message.
+
+The plugin's SRPC interface already supports sending messages to the NaCl process (even if not receiving messages), so we can use this to send the FD at startup.
