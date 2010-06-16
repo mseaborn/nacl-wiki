@@ -18,10 +18,11 @@ sudo apt-get install gitk
 If you are planning to contribute to the toolchain, you will need to use the Git repository. Add similar lines to your `.bashrc` or a shell login script:
 {{{
 export GIT_COMMITTER_NAME="John Doe"
-export GIT_AUTHOR_NAME="Mary Major"
 export GIT_COMMITTER_EMAIL="doe@example.com"
+export GIT_AUTHOR_NAME="Mary Major"
+export GIT_AUTHOR_EMAIL="mary@example.com"
 }}}
-Note that the toolchain build on Cygwin is as slow as to make the development process impractical on this platform. The Git build will not succeed on Cygwin.
+In the most common case author and committer strings should be equal. Note that the toolchain build on Cygwin is as slow as to make the development process impractical on this platform. The Git build will not succeed on Cygwin.
 
 = Obtaining the toolchain sources =
 
