@@ -1,5 +1,8 @@
 #summary Build Systems FAQ
 
+This page is deprecated.  Its contents have been moved to http://sites.google.com/a/chromium.org/dev/nativeclient/native-client-documentation-index/build-tcb
+
+
 <wiki:toc max_depth="2" />
 
 ==What build system(s) is Native Client using?==
