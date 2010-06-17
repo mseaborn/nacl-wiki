@@ -1,6 +1,6 @@
 #summary Build Systems FAQ
 
-This page is deprecated.  Its contents have been moved to http://sites.google.com/a/chromium.org/dev/nativeclient/native-client-documentation-index/build-tcb
+<font color="red">This page is deprecated.  Its contents have been moved to http://sites.google.com/a/chromium.org/dev/nativeclient/native-client-documentation-index/build-tcb</font>
 
 
 <wiki:toc max_depth="2" />
