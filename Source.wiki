@@ -25,13 +25,13 @@ gclient config http://nativeclient.googlecode.com/svn/trunk/src/native_client
    # Download the code (this might take a few minutes):
 {{{
 cd $NACL_ROOT
-gclient update
+gclient sync
 }}}
 
 Here's what the `gclient` steps do:
   * `gclient config` sets up your working directory, creating a `.gclient` file that identifies the structure to pull from the repository.
-  * `gclient update` creates several subdirectories and downloads the latest Native Client files.
+  * `gclient sync` creates several subdirectories and downloads the latest Native Client files.
 
-To update the Native Client source code, run `gclient update` from `$NACL_ROOT` or any of its subdirectories.
+To update the Native Client source code, run `gclient sync` from `$NACL_ROOT` or any of its subdirectories.
 
 Once you've downloaded the source code, you can build Native Client. To do so, you need Python and a platform-specific development environment. Details on prerequisites and how to build are in [http://nativeclient.googlecode.com/svn/trunk/src/native_client/documentation/building.html Building Native Client].
