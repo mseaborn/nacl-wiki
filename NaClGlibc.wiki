@@ -49,3 +49,9 @@ git clone http://src.chromium.org/git/nacl-glibc.git
 }}}
 
 This is intended to replace the earlier nacl-glibc branch, which is at http://repo.or.cz/w/glibc/nacl-glibc.git
+
+How to build it:
+ * With PATH pointing to nacl-gcc:  cd nacl-glibc && ./nacl_config.sh && make -C build
+
+To run some minimal tests:
+ * With PATH pointing to nacl-gcc and sel_ldr:  python nacl/test.py
