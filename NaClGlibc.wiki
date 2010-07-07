@@ -1,5 +1,40 @@
 #summary Tasks for the nacl-glibc port
 
+= How to build it =
+
+{{{
+sudo apt-get install libgmp3-dev libmpfr-dev git-core
+cd tools/modular-build
+python build.py -b
+}}}
+
+This will build a full toolchain, from binutils to gcc to glibc.  This checks out nacl-glibc from Git automatically.  The libgmp dependencies are needed because, unlike tools/Makefile, this build tool does not yet know how to build libgmp itself.
+
+Running `python build.py` without `-b` will list the targets that the build tool will build.
+
+To run the Scons build using nacl-glibc instead of nacl-newlib, use the `--nacl_glibc` option and specify the location of the toolchain.  For example:
+
+{{{
+./scons --mode=dbg-linux,nacl --nacl_glibc naclsdk_mode=custom:tools/modular-build/out/input-prefix/glibc_toolchain run_hello_world_test
+}}}
+
+= Old build instructions =
+
+These instructions are provided in case you want to check out and build nacl-glibc separately, by hand.
+
+nacl-glibc is maintained in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
+
+To check out the code, you can do:
+{{{
+git clone http://src.chromium.org/git/nacl-glibc.git
+}}}
+
+To build it:
+ * With PATH pointing to nacl-gcc:  `cd nacl-glibc && ./nacl_config.sh && make -C build`
+
+To run some minimal tests:
+ * With PATH pointing to nacl-gcc and sel_ldr:  `python nacl/test.py`
+
 = nacl-glibc tasks =
 
 Stages:
@@ -39,19 +74,3 @@ Ideally:
  * Resolve the issue of the executable's load address (see InitialDynamicLoad), so that we don't constrain address space unnecessarily.
  * Ensure that the dynamic linker supports TEXTRELs, i.e. libraries compiled without `-fPIC`.  This is specific to x86-32; ARM and x86-64 do not support TEXTRELs in general.
     * Normally the dynamic linker maps the code and then performs the relocations.  We would need to refactor this a little to perform the relocations before loading the code.
-
-== Version control ==
-nacl-glibc will be in Git in this repository: http://git.chromium.org/cgi-bin/gitweb.cgi?p=nacl-glibc.git
-
-To check out the code, you can do:
-{{{
-git clone http://src.chromium.org/git/nacl-glibc.git
-}}}
-
-This is intended to replace the earlier nacl-glibc branch, which is at http://repo.or.cz/w/glibc/nacl-glibc.git
-
-How to build it:
- * With PATH pointing to nacl-gcc:  cd nacl-glibc && ./nacl_config.sh && make -C build
-
-To run some minimal tests:
- * With PATH pointing to nacl-gcc and sel_ldr:  python nacl/test.py
