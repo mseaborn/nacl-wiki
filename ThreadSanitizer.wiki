@@ -1,4 +1,4 @@
-#summary Running [http://code.google.com/p/data-race-test/wiki/ThreadSanitizer ThreadSanitizer] on NaCl
+#summary Running ThreadSanitizer on NaCl
 
 = Introduction =
 
