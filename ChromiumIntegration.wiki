@@ -37,7 +37,7 @@ However, there also some good reasons to build sel_ldr as a separate executable:
  # NaCl supports the SUID sandbox but not, currently, the seccomp sandbox.  See LinuxOuterSandbox.
  # Alternatively, we could use a 32-bit sel_ldr process with 64-bit browser/renderer processes.
  # For simplicity, Chromium uses the same 32-bit executable on both 32-bit and 64-bit Windows.  However, we cannot use the 32-bit sel_ldr on Windows 64, because these versions of Windows drop support for setting up x86 segmentation, which the x86-32 version of NaCl relies on.
- # sel_ldr for Mac OS X will use the Mac sandbox (aka "seatbelt") facility for the renderer process (the Native Client plugin) and the sel_ldr process using the sandbox implementation inside Chrome.  See http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man7/sandbox.7.html
+ # Mac OS X uses the standard Chrome renderer sandbox for the renderer process (the Native Client plugin) and the sel_ldr process uses its own, very restrictive Chrome sandbox.
 
 == Policy on dependencies ==
 Native Client should not #include files from the "chrome" directory in the Chromium source tree.  However, #including files from other directories (such as "base") might be OK.  For some background, see [http://code.google.com/p/nativeclient/issues/detail?id=469 issue 469].
