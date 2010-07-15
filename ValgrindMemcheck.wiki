@@ -4,8 +4,7 @@
 = Introduction =
 
 It is possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
-So far Valgrind is able to debug only the trusted code base. 
-Later in 2010 we plan to enable testing the untrusted code too. 
+Valgrind can now debug both trusted and untrusted code.
 
 Currently, Valgrind for NaCl is supported only on *Linux x86_64*.
 
@@ -21,11 +20,13 @@ Currently, Valgrind for NaCl is supported only on *Linux x86_64*.
 = Running Valgrind/Memcheck=
 Currently, Valgrind for NaCl is supported only on Linux x86_64. From `native_client` directory you can run it like this: 
 {{{
-./scons MODE=nacl,dbg-linux nacl_ccflags=-g   platform=x86-64  sdl=none  run_under=src/third_party/valgrind/bin/memcheck.sh,--log-file=mc.log scale_timeout=20  run_hello_world_test
+./scons MODE=nacl,dbg-linux platform=x86-64 sdl=none run_under=src/third_party/valgrind/bin/memcheck.sh,--suppressions=src/third_party/valgrind/nacl.supp,--error-exitcode=1 scale_timeout=20 running_on_valgrind=True with_valgrind=True memcheck_bot_tests
 }}}
 
   * `run_under` allows you to pass the name of the tool under which you want to run tests. If the tool has options, pass them after comma: 'tool,--opt1,--opt2'. (the tool name and the parameters can not contain commas)
   * `scale_timeout=20` multiplies all timeouts by 20 (Remember, valgrind is slow!).
+  * `running_on_valgrind=True` modifies test behaviour in a way suitable for Valgrind: reduce iteration count for long loops, disable some tests.
+  * `with_valgrind=True` links an untrusted Valgrind module to the test binary. This will hopefully not be needed when NaCl supports dynamic linking.
   * `src/third_party/valgrind/bin/memcheck.sh` is a modified valgrind binary which can run on NaCl. 
   * The most useful valgrind parameters: 
     * `--log-file=<file_name>`: put warnings to a file instead of `stderr`.
@@ -37,13 +38,11 @@ For more options, see the [http://valgrind.org/docs/manual/mc-manual.html Memche
 src/third_party/valgrind/bin/memcheck.sh --help
 }}}
 
-==Testing untrusted code==
-*This is work in progress.*
-In order to build valgrind-able untrusted binary run command like this: 
+There is a shorter alias for all these options:
 {{{
-./scons nacl_ccflags=-g targetplatform=x86-64 sdl=none --mode=nacl_extra_sdk extra_sdk_update
-./scons MODE=nacl,dbg-linux nacl_ccflags=-g nacl_linkflags=-lvalgrind:-Wl,-u,have_nacl_valgrind_interceptors platform=x86-64  sdl=none run_memcheck_test
+./scons --mode=dbg-linux,nacl sdl=none platform=x86-64 sdl=none buildbot=memcheck memcheck_bot_tests
 }}}
+
 
 =Build bot=
 We have a simplistic [http://build.chromium.org/buildbot/nacl/waterfall?builder=karmic64-valgrind build bot] which we will enhance over time. 
@@ -78,7 +77,7 @@ The patch to make valgrind work for NaCl (both trusted and untrusted code) is in
   
 TODOs:
   * get rid of `Warning: client switching stacks?  SP change: 0x404e0b8 --> 0xbffffff80` in some clean way.
-  * fix backtraces
+
 
 
     
