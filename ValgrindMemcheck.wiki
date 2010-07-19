@@ -48,7 +48,7 @@ There is a shorter alias for all these options:
 If you want to run NaCl binary under valgrind w/o using scons:
   * build the binary in valgrind mode:
   * download the memcheck binary (if not yet)
-  * run `sel_ldr under memcheck.sh`
+  * run `sel_ldr` under `memcheck.sh`
 {{{
 ./scons MODE=nacl,dbg-linux platform=x86-64 sdl=none with_valgrind=True run_hello_world_test
 wget http://nativeclient.googlecode.com/svn/trunk/src/native_client/src/third_party/valgrind/bin/memcheck.sh
