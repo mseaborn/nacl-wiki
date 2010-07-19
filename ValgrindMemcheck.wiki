@@ -6,7 +6,8 @@
 It is possible to run [http://www.valgrind.org Valgrind/Memcheck] on NaCl. 
 Valgrind can now debug both trusted and untrusted code.
 
-Currently, Valgrind for NaCl is supported only on *Linux x86_64*.
+Currently, Valgrind for NaCl is supported only on *Linux x86_64*. 
+This support is *experimental* -- please try it gives us your feedback. 
 
 = Terminology =  
   * *Valgrind* is a binary translation system. 
@@ -41,6 +42,18 @@ src/third_party/valgrind/bin/memcheck.sh --help
 There is a shorter alias for all these options:
 {{{
 ./scons --mode=dbg-linux,nacl sdl=none platform=x86-64 sdl=none buildbot=memcheck memcheck_bot_tests
+}}}
+
+==Running Valgrind manually==
+If you want to run NaCl binary under valgrind w/o using scons:
+  * build the binary in valgrind mode:
+  * download the memcheck binary (if not yet)
+  * run `sel_ldr under memcheck.sh`
+{{{
+./scons MODE=nacl,dbg-linux platform=x86-64 sdl=none with_valgrind=True run_hello_world_test
+wget http://nativeclient.googlecode.com/svn/trunk/src/native_client/src/third_party/valgrind/bin/memcheck.sh
+chmod +x memcheck.sh
+./memcheck.sh scons-out/dbg-linux-x86-64/staging/sel_ldr scons-out/nacl-x86-64/obj/tests/hello_world/hello_world.nexe
 }}}
 
 
