@@ -1,5 +1,10 @@
 #summary Building Native Client Modules For ARM Platforms
 
+
+=NOTE: THIS IS QUITE OBSOLETE=
+please go here instead: 
+http://dev.chromium.org/nativeclient/native-client-documentation-index/building-and-testing-portable-native-client
+
 =Building Native Client Modules For ARM Plaforms=
 
 NOTE: ARM development is only supported for linux systems
