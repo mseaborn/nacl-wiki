@@ -20,6 +20,15 @@ To run the Scons build using nacl-glibc instead of nacl-newlib, use the `--nacl_
 ./scons --mode=dbg-linux,nacl --nacl_glibc naclsdk_mode=custom:tools/modular-build/out/input-prefix/glibc_toolchain run_hello_world_test
 }}}
 
+== Producing a dependency graph ==
+modular-build can produce a dependency graph of its build targets using Graphviz:
+
+{{{
+sudo apt-get install graphviz
+python build.py graph > graph.dot
+dot graph.dot -Tpdf -o graph.pdf
+}}}
+
 = Old build instructions =
 
 These instructions are provided in case you want to check out and build nacl-glibc separately, by hand.
