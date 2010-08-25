@@ -3,14 +3,16 @@
 = How to build it =
 
 {{{
-sudo apt-get install libgmp3-dev libmpfr-dev git-core
+sudo apt-get install git-core
 cd tools/modular-build
-python build.py -b
+python build.py glibc_toolchain-input -b
 }}}
 
-This will build a full toolchain, from binutils to gcc to glibc.  This checks out nacl-glibc from Git automatically.  The libgmp dependencies are needed because, unlike tools/Makefile, this build tool does not yet know how to build libgmp itself.
+This will build a full toolchain, from binutils to gcc to glibc.  This checks out nacl-glibc from Git automatically, so Git must be installed.
 
 Running `python build.py` without `-b` will list the targets that the build tool will build.
+
+`glibc_toolchain-input` is the target for the glibc toolchain.  (The `-input` suffix is a side effect of the way `MakeInstallPrefix()` is used for this internally.  This should be tidied up so that the suffix is not added.)  If you run `build.py` without any target names, it will use all targets, including the newlib-based toolchain.
 
 To run the Scons build using nacl-glibc instead of nacl-newlib, use the `--nacl_glibc` option and specify the location of the toolchain.  For example:
 
