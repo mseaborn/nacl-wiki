@@ -55,5 +55,26 @@ This is now in the NaCl tree, under [http://code.google.com/p/nativeclient/sourc
 
  * The toolchain patches now require `-p2` to apply.  (This is a minor point, but it is a divergence from the usual practice.)
 
+== Wishlist ==
+
+Missing features in the modular build widely varies by source. Some features can be easily added by implementing Makefile-like functionality that is just not there yet. Some other features might require an in-depth rewrite of important modular-build concepts. The list is *not* sorted by importance.
+
+  * The generic part of the build should be better documented. Take `AddAutoconfModule` as example. It accepts arguments through `**kwargs` that are not easy to follow by reading sources. Examples of parameters with somewhat cryptic names: `explicitly_passed_deps`, `use_install_root`. The directory structure of the build must be documented too. What is the concept of 'install-prefix' and how is it different from 'install'?
+
+  * The build should support building from sources prepared by a human as opposed to be checking out sources from known HTTP locations automatically. I.e. it should be possible to fetch all sources somehow, then modular-build them. In the current implementation one has to make a full build first to fetch all sources, then remove everything except `out/source`, replace with my own sources, then rebuild. This could be solved by having all source targets grouped under a single target.
+
+  * Document incremental rebuild options. Currently it is hard to see a result of changing something in gcc sources by rebuilding the whole toolchain incrementally. Should an `out/something` directory be removed or should `build.py` be invoked with some parameters to invoke an incremental rebuild? Ideally it should allow asking modules if they can incrementally rebuild by themselves. This does not always have to be clean in terms of the final correctness. Sometimes a developer wants to rebuild just one component (or only  those components that changed) and install the results to the destination plus maybe rebuild (some) dependent components. In this situation a developer knowingly sacrifices correctness in favor of faster build.
+
+  * The build should print all parameters of the scripts invoked by system() (make, configure). It is significantly harder to debug problems if all invocations are not logged properly.
+
+  * The build should log file operations that it performs. Currently all ad hoc operations  performed are not logged which makes it hard to understand sources of many problems. For example, `treemappers` that manipulate file trees should record their file operations in the log. Preferably into something like 'cp -r A/ B', not something like 'cp A/1 A/2 A/3 A/4/4 B'. Once run on buildbots this should make it easier to debug problems.
+
+  * The build should produce identical results whether the output goes to terminal or is redirected through a pipe. Currently the order of messages differs which makes it hard to follow what is happening from the logs. Affects running on buildbots.
+
+  * Reduce the amount of copies of the same file. This is probably unfixable. For example, there are 3 places where sys/nacl_imc_api.h is being copied during the build: `out/headers`, `out/headers/nacl/abi`, `out/input-prefix/glibc_toolchain/nacl/include` (the tools/Makefile build has only one replica). This makes it harder for a novice user to follow where this file comes from and whether it changes on the way.
+
+  * The build should improve the readability of it's rules. It shold look rather as a static datafile description. Currently it is a complex program `build.py` that has loops, conditionals `os.path.join`, `os.path.abspath` trickery, etc.
+
+
 == See also ==
  * [http://www.dwheeler.com/blog/2009/04/13/ Releasing FLOSS Software], David A. Wheeler
