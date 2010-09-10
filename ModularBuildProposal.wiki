@@ -69,7 +69,7 @@ Missing features in the modular build widely varies by source. Some features can
 
   * The build should log file operations that it performs. Currently all ad hoc operations  performed are not logged which makes it hard to understand sources of many problems. For example, `treemappers` that manipulate file trees should record their file operations in the log. Preferably into something like 'cp -r A/ B', not something like 'cp A/1 A/2 A/3 A/4/4 B'. Once run on buildbots this should make it easier to debug problems.
 
-  * The build should produce identical results whether the output goes to terminal or is redirected through a pipe. Currently the order of messages differs which makes it hard to follow what is happening from the logs. Affects running on buildbots.
+  * Parallel build option analogous to -j in GNU Make.
 
   * Reduce the amount of copies of the same file. This is probably unfixable. For example, there are 3 places where sys/nacl_imc_api.h is being copied during the build: `out/headers`, `out/headers/nacl/abi`, `out/input-prefix/glibc_toolchain/nacl/include` (the tools/Makefile build has only one replica). This makes it harder for a novice user to follow where this file comes from and whether it changes on the way.
 
