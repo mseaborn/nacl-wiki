@@ -67,8 +67,7 @@ So, initially, all memory within untrusted region is treated by Memcheck as unac
 
 Later, we call [http://valgrind.org/docs/manual/mc-manual.html#mc-manual.clientreqs VALGRIND_MAKE_MEM_UNDEFINED] in few places in the trusted code to tell valgrind that a specific portion of those 84G is accessible. This annotation is applied to memory locations where we put the untrusted code. 
 
-The rest of the memory in untrusted part is currently ignored by Memcheck because heap, stack and bss are marked with `mprotect` before the first use (right?). 
-In order to find bugs in untrusted code we will have to annotate untrusted malloc with VALGRIND_MAKE_MEM_UNDEFINED. 
+We intercept untrusted memory allocations (malloc, realloc, calloc, free) in untrusted/valgrind/valgrind_interceptors.c and notify Memcheck about them with client requests. These interceptors must be compiled with the untrusted compiler and, because dynamic linking is not yet supported, statically linked into the target binary.
 
 == Changes in valgrind ==
 The patch to make valgrind work for NaCl (both trusted and untrusted code) is in progress. Here is a short summary. 
