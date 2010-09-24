@@ -6,7 +6,7 @@
 
 If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
 
-  `svn checkout http://nativeclient.googlecode.com/svn/trunk/src`
+  `svn checkout http://svn.chromium.org/native_client/trunk/src/native_client`
 
 If you use `svn checkout`, the source code appears under a directory named `src` in the current directory. You can update it using `svn update`.
 
@@ -20,7 +20,7 @@ If you want to build the latest version of Native Client, follow these steps:
    # In a shell window, execute the following commands:
 {{{
 cd $NACL_ROOT
-gclient config http://nativeclient.googlecode.com/svn/trunk/src/native_client
+gclient config http://svn.chromium.org/native_client/trunk/src/native_client
 }}}
    # Download the code (this might take a few minutes):
 {{{
