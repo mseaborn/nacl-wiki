@@ -1,5 +1,4 @@
 #summary A preview of Native Client in the browser, no plug-ins required
-#labels Featured
 
 Native Client is now built into the Dev channel of Google Chrome. This page tells you how to enable and use the integrated version of Native Client.  
 
