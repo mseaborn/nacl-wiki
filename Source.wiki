@@ -6,7 +6,7 @@
 
 If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
 
-  `svn checkout http://svn.chromium.org/native_client/trunk/src/native_client`
+  `svn checkout http://src.chromium.org/native_client/trunk/src/native_client`
 
 If you use `svn checkout`, the source code appears under a directory named `src` in the current directory. You can update it using `svn update`.
 
