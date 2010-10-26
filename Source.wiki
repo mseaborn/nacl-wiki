@@ -1,10 +1,11 @@
 #summary How to get the Native Client source code
 
-*Quick links:* [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse source] | [http://code.google.com/p/nativeclient/source/list recent changes]
+*Quick links:*
+[http://src.chromium.org/viewvc/native_client/ browse source] | [http://code.google.com/p/nativeclient/source/list recent changes]
 
 == Browsing the source code ==
 
-If you just want to look at the source code, you can either [http://code.google.com/p/nativeclient/source/browse#svn/trunk/src/native_client browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
+If you just want to look at the source code, you can either [http://src.chromium.org/viewvc/native_client/ browse] it online or download it with [http://subversion.tigris.org/ Subversion]. Here's how to download the latest version of the source code:
 
   `svn checkout http://src.chromium.org/native_client/trunk/src/native_client`
 
