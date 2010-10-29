@@ -21,7 +21,7 @@ If you want to build the latest version of Native Client, follow these steps:
    # In a shell window, execute the following commands:
 {{{
 cd $NACL_ROOT
-gclient config http://svn.chromium.org/native_client/trunk/src/native_client
+gclient config http://src.chromium.org/native_client/trunk/src/native_client
 }}}
    # Download the code (this might take a few minutes):
 {{{
