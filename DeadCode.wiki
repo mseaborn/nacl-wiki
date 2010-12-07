@@ -7,13 +7,13 @@ The following is dead code, i.e. not reachable from public interfaces or covered
 
  * trusted/service_runtime/fs - Some sort of filesystem.  Not used.
 
- * `nacl_cur_thread_key`, `GetCurThread`, `GetCurProc` in trusted/service_runtime/nacl_globals.c
+ * `nacl_cur_thread_key`, `GetCurThread`, `GetCurProc` in trusted/service_runtime/nacl_globals.c - _Removed_
     * These might be used in the future for supporting x86-64 on Mac OS X.
 
- * `NaClTsd*()` in shared/platform/linux/nacl_threads.c
+ * `NaClTsd*()` in shared/platform/linux/nacl_threads.c - _Removed_
     * Ditto.  Might be used for x86-64 on Mac.
 
- * `NaClAppDtor()` in sel_ldr.c, and the various functions it calls.
+ * `NaClAppDtor()` in sel_ldr.c, and the various functions it calls. - _Removed_
     * This is not completely dead, but it is rarely called.  sel_ldr normally just does exit() to shut down the process.  `NaClAppDtor()` is only called if sel_ldr gets an error during startup.
     * There is a TODO to remove this function.
     * See also http://code.google.com/p/nativeclient/issues/detail?id=560
@@ -27,12 +27,12 @@ The following is dead code, i.e. not reachable from public interfaces or covered
 
  * service_runtime/main.c: Some sort of wrapper that uses dlopen()
 
- * `origin` field in `struct NaClApp`
+ * `origin` field in `struct NaClApp` - _Removed_
 
  * "chroot me" functionality in sel_main.c (NACL_SANDBOX_CHROOT_FD).  This is not strictly dead, but there are no users for it.  There are no tests for it.
 
  * ioctl syscall and method.  These are both no-ops.  I shouldn't think we'd ever support an ioctl() syscall, so we should remove the stubs.
 
- * srpc_get_fd().  This is called, but the result is never used as a file descriptor number.  The result is only ever compared with -1, to determine whether the process is running in standalone mode or from the browser plugin.  The same result could be achieved with an environment variable.
+ * srpc_get_fd().  This is called, but the result is never used as a file descriptor number.  The result is only ever compared with -1, to determine whether the process is running in standalone mode or from the browser plugin.  The same result could be achieved with an environment variable. - _Removed_
 
- * LogAtServiceRuntime() in the plugin.
+ * LogAtServiceRuntime() in the plugin. - _Removed_
