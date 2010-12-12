@@ -29,6 +29,7 @@ Confinement:  Although it is not in general possible to prevent programs _writin
  * Memory allocation success/failure:  When allocation fails, don't return an error directly to the guest process.  Return the error to the host process, which can decide how to handle it, e.g. abort the guest.
  * Allocation policies for address space (addresses chosen by mmap()) and FDs (FD numbers chosen by open()).
  * read()/write(): short reads/writes.
+ * Non-blocking imc_recvmsg()
  * getpid()
  * Non-sandboxing of reads:  On ARM and [X8664Sandboxing x86-64], memory reads will not normally be sandboxed for performance reasons.
  * In the x86-64 sandbox, the sandbox's base address is exposed to untrusted code.  See [http://code.google.com/p/nativeclient/issues/detail?id=1235 issue 1235].
