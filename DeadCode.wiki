@@ -43,5 +43,5 @@ This has all become dead as a result of removing SDL support and video/audio sys
  * The "work_queue" field in NaClApp:  read from but never written to.
  * service_runtime/nacl_sync_queue.c
  * service_runtime/nacl_closure.c
- * The "restrict_to_main_thread" field in NaClApp
- * The "is_privileged" field in NaClAppThread
+ * The "restrict_to_main_thread" field in NaClApp - _Removed_
+ * The "is_privileged" field in NaClAppThread - _Removed_
