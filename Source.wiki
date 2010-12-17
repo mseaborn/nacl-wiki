@@ -15,7 +15,7 @@ If you use `svn checkout`, the source code appears under a directory named `src`
 
 If you want to build the latest version of Native Client, follow these steps:
 
-   # If you don't already have `gclient`, get it by downloading the Chromium [http://dev.chromium.org/developers/how-tos/install-gclient depot tools].<br><br>
+   # If you don't already have `gclient`, get it by downloading the Chromium [http://dev.chromium.org/developers/how-tos/install-depot-tools depot tools].<br><br>
    # If you don't already have [http://subversion.tigris.org/ Subversion] (1.6 or later), download it.<br><br>
    # Create a directory to hold the Native Client source code. We'll call it `$NACL_ROOT`.<br><br>*Important:* Make sure the path to the directory has no spaces. Examples of good `$NACL_ROOT` values:<br><br>`/home/me/SVN/nativeclient`    <em>(Linux)</em><br>`/Users/me/SVN/nativeclient`   <em>(Mac)</em><br>`C:\SVN\nativeclient`          <em>(Windows)</em><br><br>
    # In a shell window, execute the following commands:
