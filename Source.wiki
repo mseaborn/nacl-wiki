@@ -1,7 +1,7 @@
 #summary How to get the Native Client source code
 
 *Quick links:*
-[http://src.chromium.org/viewvc/native_client/ browse source]
+[http://src.chromium.org/viewvc/native_client/ browse source and recent revisions]
 
 == Browsing the source code ==
 
