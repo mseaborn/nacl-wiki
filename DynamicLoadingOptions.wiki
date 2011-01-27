@@ -2,8 +2,6 @@
 
 = Dynamic loading in Native Client =
 
-_Draft_
-
 <wiki:toc/>
 
 == Introduction ==
@@ -270,3 +268,14 @@ If `nacl_map_code()` is a library function, a CC-HLTRewrite implementation will 
  * Trusted runtime copies code to destination.
 
 If `nacl_map_code()` is a syscall, it can avoid the first copy.
+
+== Status ==
+
+Support for dynamic loading in the trusted codebase:
+ * CC-HLTRewrite is the current scheme and it was implemented by May 2010 (issue 318).  A significant bug was later found (issue 714).
+ * CC-MProtect has not been implemented yet (issue 503).
+
+Support for dynamic loading in the untrusted codebase:
+ * nacl-glibc currently uses the Big Segment Gap (BSG) scheme.
+ * Movable Segment Gap (MSG) is not implemented (issue 1125).
+ * Sliding Segment Gap (SSG) is not implemented (issue 1126).
