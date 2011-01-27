@@ -273,6 +273,7 @@ If `nacl_map_code()` is a syscall, it can avoid the first copy.
 
 Support for dynamic loading in the trusted codebase:
  * CC-HLTRewrite is the current scheme and it was implemented by May 2010 (issue 318).  A significant bug was later found (issue 714).
+ * There have been extensions to support modifying and unloading dynamic code (issue 731).
  * CC-MProtect has not been implemented yet (issue 503).
 
 Support for dynamic loading in the untrusted codebase:
