@@ -30,24 +30,31 @@ First, we discuss potential goals against which these designs may be evaluated.
 
 == Potential goals ==
 
+Usability:
  * *Convenience*:  It should be easy to create a web app that uses dynamic libraries.  The Javascript/HTML/metadata for setting this up should be concise.
- * *Minimise trusted code*:  Implementing logic in trusted code unnecessarily increases the chance of vulnerabilities and makes the system less flexible.
- * Support *pipelined fetching* of libraries in order to minimise latency:  When an executable depends on multiple libraries, it should be possible to queue the fetch requests for all libraries in one go, so that the download pipe is not empty for a round trip between requests.
- * Support *cross-origin fetching* of libraries, including UMP as well as CORS:  It should be possible for a web app on foo.com to use libraries hosted on bar.org.
- * Support *decentralised sharing* of libraries:  If foo.com and bar.org host identical copies of a library, using web apps on these sites should not cause the library to be downloaded twice.  (This is a longer-term goal.)
- * Support *secure compartmentalisation* of NaCl web apps:  It should be possible to create NaCl processes without the ability to access the DOM, fetch arbitrary URLs, etc.  Web apps may want to run NaCl programs without trusting them with DOM access and network access.  However, such programs may still need dynamic libraries.
  * Support running *legacy applications* with minimal modifications.
     * We should not need to make intrusive changes to the build systems of existing libraries in order to use them with Native Client.
     * The dynamic linker itself is a legacy program.  Our solution for C dynamic libraries should readily extend to the library loaders for other languages.
- * Use a *common libc build*:  Allow the same dynamic linker, libc and other libraries to work in both the browser and non-browser cases.  If we have to build different versions for inside and outside the browser, it will be a maintenance burden.
  * *Testability*:  Ensure that NaCl-based web apps are easy to test.  It should be easy to run an isolated instance of a web app on a test server without depending on production instances.  Fixing URLs in binary files would make this harder.
- * *Integrity*:  Ensure that the library received is the one intended, even over an insecure network.  i.e. Allow use of "strong names".  For example, HTTP URL on its own is not a strong name, but an HTTP URL + secure hash is a strong name, provided the hash of the downloaded file is checked.
- * *Upstreamability* of libc:  We do not want to keep difficult-to-update glibc changes in our branch in the long term.
- * *PNaCl* support:  We do not want to make assumptions that make it difficult to support PNaCl later on.
  * *Avoid "DLL hell"*:
     * Allow a web app author to specify a fixed set of versions of libraries that are known to work together.
     * Allow a web app author to delegate the responsibility of picking library versions to another site (for example, to receive security updates).
+
+Security considerations:
+ * *Minimise trusted code*:  Implementing logic in trusted code unnecessarily increases the chance of vulnerabilities and makes the system less flexible.
+ * *Integrity*:  Ensure that the library received is the one intended, even over an insecure network.  i.e. Allow use of "strong names".  For example, HTTP URL on its own is not a strong name, but an HTTP URL + secure hash is a strong name, provided the hash of the downloaded file is checked.
+ * Support *secure compartmentalisation* of NaCl web apps:  It should be possible to create NaCl processes without the ability to access the DOM, fetch arbitrary URLs, etc.  Web apps may want to run NaCl programs without trusting them with DOM access and network access.  However, such programs may still need dynamic libraries.
  * *3-party library broker*:  Suppose site A wishes to use an up-to-date version of a library as specified by site B.  Site B should not need to host the library itself; it should be able to link to site C.  This should be possible without making site A vulnerable to site B.
+
+Remote loading:
+ * Support *pipelined fetching* of libraries in order to minimise latency:  When an executable depends on multiple libraries, it should be possible to queue the fetch requests for all libraries in one go, so that the download pipe is not empty for a round trip between requests.
+ * Support *cross-origin fetching* of libraries, including UMP as well as CORS:  It should be possible for a web app on foo.com to use libraries hosted on bar.org.
+ * Support *decentralised sharing* of libraries:  If foo.com and bar.org host identical copies of a library, using web apps on these sites should not cause the library to be downloaded twice.  (This is a longer-term goal.)
+
+Maintenance issues:
+ * *PNaCl* support:  We do not want to make assumptions that make it difficult to support PNaCl later on.
+ * Use a *common libc build*:  Allow the same dynamic linker, libc and other libraries to work in both the browser and non-browser cases.  If we have to build different versions for inside and outside the browser, it will be a maintenance burden.
+ * *Upstreamability* of libc:  We do not want to keep difficult-to-update glibc changes in our branch in the long term.
 
 == Mapping to URLs outside the dynamic linker ==
 
