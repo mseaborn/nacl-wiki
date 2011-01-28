@@ -45,7 +45,7 @@ First, we discuss potential goals against which these designs may be evaluated.
  * *Upstreamability* of libc:  We do not want to keep difficult-to-update glibc changes in our branch in the long term.
  * *PNaCl* support:  We do not want to make assumptions that make it difficult to support PNaCl later on.
  * *Avoid "DLL hell"*:
-    * Allow a web app author to fix versions of libraries to a combination that is known to work together.
+    * Allow a web app author to specify a fixed set of versions of libraries that are known to work together.
     * Allow a web app author to delegate the responsibility of picking library versions to another site (for example, to receive security updates).
  * *3-party library broker*:  Suppose site A wishes to use an up-to-date version of a library as specified by site B.  Site B should not need to host the library itself; it should be able to link to site C.  This should be possible without making site A vulnerable to site B.
 
