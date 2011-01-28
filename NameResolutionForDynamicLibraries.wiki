@@ -1,0 +1,45 @@
+#summary Discussion of how to map from library sonames to URLs to files
+
+= Name resolution for dynamic libraries =
+
+_Draft_
+
+<wiki:toc/>
+
+== Introduction ==
+
+An important question for implementing dynamic library loading in Native Client is how libraries are named by executables and other libraries, and how the dynamic linker acquires libraries given these names.
+
+The current plan for dynamic library support is to use ELF, the standard used in Linux and various other Unixes.  In ELF, a dynamic library is named by a short "soname", such as "libncurses.so.5".
+
+On a Unix system, the responsibility for mapping a soname to a specific library file is effectively split between two components:
+
+ * The OS provides a filesystem namespace (typically shared between all processes) which is populated with libraries when the application and its dependencies are _installed_.  This installation is often done by a _package manager_.
+ * The dynamic linker treats the soname as a filename.  To find "libfoo.so.123", it tries to open "libfoo.so.123" in each directory in the _library search path_.
+
+In the web browser, we do not have the same concept of installation:  There is no local filesystem namespace that is shared between all programs.  We would typically want to acquire library files by fetching them from URLs.  In this case the question becomes how to map sonames to URLs, and from URLs to files.
+
+In this document we discuss two broad ways of managing this mapping:
+
+ # *Map sonames to URLs outside the dynamic linker*:  When the dynamic linker needs to open a library, it invokes an out-of-process service, passing the short library name or a filename and receiving a file descriptor in response.
+ # *Map sonames to URLs inside the dynamic linker*:  When the dynamic linker needs to open a library, it requests a URL to be fetched by the NaCl browser plugin and receives a file descriptor in response.
+
+Furthermore, we discuss the possibility of changing ELF conventions and not using sonames.
+
+First, we discuss potential goals against which these designs may be evaluated.
+
+== Potential goals ==
+
+_TODO_
+
+== Mapping to URLs outside the dynamic linker ==
+
+_TODO_
+
+== Mapping to URLs inside the dynamic linker ==
+
+_TODO_
+
+== Replacing sonames with URLs ==
+
+_TODO_
