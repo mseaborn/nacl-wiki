@@ -56,13 +56,27 @@ Maintenance issues:
  * Use a *common libc build*:  Allow the same dynamic linker, libc and other libraries to work in both the browser and non-browser cases.  If we have to build different versions for inside and outside the browser, it will be a maintenance burden.
  * *Upstreamability* of libc:  We do not want to keep difficult-to-update glibc changes in our branch in the long term.
 
-== Mapping to URLs outside the dynamic linker ==
+== Resolving sonames outside the dynamic linker ==
 
 _TODO_
 
-== Mapping to URLs inside the dynamic linker ==
+== Resolving sonames inside the dynamic linker ==
 
-_TODO_
+Suppose the dynamic linker is given the ability to fetch URLs and is expected to use this to load the libraries that an executable depends on.  This would place a number of constraints on the system.
+
+=== Implementation constraints ===
+
+The dynamic linker would need to talk to the NaCl browser plugin to request URLs.  To do this, it would need to speak the PPAPI-over-SRPC-over-IMC protocol that the NaCl browser plugin implements.  However, this protocol is currently not stable.
+
+Assuming this protocol remains unstable, the dynamic linker would probably need to be linked to the NaCl PPAPI proxy library (libppruntime).  However, we cannot use the dynamically-linked version of libppruntime, since this would obviously create a Catch-22 situation:  In order to fetch a URL we need libppruntime loaded, but we need libppruntime loaded before we can fetch URLs.  So we would need to statically link libppruntime and its dependencies, which currently include libsrpc.  This would create some problems:
+
+ * When the dynamic linker runs, during startup, libc is not yet loaded.  Many libc functions are not available.  Simple versions of malloc() and free() are available, but the dynamic linker's version of free() only frees memory for some allocation patterns.  libppruntime and libsrpc would need to be made to work in this context, which might be non-trivial.  libppruntime is currently written in C++, which is not available at the point we build nacl-glibc.  The NaCl toolchain build builds a C++ compiler only after building nacl-glibc, because libstdc++ depends on libc.  libppruntime also uses libpthread in some cases.
+
+ * If the dynamic linker must be statically linked against libppruntime, any change to libppruntime will need to be tested in this context.  So any change to libppruntime would require nacl-glibc to be rebuilt in order to test that the change does not introduce additional dependencies that cause build failures, and the resulting dynamic linker would need to be tested.  nacl-glibc takes a relatively long time to build.  So far, libppruntime developers have not needed to make changes that require nacl-glibc to be rebuilt.
+
+ * We would potentially have two instances of libppruntime in the same process, which would cause problems.  This assumes that we would still have a dynamically-loaded libppruntime for NaCl applications to use.  The NaCl browser plugin expects to have one PPAPI-over-SRPC connection to the NaCl subprocess.  The two libppruntime instances would either have to share this connection, or the NaCl browser plugin would have to be changed to handle multiple connections.
+
+A solution to these problems would be to stabilise the interface presented by the PPAPI-over-IMC protocol, or at least stabilise a subset of the protocol for loading URLs.  A minimal version of libppruntime could be written that is suitable for statically linking into the dynamic linker.
 
 == Replacing sonames with URLs ==
 
