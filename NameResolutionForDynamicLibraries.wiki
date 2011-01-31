@@ -28,7 +28,7 @@ Furthermore, we discuss the possibility of changing ELF conventions and not usin
 
 First, we discuss potential goals against which these designs may be evaluated.
 
-== Potential goals ==
+== Goals ==
 
 Usability:
  * *Convenience*:  It should be easy to create a web app that uses dynamic libraries.  The Javascript/HTML/metadata for setting this up should be concise.
@@ -79,6 +79,17 @@ Assuming this protocol remains unstable, the dynamic linker would probably need 
 
 A solution to these problems would be to stabilise the interface presented by the PPAPI-over-IMC protocol, or at least stabilise a subset of the protocol for loading URLs.  A minimal version of libppruntime could be written that is suitable for statically linking into the dynamic linker.
 
+
 == Replacing sonames with URLs ==
 
-_TODO_
+We could change our use of ELF so that instead of storing short sonames in the DT_NEEDED fields of executables and libraries, we store URLs.  However, this would create a number of problems:
+
+ * *Testability*:  It would be difficult to test executables with embedded URLs in isolation from production systems.
+
+ * *Version management*:  Loading two different versions of a library into one process does not always work with ELF, because it can cause symbol conflicts.  If libraries declared dependencies on specific versions of libraries via URLs, it would make conflicts more likely than with sonames.  A soname usually specifies an interface rather than a specific implementation.  If two libraries both depend on the soname "libfoo.so.1", at runtime they will both receive the same version of "libfoo.so.1".
+
+ * *Existing libraries*:  The build systems for existing software will expect to link libraries with short sonames.  For example, libfoo might be linked with the option "-Wl,-soname,libfoo.so.1".  Using URLs instead would require all these locations to be changed, and a conditional case would need to be added to support Native Client alongside other platforms.
+
+ * *Local storage*:  This does not a offer a way for a web app to manage its own caching by copying libraries to local storage.
+
+ * *Secure compartmentalisation*:  Every NaCl process would need the ability to request arbitrary URLs, so running processes without network access would be difficult.
