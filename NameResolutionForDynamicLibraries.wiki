@@ -175,7 +175,32 @@ At the same time, it would be easy to implement a manifest file reader on top of
 
 === Option D: Mapping object, supplied by web app ===
 
-_TODO_
+In the previous section, a mapping data structure was populated from Javascript by bindFile() calls.  A logical extension would be to allow the data structure to be implemented in Javascript.  This would mean the mapping would not be confined to being an enumeration of explicit name/file mappings.
+
+A simple interface would be for the mapping to be specified as a function that takes a library name or filename as an argument.  An example of a simple mapping would be to add a URL prefix to the filename:
+
+{{{
+var plugin = document.getElementById("nacl_plugin");
+
+function ResolveFilename(name) {
+    // Assume libraries are always bitcode files in one directory.
+    var url = "http://example.com/my-nacl-app/" + name + ".bc";
+    return plugin.translatePnaclFile(plugin.fetchUrl(url));
+}
+plugin.setFilenameResolver(ResolveFilename);
+}}}
+
+Again, this example uses promises, so that the fetchUrl() and translatePnaclFile() immediately return promise objects.
+
+Allowing the mapping to be specified as a function has these advantages:
+ * It removes the need to implement a name mapping facility in trusted code.
+ * It allows file lookups to be logged.  This would be useful for debugging file-not-found errors when loading libraries.  It could help a web app author to determine which libraries should be in a prefetch list.
+ * It removes the need to enumerate every file in the mapping.  Catch-alls are possible.
+ * It would make it easier to compose filename mappings together.  With getMapping()/bindFile() from the previous section, the only possibility is to add files to one mapping.  With mapping functions, one function could delegate to one or more other functions.
+ * Subsets of the namespace could be fetched on demand.
+ * It can readily be extended to support other filesystem operations, such as listing directories, without requiring changes to trusted code.
+
+Both the manifest file and the bindFile() interface could be implemented on top of the setFilenameResolver() interface above.
 
 == Resolving sonames outside the dynamic linker ==
 
