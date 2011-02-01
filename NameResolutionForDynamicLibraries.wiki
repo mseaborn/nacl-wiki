@@ -224,6 +224,7 @@ Assuming this protocol remains unstable, the dynamic linker would probably need 
 
 A solution to these problems would be to stabilise the interface presented by the PPAPI-over-IMC protocol, or at least stabilise a subset of the protocol for loading URLs.  A minimal version of libppruntime could be written that is suitable for statically linking into the dynamic linker.
 
+*Another trivial solution is to provide dynamic linker and libc with browser* - khim.
 
 == Replacing sonames with URLs ==
 
