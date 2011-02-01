@@ -143,7 +143,35 @@ However, there are some disadvantages to using a manifest file, if the manifest 
 
 === Option C: Programmatic construction of a soname mapping ===
 
-_TODO_
+Use of a manifest file requires the soname mapping to be represented as a serialised data structure containing pure data.  An alternative would be to allow the mapping data structure to be constructed programmatically in Javascript.
+
+An example of this might be the following:
+
+{{{
+var plugin = document.getElementById("nacl_plugin");
+// Get the filename/soname mapping object.
+var mapping = plugin.getMapping();
+
+// Request a file to be downloaded and get a promise object representing it.
+var pnacl_file = plugin.fetchUrl("http://example.com/lib/libz.so.1.0.bc");
+// Request a translated version of a file.  Also returns a promise.
+var library_file = plugin.translatePnaclFile(pnacl_file);
+// Bind the translated file into the file namespace.
+mapping.bindFile("/lib/libz.so.1", library_file);
+}}}
+
+This code fragment makes use of _promises_, which represent files that have been requested to be fetched or generated, for which the result might not yet be available.  This makes it convenient to set up a pipeline that will complete asynchronously without having to write asynchronous callback functions.  When the dynamic linker requests the file "/lib/libz.so.1", it would block until the file is available (both downloaded and translated).
+
+This type of description has some advantages over static manifest files:
+
+ * It can reference local file objects without these files needing to have string identifiers.  For example, a local "File API" file object could be usable with bindFile() or translatePnaclFile().  It is easier to manage file lifetimes when files are referenced through object references, because a file can be freed when object references to it have been dropped, but we cannot tell when string ID references have been dropped.
+ * It can be more easily extended to work with other types of file.  We could provide variants of fetchUrl() that use UMP and CORS.
+ * It avoids the need to fix a concrete file format.  Instead, we would define a method call API.
+ * A programmatic definition could be more concise since repetition can be avoided.
+ * The namespace mapping can be changed after the NaCl process has started.
+ * A function-based interface can handle errors more gracefully.  If the method translatePnaclFile() is not available, for example, it would raise an exception.  If the method is a recently-added feature, a web app can catch the exception and provide fallback logic.  In contrast, an unsupported field in JSON would likely get ignored without a warning or an error.
+
+At the same time, it would be easy to implement a manifest file reader on top of a programmatic interface.
 
 === Option D: Mapping object, supplied by web app ===
 
