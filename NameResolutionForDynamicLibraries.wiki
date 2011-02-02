@@ -194,7 +194,7 @@ Again, this example uses promises, so that the fetchUrl() and translatePnaclFile
 
 Allowing the mapping to be specified as a function has these advantages:
  * It removes the need to implement a name mapping facility in trusted code.
- * It allows file lookups to be logged.  This would be useful for debugging file-not-found errors when loading libraries.  It could help a web app author to determine which libraries should be in a prefetch list.
+ * It allows the names that the dynamic linker requests to be logged.  This would be useful for debugging file-not-found errors when loading libraries.  It could help a web app author to determine which libraries should be in a prefetch list.
  * It removes the need to enumerate every file in the mapping.  Catch-alls are possible.
  * It would make it easier to compose filename mappings together.  With getMapping()/bindFile() from the previous section, the only possibility is to add files to one mapping.  With mapping functions, one function could delegate to one or more other functions.
  * Subsets of the namespace could be fetched on demand.
