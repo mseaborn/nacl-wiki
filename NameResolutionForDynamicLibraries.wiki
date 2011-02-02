@@ -166,7 +166,7 @@ var library_file = plugin.translatePnaclFile(pnacl_file);
 mapping.bindFile("/lib/libz.so.1", library_file);
 }}}
 
-This code fragment makes use of _promises_, which represent files that have been requested to be fetched or generated, for which the result might not yet be available.  This makes it convenient to set up a pipeline that will complete asynchronously without having to write asynchronous callback functions.  When the dynamic linker requests the file "/lib/libz.so.1", it would block until the file is available (both downloaded and translated).
+This code fragment makes use of _[http://en.wikipedia.org/wiki/Promise_(programming) promises]_ (sometimes called _futures_), which represent files that have been requested to be fetched or generated, for which the result might not yet be available.  This makes it convenient to set up a pipeline that will complete asynchronously without having to write asynchronous callback functions.  When the dynamic linker requests the file "/lib/libz.so.1", it would block until the file is available (both downloaded and translated).
 
 This type of description has some advantages over static manifest files:
 
