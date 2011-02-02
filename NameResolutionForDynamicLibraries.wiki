@@ -12,6 +12,8 @@ An important question for implementing dynamic library loading in Native Client 
 
 The current plan for dynamic library support is to use ELF, the standard used in Linux and various other Unixes.  In ELF, a dynamic library is named by a short "soname", such as "libncurses.so.5".
 
+   _Note:  The version number in a soname is a major version number.  This is only changed when the ABI of a library is changed in an incompatible way.  When a library is evolving in an ABI-compatible way (by adding but not removing symbols, keeping struct layouts the same, etc.), the soname stays the same.  For example, Linux glibc provides "libc.so.6", and the ".6" part will stay the same for the foreseeable future._
+
 On a Unix system, the responsibility for mapping a soname to a specific library file is effectively split between two components:
 
  * The OS provides a filesystem namespace (typically shared between all processes) which is populated with libraries when the application and its dependencies are _installed_.  This installation is often done by a _package manager_.
