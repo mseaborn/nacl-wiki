@@ -46,6 +46,7 @@ Usability:
     * Allow a web app author to specify a fixed set of versions of libraries that are known to work together.
     * Allow a web app author to delegate the responsibility of picking library versions to another site (for example, to receive security updates).
  * *Error handling*: If the dynamic linker fails to load the executable and its dependencies, there should be a mechanism for getting the error message.  This should work both during development, and in production, when a web app is deployed.
+ * *Standard libraries*:  Provide a route by which the NaCl plugin can supply some standard libraries.  This might include the dynamic linker, libc, PPAPI bindings (libppruntime) and OpenGL libraries.
 
 Security considerations:
  * *Minimise trusted code*:  Implementing logic in trusted code unnecessarily increases the chance of vulnerabilities and makes the system less flexible.
