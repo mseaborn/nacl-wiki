@@ -49,7 +49,7 @@ Usability:
 
 Security considerations:
  * *Minimise trusted code*:  Implementing logic in trusted code unnecessarily increases the chance of vulnerabilities and makes the system less flexible.
- * *Integrity*:  Ensure that the library received is the one intended, even over an insecure network.  i.e. Allow use of "strong names".  For example, HTTP URL on its own is not a strong name, but an HTTP URL + secure hash is a strong name, provided the hash of the downloaded file is checked.
+ * *Integrity*:  Ensure that the library received is the one intended, even over an insecure network.  Rather than referring to a file by an HTTP URL on its own, a manifest file could refer to an (HTTP URL, secure hash) pair, where the hash is checked after download.  This would allow, for example, a page served over HTTPS to link to libraries provided over HTTP without violating the web app's integrity.  It can also aid caching.  Such hash+location pairs are known as _strong names_.
  * Support *secure compartmentalisation* of NaCl web apps:  It should be possible to create NaCl processes without the ability to access the DOM, fetch arbitrary URLs, etc.  Web apps may want to run NaCl programs without trusting them with DOM access and network access.  However, such programs may still need dynamic libraries.
  * *3-party library broker*:  Suppose site A wishes to use an up-to-date version of a library as specified by site B.  Site B should not need to host the library itself; it should be able to link to site C.  This should be possible without making site A vulnerable to site B.
 
@@ -75,7 +75,7 @@ We explore four options for how the mapping from sonames to files might be speci
 
 These options are not mutually exclusive: for example, A, B and C could be implemented in terms of D.  In principle A and B could be implemented inside the dynamic linker itself, but C and D would have to be implemented outside the dynamic linker.  These options are discussed in more detail below.
 
-=== Option A: Library search path ===
+=== Option A: Library search path (strawman) ===
 
 A normal ELF dynamic linker uses a _library search path_: a list of directories to search for libraries.  This list can be modified by setting the LD_LIBRARY_PATH environment variable, and ELF objects (executables and libraries) can add to the list using ELF's [http://en.wikipedia.org/wiki/Rpath_(linking) RPATH] feature.  The default is typically `["/lib", "/usr/lib"]`.
 
