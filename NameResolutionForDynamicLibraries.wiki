@@ -4,6 +4,8 @@
 
 _Draft_
 
+*Please send comments to [https://groups.google.com/group/native-client-discuss native-client-discuss]* rather than adding them inline or using the comment form, because the wiki does not send notifications about changes.
+
 <wiki:toc/>
 
 == Introduction ==
@@ -225,8 +227,6 @@ Assuming this protocol remains unstable, the dynamic linker would probably need 
  * If libppruntime is statically linked into the dynamic linker and a dynamically-linked version of libppruntime is used by a NaCl application, there would be two instances of libppruntime in the same process and this could cause problems.  For example, the NaCl browser plugin expects to have one PPAPI-over-SRPC connection to the NaCl subprocess.  Either the two libppruntime instances would have to share this connection or the NaCl browser plugin would have to be changed to handle multiple connections.
 
 A solution to these problems would be to stabilise the interface presented by the PPAPI-over-IMC protocol, or at least stabilise a subset of the protocol for loading URLs.  A minimal version of libppruntime could be written that is suitable for statically linking into the dynamic linker.
-
-*Another trivial solution is to provide dynamic linker and libc with browser* - khim.
 
 == Replacing sonames with URLs ==
 
