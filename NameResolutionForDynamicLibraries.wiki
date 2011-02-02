@@ -145,7 +145,7 @@ Such a manifest format is potentially extensible, and could include other featur
 However, there are some disadvantages to using a manifest file, if the manifest file is implemented by Native Client as built-in functionality.  The mapping would be static, in the sense that there would not necessarily be a way to alter the mapping after a NaCl process has been launched.  This would make it harder to support some use cases:
 
  * Suppose an application wishes to dlopen() a library from a URL that is only known after application startup.  dlopen() opens a soname using the same mapping process as startup-time library loading, but if this mapping is unalterable we would have no way of getting dlopen() to use the new URL.
- * It would be awkward to make this work with "File API" files.  These files are represented as Javascript objects, but they can also be converted into locally-usable "Blob URIs" via createObjectURL().  A Blob URI could be inserted into a programmatically-generated manifest file, which could be passed to the NaCl plugin via a "data:" URL, but this seems awkward.
+ * It would be awkward to make this work with "File API" files.  These files are represented as Javascript objects, but they can also be converted into locally-usable "Blob URIs" via createObjectURL().  A Blob URI could be inserted into a programmatically-generated manifest file, which could be passed to the NaCl plugin as a "data:" URL.  However, this seems awkward: it would negate the benefit of a having a manifest file, namely that the file is static and does not need to be constructed by Javascript.
 
 === Option C: Programmatic construction of a soname mapping ===
 
@@ -229,7 +229,7 @@ Secondly, dynamic linker would need to implement all the features of the manifes
  * Integrity checks:  If the manifest file format allows a "hash" field for each file, the hash checking would need to be done in the dynamic linker.
  * Pipelining:  Any prefetching logic would need to be implemented in the dynamic linker.
 
-Use of local storage based on the File API would be possible, but would require a manifest file containing Blob URIs to be generated dynamically, as discussed above, negating the benefit of having a static manifest file.
+Use of local storage based on the File API would be possible, but would require a manifest file containing Blob URIs to be generated dynamically in Javascript, negating the benefit of having a static manifest file, as discussed earlier.
 
 === Bootstrap dependency difficulties at run time and build time ===
 
