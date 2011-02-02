@@ -258,3 +258,5 @@ We could change our use of ELF so that instead of storing short sonames in the D
  * *Local storage*:  This does not a offer a way for a web app to manage its own caching by copying libraries to local storage.
 
  * *Secure compartmentalisation*:  Every NaCl process would need the ability to request arbitrary URLs, so running processes without network access would be difficult.
+
+Similarly, we could change the interpretation of the ELF RPATH field to be a URL prefix, but this has the same testability and compartmentalisation problems as putting URLs in DT_NEEDED, as well as the additional problems associated with library search paths described above.
