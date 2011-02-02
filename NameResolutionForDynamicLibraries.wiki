@@ -214,11 +214,26 @@ _TODO_
 
 == Resolving sonames inside the dynamic linker ==
 
-Suppose the dynamic linker is given the ability to fetch URLs and is expected to use this to load the libraries that an executable depends on.  This would place a number of constraints on the system.
+Suppose the dynamic linker is given the ability to fetch URLs and is expected to use this to load the libraries that an executable depends on.  We consider this arrangement for completeness, but it does not appear to have any advantages.  It would require a lot of functionality to be placed in the dynamic linker, which would be difficult to implement while making it harder to evolve the system.
 
-=== Implementation constraints ===
+=== Interpreting manifest files in the dynamic linker ===
 
-The dynamic linker would need to talk to the NaCl browser plugin to request URLs.  To do this, it would need to speak the PPAPI-over-SRPC-over-IMC protocol that the NaCl browser plugin implements.  However, this protocol is currently not stable.
+In principle it would be possible to implement options A or B inside the dynamic linker.  Let us consider option B (manifest files), since option A (library search paths) was ruled out earlier.
+
+Firstly, this would require a mechanism for the NaCl plugin to send the manifest file to the dynamic linker.
+
+Secondly, dynamic linker would need to implement all the features of the manifest file format:
+ * Parsing:  We would need to include a JSON parser in the dynamic linker, if the manifest file format were based on JSON.
+ * PNaCl:  To support PNaCl, the dynamic linker would need to be given the ability to invoke the PNaCl translator.  For the PNaCl translator to provide any cross-origin caching, the translator would have to be exposed via IPC.
+ * Cross-origin fetching:  If the manifest file provides a choice between same-origin and cross-origin fetching mechanisms, the dynamic linker would need knowledge of these.
+ * Integrity checks:  If the manifest file format allows a "hash" field for each file, the hash checking would need to be done in the dynamic linker.
+ * Pipelining:  Any prefetching logic would need to be implemented in the dynamic linker.
+
+Use of local storage based on the File API would be possible, but would require a manifest file containing Blob URIs to be generated dynamically, as discussed above, negating the benefit of having a static manifest file.
+
+=== Bootstrap dependency difficulties at run time and build time ===
+
+The dynamic linker would need to talk to the NaCl browser plugin to request URLs.  To do this with the current NaCl plugin, it would need to speak the PPAPI-over-SRPC-over-IMC protocol that the NaCl browser plugin implements.  However, this protocol is currently not stable.
 
 Assuming this protocol remains unstable, the dynamic linker would probably need to be linked to the NaCl PPAPI proxy library (libppruntime).  However, we cannot use the dynamically-linked version of libppruntime, since this would obviously create a Catch-22 situation:  In order to fetch a URL we need libppruntime loaded, but we need libppruntime loaded before we can fetch URLs.  So we would need to statically link libppruntime and its dependencies, which currently include libsrpc.  This would create some problems:
 
