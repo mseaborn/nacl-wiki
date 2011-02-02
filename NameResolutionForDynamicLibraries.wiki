@@ -14,7 +14,7 @@ An important question for implementing dynamic library loading in Native Client 
 
 The current plan for dynamic library support is to use ELF, the standard used in Linux and various other Unixes.  In ELF, a dynamic library is named by a short "soname", such as "libncurses.so.5".
 
-   _Note:  The version number in a soname is a major version number.  This is only changed when the ABI of a library is changed in an incompatible way.  When a library is evolving in an ABI-compatible way (by adding but not removing symbols, keeping struct layouts the same, etc.), the soname stays the same.  For example, Linux glibc provides "libc.so.6", and the ".6" part will stay the same for the foreseeable future._
+   _Background note:  The version number in a soname is a major version number.  This is only changed when the ABI of a library is changed in an incompatible way.  When a library is evolving in an ABI-compatible way (by adding but not removing symbols, keeping struct layouts the same, etc.), the soname stays the same.  For example, Linux glibc provides "libc.so.6", and the ".6" part will stay the same for the foreseeable future._
 
 On a Unix system, the responsibility for mapping a soname to a specific library file is effectively split between two components:
 
@@ -22,6 +22,8 @@ On a Unix system, the responsibility for mapping a soname to a specific library 
  * The dynamic linker treats the soname as a filename.  To find "libfoo.so.123", it tries to open "libfoo.so.123" in each directory in the _library search path_.
 
 In the web browser, we do not have the same concept of installation:  There is no local filesystem namespace that is shared between all programs.  We would typically want to acquire library files by fetching them from URLs.  In this case the question becomes how to map sonames to URLs, and from URLs to files.
+
+   _Background note: The ELF dynamic linker is a userland program on Unix, not part of the kernel.  Similarly, in Native Client, the dynamic linker runs inside the NaCl sandbox, and is not part of the NaCl trusted runtime._
 
 In this document we discuss two broad ways of managing this mapping:
 
