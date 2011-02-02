@@ -67,26 +67,15 @@ Maintenance issues:
 
 == Options for describing a soname mapping ==
 
-We explore four options for how the mapping from sonames to files might be specified:
+We explore three related options for how the mapping from sonames to files might be specified:
 
- * Option A: Via a library search path, similar to LD_LIBRARY_PATH
- * Option B: Via a manifest file that lists soname/URL mappings explicitly
- * Option C: Via a data structure, constructed programmatically at run time, which lists mappings explicitly
- * Option D: Via a mapping service object, supplied by the web app, which receives soname requests and returns files in return
+ * Option A: Via a manifest file that lists soname/URL mappings explicitly
+ * Option B: Via a data structure, constructed programmatically at run time, which lists mappings explicitly
+ * Option C: Via a mapping service object, supplied by the web app, which receives soname requests and returns files in return
 
-These options are not mutually exclusive: for example, A, B and C could be implemented in terms of D.  In principle A and B could be implemented inside the dynamic linker itself, but C and D would have to be implemented outside the dynamic linker.  These options are discussed in more detail below.
+These options are not mutually exclusive: for example, A and B could be implemented in terms of C.  In principle A could be implemented inside the dynamic linker itself, but B and C would have to be implemented outside the dynamic linker.  These options are discussed in more detail below.
 
-=== Option A: Library search path (strawman) ===
-
-A normal ELF dynamic linker uses a _library search path_: a list of directories to search for libraries.  This list can be modified by setting the LD_LIBRARY_PATH environment variable, and ELF objects (executables and libraries) can add to the list using ELF's [http://en.wikipedia.org/wiki/Rpath_(linking) RPATH] feature.  The default is typically `["/lib", "/usr/lib"]`.
-
-We could extend this concept to use a list of URLs rather than directories.  We could provide a mechanism for a web app to set the search path.  As an example, if the path is set to `["http://example.com/lib", "http://foo.com/libraries"]`, then when the dynamic linker requires "libfoo.so.1", the system would first try to fetch `http://example.com/lib/libfoo.so.1`.  If that URL returned a 404 response, the linker would instead try fetching `http://foo.com/libraries/libfoo.so.1`.
-
-The problems with this arrangement are obvious:  It generates unnecessary traffic only to receive failures.  If we do the search requests serially, it requires mulitple round trips to locate a library.  If we do the search requests in parallel, it generates even more unnecessary traffic.
-
-This is therefore not a viable option, but we include it only as a strawman for comparison with other options.
-
-=== Option B: Manifest file ===
+=== Option A: Manifest file ===
 
 The mapping from sonames to files could be expressed as a data structure that explicits lists all entries in the mapping.  This data structure could be serialised in a format such as JSON or XML.  The data structure could be an extension of the format the NaCl plugin is currently using for selecting an architecture-specific executable URL (implemented in issue 885).
 
@@ -148,7 +137,7 @@ However, there are some disadvantages to using a manifest file, if the manifest 
  * Suppose an application wishes to dlopen() a library from a URL that is only known after application startup.  dlopen() opens a soname using the same mapping process as startup-time library loading, but if this mapping is unalterable we would have no way of getting dlopen() to use the new URL.
  * It would be awkward to make this work with "File API" files.  These files are represented as Javascript objects, but they can also be converted into locally-usable "Blob URIs" via createObjectURL().  A Blob URI could be inserted into a programmatically-generated manifest file, which could be passed to the NaCl plugin as a "data:" URL.  However, this seems awkward: it would negate the benefit of a having a manifest file, namely that the file is static and does not need to be constructed by Javascript.
 
-=== Option C: Programmatic construction of a soname mapping ===
+=== Option B: Programmatic construction of a soname mapping ===
 
 Use of a manifest file requires the soname mapping to be represented as a serialised data structure containing pure data.  An alternative would be to allow the mapping data structure to be constructed programmatically in Javascript.
 
@@ -180,7 +169,7 @@ This type of description has some advantages over static manifest files:
 
 At the same time, it would be easy to implement a manifest file reader on top of a programmatic interface.
 
-=== Option D: Mapping object, supplied by web app ===
+=== Option C: Mapping object, supplied by web app ===
 
 In the previous section, a mapping data structure was populated from Javascript by bindFile() calls.  A logical extension would be to allow the data structure to be implemented in Javascript.  This would mean the mapping would not be confined to being an enumeration of explicit name/file mappings.
 
@@ -215,7 +204,15 @@ _TODO_
 
 == Alternative approaches considered ==
 
-=== Alternative #1: Monolithic approach: Resolving sonames inside the dynamic linker ===
+=== Alternative #1: Library search path ===
+
+A normal ELF dynamic linker uses a _library search path_: a list of directories to search for libraries.  This list can be modified by setting the LD_LIBRARY_PATH environment variable, and ELF objects (executables and libraries) can add to the list using ELF's [http://en.wikipedia.org/wiki/Rpath_(linking) RPATH] feature.  The default is typically `["/lib", "/usr/lib"]`.
+
+We could extend this concept to use a list of URLs rather than directories.  We could provide a mechanism for a web app to set the search path.  As an example, if the path is set to `["http://example.com/lib", "http://foo.com/libraries"]`, then when the dynamic linker requires "libfoo.so.1", the system would first try to fetch `http://example.com/lib/libfoo.so.1`.  If that URL returned a 404 response, the linker would instead try fetching `http://foo.com/libraries/libfoo.so.1`.
+
+The problems with this arrangement are obvious:  It generates unnecessary traffic only to receive failures.  If we do the search requests serially, it requires mulitple round trips to locate a library.  If we do the search requests in parallel, it generates even more unnecessary traffic.  This is therefore not a viable option, but we include it only as a strawman for comparison with other options.
+
+=== Alternative #2: Monolithic resolution of sonames inside the dynamic linker ===
 
 Suppose the dynamic linker is given the ability to fetch URLs and is expected to use this to load the libraries that an executable depends on.  We consider this arrangement for completeness, but it does not appear to have any advantages.  It would require a lot of functionality to be placed in the dynamic linker, which would be difficult to implement while making it harder to evolve the system.
 
@@ -223,7 +220,7 @@ Having a dynamic linker that needs the ability to request URLs tends to be incom
 
 ==== Interpreting manifest files in the dynamic linker ====
 
-In principle it would be possible to implement options A or B inside the dynamic linker.  Let us consider option B (manifest files), since option A (library search paths) was ruled out earlier.
+In principle it would be possible to interpret a manifest file inside the dynamic linker.
 
 Firstly, this would require a mechanism for the NaCl plugin to send the manifest file to the dynamic linker.
 
@@ -250,7 +247,7 @@ Assuming this protocol remains unstable, the dynamic linker would probably need 
 
 A solution to these problems would be to stabilise the interface presented by the PPAPI-over-IMC protocol, or at least stabilise a subset of the protocol for loading URLs.  A minimal version of libppruntime could be written that is suitable for statically linking into the dynamic linker.
 
-=== Alternative #2: Replacing sonames with URLs ===
+=== Alternative #3: Replacing sonames with URLs ===
 
 We could change our use of ELF so that instead of storing short sonames in the DT_NEEDED fields of executables and libraries, we store URLs.  However, this would create a number of problems:
 
