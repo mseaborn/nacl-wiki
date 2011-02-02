@@ -208,13 +208,15 @@ Allowing the mapping to be specified as a function has these advantages:
 
 Both the manifest file and the bindFile() interface could be implemented on top of the setFilenameResolver() interface above.
 
-== Resolving sonames outside the dynamic linker ==
+== Compartmentalised approach: Resolving sonames outside the dynamic linker ==
 
 _TODO_
 
-== Resolving sonames inside the dynamic linker ==
+== Monolithic approach: Resolving sonames inside the dynamic linker ==
 
 Suppose the dynamic linker is given the ability to fetch URLs and is expected to use this to load the libraries that an executable depends on.  We consider this arrangement for completeness, but it does not appear to have any advantages.  It would require a lot of functionality to be placed in the dynamic linker, which would be difficult to implement while making it harder to evolve the system.
+
+Having a dynamic linker that needs the ability to request URLs tends to be incompatible with secure compartmentalisation, because that would make it difficult to run a dynamically-linked NaCl process that has not been granted network access.
 
 === Interpreting manifest files in the dynamic linker ===
 
