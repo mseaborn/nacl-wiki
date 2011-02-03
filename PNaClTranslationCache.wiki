@@ -5,8 +5,8 @@
 
 For PNaCl, we wish to be able to cache the translation of bitcode files -> elf files. One question is is where to manage the cache?
 
-Here is a typical scenario: you may have multiple window tabs, trying
-to load the same N bitcode files from M different domains, translate them, and pass the ELF files along to a dynamic linker (a nexe). If the bitcode is unchanged and already translated into an ELF file, we should reuse that file.
+Here is a typical scenario: you may have multiple window tabs, each trying
+to load the same PNaCl app composed of N bitcode files from M different domains, translate them, and pass the ELF files along to a dynamic linker (a nexe). We should cache the results so that if the bitcode is unchanged and already translated into an ELF file, we can reuse that file.
 
 Here is the high-level flow for a single bitcode file:
 
@@ -30,23 +30,24 @@ Here is the high-level flow for a single bitcode file:
 }}}
 
 
-This cache-translation-system must have at least the following capabilities:
+This cache and translation system must have at least the following capabilities:
 
  * Handle concurrency.
    * Avoid redundant simultaneous translations.
-   * Avoid cache corruption.
- * If a cross-domain fetch is already allowed, then the derived data (translated elf in the cache), should be available to the consumer in another domain (dynamic linker).
+   * Avoid races in writing to the cache.
+ * The cross-domain fetch permission should apply to the derived data (translated elf in the cache).
+   * I.e., the elf should be available to the consumer (dynamic linker) that is pulled from another domain.
  * Supply file descriptors of cache entries to loader/linker.
  * Supply file descriptors to translator nexe.
- * Evict and unlink files when "full".
+ * Evict and unlink files when at capacity.
  * Nice to have: immutable files to be able to map files directly instead of copying data.
 
 
 Other capabilities:
 
+ * Respect privacy:
+   * Clean cache in private mode / when browser cache is cleared.
  * Have per-app quotas.
- * Clean cache in private mode / when browser cache is cleared.
-
 
 = Options =
 
@@ -57,7 +58,7 @@ There are at least two options to consider:
 
 Let's consider how the requirements will be satisfied by each option.
 
-= Option A: Manage the cache via a web app, backed by HTML FS =
+== Option A: Manage the cache via a web app, backed by HTML FS ==
 
 Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity / closest capabilities needed is HTML FS. Here is a layout the components and how they communicate for reference:
 
@@ -77,13 +78,13 @@ Let's go over what is needed:
  * Get file descriptor of "file" in cache
    * fd = plugin.fetchURL(fileEntry.toURI) ?
 
- * Pass file descriptors to a few known nexes
-   * Because the Cache Web App is in a different domain from the other components, we would need to postMessage an FD.
-   * FDs will need to be wrapped to pass around in JavaScript.
+ * Pass file descriptors out of cache to a few known nexes
+   * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
+   * FDs will need to be wrapped to pass them around in JavaScript.
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * Use fileEntry.remove(successCall, errCall), but what are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences.
+   * Use fileEntry.remove(successCall, errCall). What are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errCalls. We would have to delay a cache-put until a remove is finally successful.
 
  * Immutable files
    * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
@@ -94,7 +95,7 @@ Other Issues:
 [ Mark: can you explain the ambient authority issue with HTML FS and extending all WebApps to have postMessage for an FD? ]
 
 
-= Option B: Manage the cache in the browser, backed by a single directory =
+== Option B: Manage the cache in the browser, backed by a single directory ==
 
 With this option, the browser with have a cache process that is given access to a single directory in the native file system.
 
@@ -102,17 +103,26 @@ With this option, the browser with have a cache process that is given access to 
    * We will need a broker process in the browser.
 
  * Get file descriptor of "file" in cache
-   * Trivial.
+   * Trivial to get.
 
  * Pass file descriptors to a few known nexes
-   * Use chrome IPC, or similar.
+   * Use chrome IPC between cache broker and NaCl plugins.
+   * Re: garbage colleciton -- ownership transfer from cache to consumer.
 
  * Unlink files
-    Although unlinking may fail for in-use files on Windows, we manage the cache and can gracefully handle this.
+   * Although unlinking may fail for in-use files on Windows, we manage the cache so we can gracefully handle this.
 
  * Immutable files
-   * ...
+   * The cache broker manages the directory. One problem is that files are externally visible, but if that is the only way to modify files then you have already been owned?
 
 
 Other issues:
+
+[ ??? ]
+
+= Conclusion =
+
+TODO.
+
+== Older document ==
 
