@@ -46,7 +46,7 @@ Other capabilities:
 
  * Have per-app quotas.
  * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large.
- * Respect privacy and clean cache in private mode / when browser cache is cleared.
+ * Clear cache when browser cache is cleared(?).
 
 
 = Options =
