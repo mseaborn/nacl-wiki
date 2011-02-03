@@ -19,9 +19,10 @@ Here is the high-level flow for a single bitcode file:
     // Compute hash, since bitcode may have changed in the mean time.
     var hash2 = CalcHash(pnacl_file);
 
-    elf_file = Translate(pnacl_file);
+    var elf_file = CreateCacheEntry(hash2);
 
-    PopulateCache(hash2, elf_file);
+    // We don't know how much data Translate will write to the cache entry?
+    Translate(pnacl_file, elf_file);
   }
 
   // Use elf_file...
@@ -87,7 +88,7 @@ Let's go over what is needed:
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the normal Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. We would have to delay a cache-put until a remove is finally successful.
+   * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the normal Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. If the cache is full, we would have to delay a cache-put until a remove is finally successful. If we cannot unlink anything (all files are busy), then we would have to fail to add to the cache and the subsequent load will fail?
 
  * Immutable files
    * The Cache Web App does have a domain-isolated HTML FS, but how do we feel about making it trusted code?
