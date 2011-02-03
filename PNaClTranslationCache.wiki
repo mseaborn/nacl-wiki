@@ -75,6 +75,7 @@ Let's go over what is needed:
  * Pass file descriptors to a few known nexes
    * Because the Cache Web App is in a different domain from the
      other components, we would need to postMessage an FD
+   * FDs will need to wrapped to pass around in JavaScript.
 
  * Unlink files
    * This appears to be available w/ fileEntry.remove(successCall, errCall), but what are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences.
