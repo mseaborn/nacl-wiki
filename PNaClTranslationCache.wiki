@@ -12,7 +12,7 @@ Here is the high-level flow for a single bitcode file:
 {{{
   var hash = GetHash("http://example.com/lib/libz.so.1.0.bc")
 
-  var elf_file = Cached(hash);
+  var elf_file = GetFromCache(hash);
   if (!elf_file) {
     var pnacl_file = plugin.fetchUrl("http://example.com/lib/libz.so.1.0.bc");
 
