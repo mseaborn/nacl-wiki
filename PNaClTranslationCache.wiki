@@ -130,5 +130,3 @@ Other issues:
 = Conclusion =
 
 TODO.
-
-== Older document ==
