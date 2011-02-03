@@ -76,7 +76,8 @@ Let's go over what is needed:
    * We can serialize accesses if the Cache Web App is a SharedWorker
 
  * Get file descriptor of "file" in cache
-   * fd = plugin.fetchURL(fileEntry.toURI) ?
+   * Reuse url to fd (if FS-based URLs are valid)
+   * fd = plugin.fetchURL(fileEntry.toURI())
 
  * Pass file descriptors out of cache to a few known nexes
    * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
@@ -84,20 +85,24 @@ Let's go over what is needed:
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * Use fileEntry.remove(successCall, errCall). What are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errCalls. We would have to delay a cache-put until a remove is finally successful.
+   * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. We would have to delay a cache-put until a remove is finally successful.
 
  * Immutable files
    * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
 
 
+Extensions made will be available to all Web Apps and not used solely by the translation cache.
+
 Other Issues:
 
-[ Mark: can you explain the ambient authority issue with HTML FS and extending all WebApps to have postMessage for an FD? ]
+Mark: can you explain the ambient authority issue with possible proposed extensions (for all Web Apps)?
+ * urlToFD(fileEntry.toURI())
+ * postMessage for an FD
 
 
 == Option B: Manage the cache in the browser, backed by a single directory ==
 
-With this option, the browser with have a cache process that is given access to a single directory in the native file system.
+With this option, the browser will have a Cache-managing process that is given access to a single directory in the native file system. We do not extend the capabilities of web apps (besides supplying a bitcode translation cache).
 
  * Manage concurrent requests
    * We will need a broker process in the browser.
@@ -105,24 +110,23 @@ With this option, the browser with have a cache process that is given access to 
  * Get file descriptor of "file" in cache
    * Trivial to get.
 
- * Pass file descriptors to a few known nexes
+ * Pass file descriptors out of cache to a few known nexes
    * Use chrome IPC between cache broker and NaCl plugins.
    * Re: garbage colleciton -- ownership transfer from cache to consumer.
 
  * Unlink files
-   * Although unlinking may fail for in-use files on Windows, we manage the cache so we can gracefully handle this.
+   * Although unlinking may fail for in-use files on Windows, we manage the cache, so we can gracefully handle this.
 
  * Immutable files
-   * The cache broker manages the directory. One problem is that files are externally visible, but if that is the only way to modify files then you have already been owned?
+   * The cache broker manages the directory. One problem is that files are externally visible, but if that is the only way to modify cached files then you have already been owned?
 
 
 Other issues:
 
-[ ??? ]
+???
 
 = Conclusion =
 
 TODO.
 
 == Older document ==
-
