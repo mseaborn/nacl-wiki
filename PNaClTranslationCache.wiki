@@ -1,0 +1,112 @@
+#summary PNaCl Translation Caching: In Javascript or In Browser?
+
+
+= Introduction =
+
+For PNaCl, we wish to be able to cache the translation of bitcode files -> elf files. One question is is where to manage the cache?
+
+Here is a typical scenario: you may have multiple window tabs, trying
+to load the same N bitcode files from M different domains, translate them, and pass the ELF files along to a dynamic linker (a nexe). If the bitcode is unchanged and already translated into an ELF file, we should reuse that file.
+
+Here is the high-level flow for a single bitcode file:
+
+{{{
+  var hash = GetHash("http://example.com/lib/libz.so.1.0.bc")
+
+  var elf_file = Cached(hash);
+  if (!elf_file) {
+    var pnacl_file = plugin.fetchUrl("http://example.com/lib/libz.so.1.0.bc");
+
+    // Compute hash, since bitcode may have changed in the mean time.
+    var hash2 = CalcHash(pnacl_file);
+
+    elf_file = Translate(pnacl_file);
+
+    PopulateCache(hash2, elf_file);
+  }
+
+  // Use elf_file...
+
+}}}
+
+
+This cache-translation-system must have at least the following capabilities:
+
+ * Handle concurrency:
+   * Avoid redundant simultaneous translations
+   * Avoid cache corruption
+ * If a cross-domain fetch is already allowed, then the derived data 
+   (translated elf in the cache), should be available to the consumer
+   in another domain (dynamic linker).
+ * Supply file descriptors of cache entries to loader/linker
+ * Supply file descriptors to translator nexe
+ * Evict and unlink files when "full"
+ * Nice to have: immutable files to be able to map files directly instead of copying data
+
+= Options =
+
+There are at least two options to consider:
+
+ # (A) Manage the cache via a web app, backed by HTML FS.
+ # (B) Manage the cache in the browser, backed by real files in a single directory
+
+Let's consider how the requirements will be satisfied by each option.
+
+= Option A: Manage the cache via a web app, backed by HTML FS =
+
+Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity / closest capabilities needed is HTML FS. Here is a layout the components and how they communicate for reference:
+
+{{{
+
+ [ Bitcode 1 ] <---\
+ [ Hosting Page ] <---> [ Cache Web App w/ FS ] <--> [ Translator nexe ]
+ [ Bitcode 2 ] <---/
+
+}}}
+
+Let's go over what is needed:
+
+ * Manage concurrent requests
+   * We can serialize accesses if the Cache Web App is a SharedWorker
+
+ * Get file descriptor of "file" in cache
+   * fd = plugin.fetchURL(fileEntry.toURI) ?
+
+ * Pass file descriptors to a few known nexes
+   * Because the Cache Web App is in a different domain from the
+     other components, we would need to postMessage an FD
+
+ * Unlink files
+   * This appears to be available w/ fileEntry.remove(successCall, errCall), but what are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences.
+
+ * Immutable files
+   * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
+
+
+Other Issues:
+
+[ Mark: can you explain the ambient authority issue with HTML FS and extending
+  all WebApps to... have postMessage for an FD? ]
+
+
+= Option B: Manage the cache in the browser, backed by a single directory =
+
+With this option, the browser with have a cache process that is given access to a single directory in the native file system.
+
+ * Manage concurrent requests
+   * We will need a broker process in the browser
+
+ * Get file descriptor of "file" in cache
+   * Trivial
+
+ * Pass file descriptors to a few known nexes
+   * Chrome IPC?
+
+ * Unlink files
+    Although unlinking may fail for in-use files on Windows, we manage the cache and can gracefully handle this.
+
+ * Immutable files
+   * ...
+
+
+Other issues:
