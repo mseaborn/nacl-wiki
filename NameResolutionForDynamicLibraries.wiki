@@ -198,9 +198,16 @@ Allowing the mapping to be specified as a function has these advantages:
 
 Both the manifest file and the bindFile() interface could be implemented on top of the setFilenameResolver() interface above.
 
-== Compartmentalised approach: Resolving sonames outside the dynamic linker ==
+== Implementation ==
 
-_TODO_
+We plan to implement option C since it is the most general while requiring the least trusted code.
+
+The TCB functionality needed for this was implemented in the NPAPI version of the NaCl plugin (working in both Chromium and Firefox), but not all of this functionality works in the current PPAPI version of the NaCl plugin.  We will need to do the following:
+
+ * Ensure that the asynchronous messaging interface added in issue 642 works in the NaCl PPAPI plugin.  Sending messages from Javascript should work, but receiving messages via a Javascript callback requires PPAPI-specific code.
+ * Ensure that the `__UrlAsNaClDesc()` method (or equivalent functionality) works in the NaCl PPAPI plugin.
+
+In addition, we plan to provide options A and B (manifest files and the bindFile() call) as a standard library implemented in Javascript.  This will be built into the NaCl plugin, which can load it with `eval`.
 
 == Alternative approaches considered ==
 
