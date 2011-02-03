@@ -55,7 +55,7 @@ Security considerations:
  * *3-party library distro service*:  Suppose site A wishes to use an up-to-date version of a library as specified by site B.  (Site B acts as a "distro service".  Like a Linux distribution, it would pick versions of libraries known to work well together.  For example, NaCl Ports would be such a service.)  Site B should not need to host the library itself; it should be able to link to site C.  This should be possible without making site A vulnerable to site B.  This would require using UMP rather than CORS.
 
 Remote loading:
- * Support *pipelined fetching* of libraries in order to minimise latency:  When an executable depends on multiple libraries, it should be possible to queue the fetch requests for all libraries in one go, so that the download pipe is not empty for a round trip between requests.
+ * Support *pipelined fetching* of libraries in order to minimise latency:  When an executable _transitively_ depends on a set of libraries, it should be possible to queue the fetch requests for all the libraries and the executable in one go, so that the download pipe is not empty for a round trip between requests.
  * Support *cross-origin fetching* of libraries, including [http://www.w3.org/TR/UMP/ UMP] as well as [http://www.w3.org/TR/cors/ CORS]:  It should be possible for a web app on foo.com to use libraries hosted on bar.org.  (CORS and UMP would require bar.org to set an HTTP header to opt in to the browser revealing responses across origins.)
  * Support *decentralised sharing* of libraries:  If foo.com and bar.org host identical copies of a library, using web apps on these sites should not cause the library to be downloaded twice.  Such caching could be enabled by linking to the file using a (URL, hash) pair -- see "Integrity".
  * Support *local storage* of libraries:  Allow libraries to be stored in locations other than the browser's download cache, such as in the local storage provided by the proposed [http://dev.w3.org/2009/dap/file-system/file-dir-sys.html "File API: Directories and System"] extension to the Web [http://www.w3.org/TR/FileAPI/ File API].  Allow a web app to manage its own cache.
@@ -260,5 +260,7 @@ We could change our use of ELF so that instead of storing short sonames in the D
  * *Local storage*:  This does not a offer a way for a web app to manage its own caching by copying libraries to local storage.
 
  * *Secure compartmentalisation*:  Every NaCl process would need the ability to request arbitrary URLs, so running processes without network access would be difficult.
+
+ * *Pipelining*:  An ELF object's DT_NEEDED dependencies are only known after the ELF object has been fetched.  Although we could queue the fetches for these _direct_ dependencies in parallel, this will not lead to optimal pipelining.  There would be a pipeline stall between loading the executable and its immediate library dependencies, and another stall before indirect library dependencies are received, etc.
 
 Similarly, we could change the interpretation of the ELF RPATH field to be a URL prefix, but this has the same testability and compartmentalisation problems as putting URLs in DT_NEEDED, as well as the additional problems associated with library search paths described above.
