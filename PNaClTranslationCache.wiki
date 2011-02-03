@@ -126,7 +126,7 @@ With this option, the browser will have a Cache-managing process that is given a
 
 Other issues:
 
-???
+ * We need to be careful about detecting translator.nexe changes. Possibly we could split the cache directory up based on the version of the translator.nexe.
 
 = Other Possibilities =
 
@@ -138,10 +138,10 @@ We could go with Option B, but instead of giving the cache broker ownership of a
  * Ensure cache entries will can be consumed as FDs.
  * Cache broker must synchronize with the browser cache.
  * Likely will not want to share cache-replacement scheme with the browser cache. A cache miss for translated nexes requires re-computating in addition to re-downloading files.
- 
-
 
 
 = Conclusion =
 
 TODO.
+
+= Related =
