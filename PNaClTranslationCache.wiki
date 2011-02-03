@@ -3,10 +3,9 @@
 
 = Introduction =
 
-For PNaCl, we wish to be able to cache the translation of bitcode files -> elf files. One question is is where to manage the cache?
+For PNaCl, we wish to be able to cache the translation of *bitcode files* _to_ *ELF files*. One question is, how should we manage the cache? Inside the browser, as a web app, or something in between?
 
-Here is a typical scenario: you may have multiple window tabs, each trying
-to load the same PNaCl app composed of N bitcode files from M different domains, translate them, and pass the ELF files along to a dynamic linker (a nexe). We should cache the results so that if the bitcode is unchanged and already translated into an ELF file, we can reuse that file.
+Here is a typical scenario: a user just opened multiple window tabs, each trying to load the same PNaCl app composed of N bitcode files from M different domains. These bitcode files need to be translated to ELF files that are eventually used by the dynamic linker (a nexe). The system should cache the ELF files, so that if the bitcode is unchanged we can reuse the ELF files.
 
 Here is the high-level flow for a single bitcode file:
 
@@ -33,7 +32,7 @@ Here is the high-level flow for a single bitcode file:
 This cache and translation system must have at least the following capabilities:
 
  * Handle concurrency.
-   * Avoid redundant simultaneous translations.
+   * Avoid redundant concurrent translations.
    * Avoid races in writing to the cache.
  * The cross-domain fetch permission should apply to the derived data (translated elf in the cache).
    * I.e., the elf should be available to the consumer (dynamic linker) that is pulled from another domain.
@@ -48,44 +47,46 @@ Other capabilities:
  * Respect privacy:
    * Clean cache in private mode / when browser cache is cleared.
  * Have per-app quotas.
+ * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large.
 
 = Options =
 
 There are at least two options to consider:
 
- # (A) Manage the cache via a web app, backed by HTML FS.
- # (B) Manage the cache in the browser, backed by real files in a single directory
+ # (A) Manage the cache via a web app and back it with HTML FS.
+ # (B) Manage the cache in the browser and back it with real files in a reserved directory.
 
 Let's consider how the requirements will be satisfied by each option.
 
 == Option A: Manage the cache via a web app, backed by HTML FS ==
 
-Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity / closest capabilities needed is HTML FS. Here is a layout the components and how they communicate for reference:
+Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity and capabilities required is HTML FS. Here is a layout of the components and how they communicate for reference. Each box is an element that may be hosted on a different domain.
 
 {{{
 
- [ Bitcode 1 ] <---\
- [ Hosting Page ] <---> [ Cache Web App w/ FS ] <--> [ Translator nexe ]
- [ Bitcode 2 ] <---/
+ [ Bitcode 1 ] <------\
+ [ Bitcode 2 ] <------\
+ [ PNaCl App Page ] <-----> [ Cache Web App w/ FS ] <--> [ Translator nexe ]
+ [ Dynamic Linker ] <--/ 
 
 }}}
 
 Let's go over what is needed:
 
  * Manage concurrent requests
-   * We can serialize accesses if the Cache Web App is a SharedWorker
+   * We can serialize accesses if the Cache App is a SharedWorker
 
- * Get file descriptor of "file" in cache
-   * Reuse url to fd (if FS-based URLs are valid)
-   * fd = plugin.fetchURL(fileEntry.toURI())
+ * Get file descriptor of files in cache
+   * Can we reuse the url-to-fd mechanism for FS-based URLs?
+   * i.e., fd = plugin.fetchURL(fileEntry.toURI())
 
- * Pass file descriptors out of cache to a few known nexes
+ * Pass file descriptors out of the cache to a few known nexes.
    * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
    * FDs will need to be wrapped to pass them around in JavaScript.
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. We would have to delay a cache-put until a remove is finally successful.
+   * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the normal Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. We would have to delay a cache-put until a remove is finally successful.
 
  * Immutable files
    * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
@@ -95,9 +96,10 @@ Extensions made will be available to all Web Apps and not used solely by the tra
 
 Other Issues:
 
-Mark: can you explain the ambient authority issue with possible proposed extensions (for all Web Apps)?
- * urlToFD(fileEntry.toURI())
- * postMessage for an FD
+ * Every PNaCl App will have an iframe pointing to the Cache App in order to share the cache, so... Mark: can you explain the issue with possible proposed extensions (for all Web Apps) + possible exploits in the renderer?
+ * Extensions appear to be:
+   * urlToFD(fileEntry.toURI())
+   * postMessage for an FD
 
 
 == Option B: Manage the cache in the browser, backed by a single directory ==
@@ -112,7 +114,7 @@ With this option, the browser will have a Cache-managing process that is given a
 
  * Pass file descriptors out of cache to a few known nexes
    * Use chrome IPC between cache broker and NaCl plugins.
-   * Re: garbage colleciton -- ownership transfer from cache to consumer.
+   * Re: garbage collection -- ownership transfer from cache to consumer.
 
  * Unlink files
    * Although unlinking may fail for in-use files on Windows, we manage the cache, so we can gracefully handle this.
