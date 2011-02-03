@@ -19,10 +19,12 @@ Here is the high-level flow for a single bitcode file:
     // Compute hash, since bitcode may have changed in the mean time.
     var hash2 = CalcHash(pnacl_file);
 
-    var elf_file = CreateCacheEntry(hash2);
+    var elf_file_w = CreateCacheEntry(hash2);
 
     // We don't know how much data Translate will write to the cache entry?
-    Translate(pnacl_file, elf_file);
+    Translate(pnacl_file, elf_file_w);
+    
+    elf_file = MakeReadOnly(elf_file_w);
   }
 
   // Use elf_file...
