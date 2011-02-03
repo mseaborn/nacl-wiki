@@ -89,7 +89,7 @@ Let's go over what is needed:
    * Use fileEntry.remove(succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the normal Windows FS, you get an error, and this would introduce platform differences. Perhaps we can just gracefully handle errors. We would have to delay a cache-put until a remove is finally successful.
 
  * Immutable files
-   * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
+   * The Cache Web App does have a domain-isolated HTML FS, but how do we feel about making it trusted code?
 
 
 Extensions made will be available to all Web Apps and not used solely by the translation cache.
