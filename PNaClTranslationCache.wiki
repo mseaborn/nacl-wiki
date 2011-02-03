@@ -32,16 +32,21 @@ Here is the high-level flow for a single bitcode file:
 
 This cache-translation-system must have at least the following capabilities:
 
- * Handle concurrency:
-   * Avoid redundant simultaneous translations
-   * Avoid cache corruption
- * If a cross-domain fetch is already allowed, then the derived data 
-   (translated elf in the cache), should be available to the consumer
-   in another domain (dynamic linker).
- * Supply file descriptors of cache entries to loader/linker
- * Supply file descriptors to translator nexe
- * Evict and unlink files when "full"
- * Nice to have: immutable files to be able to map files directly instead of copying data
+ * Handle concurrency.
+   * Avoid redundant simultaneous translations.
+   * Avoid cache corruption.
+ * If a cross-domain fetch is already allowed, then the derived data (translated elf in the cache), should be available to the consumer in another domain (dynamic linker).
+ * Supply file descriptors of cache entries to loader/linker.
+ * Supply file descriptors to translator nexe.
+ * Evict and unlink files when "full".
+ * Nice to have: immutable files to be able to map files directly instead of copying data.
+
+
+Other capabilities:
+
+ * Have per-app quotas.
+ * Clean cache in private mode / when browser cache is cleared.
+
 
 = Options =
 
@@ -73,12 +78,12 @@ Let's go over what is needed:
    * fd = plugin.fetchURL(fileEntry.toURI) ?
 
  * Pass file descriptors to a few known nexes
-   * Because the Cache Web App is in a different domain from the
-     other components, we would need to postMessage an FD
-   * FDs will need to wrapped to pass around in JavaScript.
+   * Because the Cache Web App is in a different domain from the other components, we would need to postMessage an FD.
+   * FDs will need to be wrapped to pass around in JavaScript.
+   * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * This appears to be available w/ fileEntry.remove(successCall, errCall), but what are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences.
+   * Use fileEntry.remove(successCall, errCall), but what are the semantics if a file is still in use? A worry is that for the "normal" Windows FS, you get an error, and this would introduce platform differences.
 
  * Immutable files
    * There does not appear to be protection bits as part of the HTML FS, but the Cache Web App does have a domain-isolated HTML FS.
@@ -86,8 +91,7 @@ Let's go over what is needed:
 
 Other Issues:
 
-[ Mark: can you explain the ambient authority issue with HTML FS and extending
-  all WebApps to... have postMessage for an FD? ]
+[ Mark: can you explain the ambient authority issue with HTML FS and extending all WebApps to have postMessage for an FD? ]
 
 
 = Option B: Manage the cache in the browser, backed by a single directory =
@@ -95,13 +99,13 @@ Other Issues:
 With this option, the browser with have a cache process that is given access to a single directory in the native file system.
 
  * Manage concurrent requests
-   * We will need a broker process in the browser
+   * We will need a broker process in the browser.
 
  * Get file descriptor of "file" in cache
-   * Trivial
+   * Trivial.
 
  * Pass file descriptors to a few known nexes
-   * Chrome IPC?
+   * Use chrome IPC, or similar.
 
  * Unlink files
     Although unlinking may fail for in-use files on Windows, we manage the cache and can gracefully handle this.
@@ -111,3 +115,4 @@ With this option, the browser with have a cache process that is given access to 
 
 
 Other issues:
+
