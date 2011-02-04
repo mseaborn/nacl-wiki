@@ -198,6 +198,9 @@ Allowing the mapping to be specified as a function has these advantages:
 
 Both the manifest file and the bindFile() interface could be implemented on top of the setFilenameResolver() interface above.
 
+==== Concurrency ====
+There is one disadvantage to setFilenameResolver() over bindFile():  The Javascript ResolveFilename() callback function can only process requests when the renderer process's event loop is not busy.  During a long-running event loop turn, library open requests will wait in a message queue.  In contrast, a mapping implemented in trusted code, populated by bindFile(), could process requests in a separate thread.
+
 == Implementation ==
 
 We plan to implement option C since it is the most general while requiring the least trusted code.
