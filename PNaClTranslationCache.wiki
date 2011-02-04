@@ -54,12 +54,16 @@ Other requirements:
  * Clear cache when browser cache is cleared(?).
  * Be sure not to block the UI.
 
+Other issues to consider:
+
+ * Do we reuse translator instances to translate multiple bitcode files?
+
 = Options =
 
 There are at least two options to consider:
 
- # (A) Manage the cache via a web app and back it with HTML FS.
- # (B) Manage the cache in a browser broker process and back it with real files in a reserved directory.
+ * Option A: Manage the cache via a web app and back it with HTML FS.
+ * Option B: Manage the cache in a browser broker process and back it with real files in a reserved directory.
 
 Let's consider how the requirements will be satisfied by each option.
 
