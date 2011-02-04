@@ -144,11 +144,6 @@ With this option, the browser will have a Cache Broker Process that is given acc
  * Immutable files
    * The cache broker manages the directory. One problem is that files are externally visible, but if that is the only way to modify cached files then you have already been owned?
 
-
-Other issues:
-
- * We need to be careful about detecting translator.nexe changes. Possibly we could split the cache directory up based on the version of the translator.nexe.
-
 = Variants of Options =
 
 Here, we explore variations on the above options.
