@@ -75,6 +75,7 @@ Other (important) requirements:
    * Possibly relevant to privacy / not revealing browsing history via timing.
  * Retain ability to test translator as a standalone program.
  * Compatibility with third-party translator.nexes (e.g., one with fewer optimizations but faster startup), or multiple versions of translator.nexes.
+ * Reuse cache mechanism for other purposes (e.g., Mono assemblies).
  * Have per-app, per-domain, per-X quotas.
 
 Other issues to consider:
