@@ -8,7 +8,7 @@ _Draft_
 
 = Introduction =
 
-For [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl], we wish to be able to cache the translation of *bitcode files* _to_ *ELF files*. One question is, how should we manage the cache? Inside the browser, as a web app, or something in between?
+For Portable Native Client [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl], we wish to be able to cache the translation of portable *bitcode files* _to_ architecture-specific *ELF files*. The question we wish to answer in this document is: "What should manage the cache"? Should we implement caching as a web app, or implement it in the browser?
 
 Here is a typical scenario: a user just opened multiple window tabs, each trying to load the same PNaCl app composed of N bitcode files from M different domains. These bitcode files need to be translated to ELF files that are eventually used by the dynamic linker (a nexe). The system should cache the ELF files to avoid re-translating the bitcode when unchanged.
 
@@ -31,11 +31,22 @@ Here is the high-level flow for a single bitcode file:
     elf_file = MakeReadOnly(elf_file_w);
   }
 
-  // Use elf_file...
+  // Dynamic Linker will use the elf_file...
 
 }}}
 
-See NameResolutionForDynamicLibraries for details on specifying URLs of libraries.
+Note: for details on specifying URLs of libraries, see NameResolutionForDynamicLibraries.
+
+Here is a diagram of how the components interact:
+
+{{{
+
+ [ Bitcode1 ] <------\
+ [ Bitcode2 ] <-------\
+ [ PNaCl App Page ] <-----> [ Cache Manager ] <--> [ Translator nexe ]
+ [ Dynamic Linker ] <--/ 
+
+}}}
 
 == Requirements ==
 
@@ -79,18 +90,7 @@ Let's consider how the requirements will be satisfied by each option.
 
 == Option A: Manage the cache via a web app, backed by HTML FS ==
 
-Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity and capabilities required is the HTML Filesystem API ([http://dev.w3.org/2009/dap/file-system/pub/FileSystem/ spec], [http://www.html5rocks.com/tutorials/file/filesystem/ demo]). 
-
-Here is a representative layout of the components involved and how they communicate. Each box is an element that may be hosted on a different domain.
-
-{{{
-
- [ Bitcode 1 ] <------\
- [ Bitcode 2 ] <------\
- [ PNaCl App Page ] <-----> [ Cache Web App w/ FS ] <--> [ Translator nexe ]
- [ Dynamic Linker ] <--/ 
-
-}}}
+Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity and capabilities required is the HTML Filesystem API ([http://dev.w3.org/2009/dap/file-system/pub/FileSystem/ spec], [http://www.html5rocks.com/tutorials/file/filesystem/ demo]). This filesystem provides domain-specific storage.
 
 Let's go over what is needed:
 
