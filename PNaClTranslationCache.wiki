@@ -166,7 +166,7 @@ This is a variation of Option B where we add logic to the browser process instea
 
 = Current Leanings =
 
-Go with Option B double-prime, since it does not need to face unspecified behavior (unlink behavior in the FS), and does not require extensions to the web app platform. We also get to reuse much of the chrome code including its cache.
+Go with Option B double-prime, since it does not need to face unspecified behavior (unlink behavior in the FS), and does not require extensions to the web app platform. We also get to reuse much of the chrome code including its cache. The drawback is that this appears to be chrome-specific. However, every browser has a browser cache, so presumably this can be done for other browsers. Once Pepper has a broker abstraction, we could move this cache logic out of the browser process into a broker process.
 
 = Other Requirements / Issues =
 
