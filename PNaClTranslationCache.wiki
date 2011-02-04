@@ -147,10 +147,9 @@ Here, we explore variations on the above options.
 
 We could go with Option B, but instead of giving the cache broker ownership of a fresh/isolated directory we could reuse the browser cache.
 
- * Browser cache may not be allocated enough space to be useful.
-   * Not a problem. Chrome already has separate caches for video, etc.
- * Ensure cache entries will can be consumed as FDs.
-   * Not a problem. The chrome cache has an option to store entries as separate files.   
+ * We don't need find a suitable directory in a platform-independent manner (already done by Chrome).
+ * The chrome cache has an option to store entries as as individual files, so we can still get FDs
+ * Chrome already has separate caches for video, etc., so we can still tune the size of the cache, etc..
  * We get to reuse the chrome cache meta-data for LRU, journaling, etc.
 
 == Option B-double-prime: Manage the cache in the browser process, backed by browser cache ==
