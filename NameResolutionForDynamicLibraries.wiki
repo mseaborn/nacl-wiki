@@ -75,7 +75,7 @@ We explore three related options for how the mapping from sonames to files might
  * Option B: Via a data structure, constructed programmatically at run time, which lists mappings explicitly
  * Option C: Via a mapping service object, supplied by the web app, which receives soname requests and returns files in return
 
-These options are not mutually exclusive: for example, A and B could be implemented in terms of C.  In principle A could be implemented inside the dynamic linker itself, but B and C would have to be implemented outside the dynamic linker.  Since option C is the most general, we propose to implement that and provide options A and B via a standard library implemented in untrusted code.
+These options are not mutually exclusive: Options A and B can be implemented in terms of C.  In principle A could be implemented inside the dynamic linker itself, but B and C would have to be implemented outside the dynamic linker.  Since option C is the most general, we propose to implement that and provide options A and B via a standard library implemented in untrusted code.
 
 === Option A: Manifest file ===
 
