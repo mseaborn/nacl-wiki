@@ -188,7 +188,7 @@ Persisting and reusing instances of the translator nexe will save on startup cos
  * Translator starts up
  * Translator receives a malicious.bc and gets owned
  * Translator behavior is now changed
- * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation causes numeric literals that may refer to prices are 2x greater.
+ * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation doubles numeric literals that may refer to prices.
  * Next time another app wants to use domainB:libgood.so.bc which also has hash X. Since we only check hashes in the cache, the dynamic linker will be supplied with the cached mistranslated version.
 
 
