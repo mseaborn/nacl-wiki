@@ -91,7 +91,7 @@ Let's go over what is needed:
 
  * Pass file descriptors out of the cache to a few known nexes.
    * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
-   * FDs will need to be wrapped to pass them around in JavaScript.
+   * FDs will need to be wrapped to pass them around in Javascript.
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
