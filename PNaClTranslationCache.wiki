@@ -61,6 +61,7 @@ Other requirements:
 
 Other issues to consider:
 
+ * Portability of approach to other browsers.
  * Do we reuse translator instances to translate multiple bitcode files?
 
 = Options =
