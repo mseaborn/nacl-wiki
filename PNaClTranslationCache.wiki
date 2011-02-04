@@ -50,6 +50,7 @@ This cache and translation system must at the very least satisfy the following r
  * Supply file descriptors to translator nexe.
  * Evict and unlink files when at capacity.
  * Nice to have: immutable files to be able to map files directly instead of copying data.
+ * Handle crashes / cache Put operation should be atomic.
 
 
 Other requirements:
