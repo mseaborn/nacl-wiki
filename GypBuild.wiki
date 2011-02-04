@@ -16,3 +16,6 @@ In the top-level (`trunk/src`) directory:
  * `devenv native_client\build\all.sln /build Debug`
 It also works from the `native_client` directory:
  * `devenv build\all.sln /build Debug`
+
+== Tests ==
+Most of the NaCl tests cannot be run using the Gyp build, because the Gyp build does not know how to invoke the NaCl compiler.  Gyp does not handle cross-compilation well in general.  To run the NaCl tests you have to use the Scons build.
