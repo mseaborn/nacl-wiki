@@ -155,6 +155,7 @@ We could go with Option B, but instead of giving the cache broker ownership of a
  * The chrome cache has an option to store entries as as individual files, so we can still get FDs
  * Chrome already has separate caches for video, etc., so we can still tune the size of the cache, etc..
  * We get to reuse the chrome cache meta-data for LRU, journaling, etc.
+ * Clearing the cache happens naturally.
 
 == Option B-double-prime: Manage the cache in the browser process, backed by browser cache ==
 
