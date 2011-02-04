@@ -8,7 +8,7 @@ _Draft_
 
 = Introduction =
 
-For PNaCl, we wish to be able to cache the translation of *bitcode files* _to_ *ELF files*. One question is, how should we manage the cache? Inside the browser, as a web app, or something in between?
+For [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl], we wish to be able to cache the translation of *bitcode files* _to_ *ELF files*. One question is, how should we manage the cache? Inside the browser, as a web app, or something in between?
 
 Here is a typical scenario: a user just opened multiple window tabs, each trying to load the same PNaCl app composed of N bitcode files from M different domains. These bitcode files need to be translated to ELF files that are eventually used by the dynamic linker (a nexe). The system should cache the ELF files to avoid re-translating the bitcode when unchanged.
 
