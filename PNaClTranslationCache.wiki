@@ -21,12 +21,11 @@ Here is the high-level flow for a single bitcode file:
   if (!elf_file) {
     var pnacl_file = plugin.fetchUrl("http://example.com/lib/libz.so.1.0.bc");
 
-    // Compute hash, since bitcode may have changed in the mean time.
+    // Compute hash, since bitcode may have changed in the meantime.
     var hash2 = CalcHash(pnacl_file);
 
     var elf_file_w = CreateCacheEntry(hash2);
 
-    // We don't know how much data Translate will write to the cache entry?
     Translate(pnacl_file, elf_file_w);
     
     elf_file = MakeReadOnly(elf_file_w);
