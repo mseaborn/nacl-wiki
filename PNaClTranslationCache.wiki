@@ -95,14 +95,14 @@ Here is a representative layout of the components involved and how they communic
 Let's go over what is needed:
 
  * Manage concurrent requests
-   * We can serialize accesses by making the Cache App a SharedWorker.
+   * [http://dev.w3.org/html5/workers/#shared-workers-introduction SharedWorkers] allow us to refer to a Javascript worker across different windows to provide serialization.
 
  * Get file descriptors out of files in cache
-   * Can we reuse the url-to-fd mechanism for HTML FS based URLs?
+   * Ideally we would have __urlAsNaClDesc apply to HTML FS based URLs.
    * i.e., fd = plugin.fetchURL(fileEntry.toURI())
 
  * Pass file descriptors out of the cache to dynamic linker and translator nexes.
-   * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
+   * Since the Cache Web App is in a different domain from the other components, we something like [http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#web-messaging postMessage] to send FDs across domains.
    * FDs will need to be wrapped to pass them around in Javascript.
    * In that case, will FDs close when JS ref-counts go to zero?
 
