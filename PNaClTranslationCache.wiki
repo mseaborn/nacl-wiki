@@ -65,15 +65,15 @@ This cache and translation system must at the very least satisfy the following r
  * Evict and unlink files when at capacity.
  * Use immutable files so that the linker will be able to map files directly instead of copying the data.
 
-Other requirements:
+Other (important) requirements:
 
+ * Be sure not to block the UI threads.
  * Handle crashes: Cache "put" operation should be atomic. Put another way, the cache should never return a partially-written file.
  * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large and are redundant.
  * Clear cache when browser cache is cleared, or via other mechanisms.
    * Useful for deterministic testing.
    * Possibly relevant to privacy / not revealing browsing history via timing.
  * Retain ability to test translator as a standalone program.
- * Be sure not to block the UI threads.
  * Compatibility with third-party translator.nexes (e.g., one with fewer optimizations but faster startup), or multiple versions of translator.nexes.
  * Have per-app, per-domain, per-X quotas.
 
