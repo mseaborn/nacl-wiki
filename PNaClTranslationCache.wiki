@@ -98,8 +98,8 @@ Let's go over what is needed:
    * [http://dev.w3.org/html5/workers/#shared-workers-introduction SharedWorkers] allow us to refer to a single Javascript worker across different windows. This single Javascript worker can handle serialization.
 
  * Get file descriptors out of files in cache
-   * Ideally we would have __urlAsNaClDesc apply to HTML FS based URLs.
-   * i.e., fd = plugin.fetchURL(fileEntry.toURI())
+   * Ideally we would have urlAsNaClDesc apply to HTML FS based URLs.
+   * i.e., fd = plugin.urlAsNaClDesc(fileEntry.toURI())
 
  * Pass file descriptors out of the cache to dynamic linker and translator nexes.
    * Since the Cache Web App is in a different domain from the other components, we need to extend [http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#web-messaging postMessage] to send FDs across domains.
@@ -119,8 +119,8 @@ Extensions made will be available to all Web Apps and not used solely by the tra
 
 In summary, the extensions appear to be:
 
- * urlToFD(fileEntry.toURI())
- * postMessage for an FD
+ * plugin.urlAsNaClDesc(fileEntry.toURI())
+ * window.postMessage for an FD
  * Make semantics of unlinking concrete  
 
 
