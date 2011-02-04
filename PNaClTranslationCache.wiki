@@ -79,7 +79,9 @@ Let's consider how the requirements will be satisfied by each option.
 
 == Option A: Manage the cache via a web app, backed by HTML FS ==
 
-Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity and capabilities required is HTML FS. Here is a layout of the components and how they communicate for reference. Each box is an element that may be hosted on a different domain.
+Being a Web App, it will need storage. The only HTML storage option that appears to have the capacity and capabilities required is the HTML Filesystem API ([http://dev.w3.org/2009/dap/file-system/pub/FileSystem/ spec], [http://www.html5rocks.com/tutorials/file/filesystem/ demo]). 
+
+Here is a representative layout of the components involved and how they communicate. Each box is an element that may be hosted on a different domain.
 
 {{{
 
