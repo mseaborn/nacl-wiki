@@ -25,14 +25,13 @@ In the web browser, we do not have the same concept of installation:  There is n
 
    _Background note: The ELF dynamic linker is a userland program on Unix, not part of the kernel.  Similarly, in Native Client, the dynamic linker runs inside the NaCl sandbox, and is not part of the NaCl trusted runtime._
 
-In this document we discuss two broad ways of managing this mapping:
+== Overview ==
 
- # *Map sonames to URLs outside the dynamic linker*:  When the dynamic linker needs to open a library, it invokes an out-of-process service, passing the short library name or a filename and receiving a file descriptor in response.
- # *Map sonames to URLs inside the dynamic linker*:  When the dynamic linker needs to open a library, it requests a URL to be fetched by the NaCl browser plugin and receives a file descriptor in response.
+In this document, we propose that the mapping from sonames to files, via URLs, should happen outside the dynamic linker.  This minimises the changes to the dynamic linker and is also more flexible.
 
-Furthermore, we discuss the possibility of changing ELF conventions and not using sonames.
+We discuss three ways of specifying the mapping from sonames to files: a pure-data manifest file format, and two more general mechanisms for defining a mapping programmatically.
 
-First, we discuss potential goals against which these designs may be evaluated.
+We propose a kernelised implementation that offers a choice between these mechanisms.  Simple web apps would use manifest files.  The manifest files would be interpreted by an untrusted Javascript library that is built on simpler primitives.  More sophisticated web apps would be able to use these primitives for setting up filename mappings programmatically.
 
 == Goals ==
 
