@@ -212,6 +212,17 @@ The TCB functionality needed for this was implemented in the NPAPI version of th
 
 In addition, we plan to provide options A and B (manifest files and the bindFile() call) as a standard library implemented in Javascript.  This will be built into the NaCl plugin, which can load it with `eval`.
 
+== Development tools ==
+
+For programs with a non-trivial set of dependencies, creating manifest files manually would be a burden.  Therefore, we will provide a tool to generate a manifest file from an executable and a set of libraries.  The tool would omit unnecessary libraries and include library hashes.
+
+=== Upgrading libraries atomically ===
+When upgrading libraries, it is often desirable to upgrade multiple libraries at the same time, in lockstep, to a combination of versions that has been tested.  This would be a matter of replacing one manifest file with another.
+
+To achieve this atomicity, library URLs should be treated as identifiers for immutable resources.  Otherwise, if the file that a URL points to is changed, a page load might load an inconsistent set of libraries.
+
+The tool we provide for generating manifest files can take care of ensuring that new versions of libraries are deployed under unique filenames.
+
 == Alternative approaches considered ==
 
 === Alternative #1: Library search path ===
