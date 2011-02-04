@@ -6,6 +6,8 @@ Suppose you are writing a web browser and you want to run your image decoder ins
 
 == Terms ==
  * "NaCl domain": We use the term "domain" instead of "process" to distinguish it from the host OS process in which it lives.  This is particularly important when there could be multiple NaCl domains living inside one host OS process.
+ * Inter-domain communication (IDC): This would be a better term than "IPC" when the communications occurs between domains inside the same host OS process.
+ * Thread-migrating IPC: A thread-migrating IPC call is a synchronous call in which the caller is suspended and the callee runs in the thread borrowed from the caller.  This term comes from the literature on EROS and L4.  e.g. See "[http://srl.cs.jhu.edu/courses/600.439/shap03vulnerabilities.pdf Vulnerabilities in Synchronous IPC Designs]" (Jonathan Shapiro).
 
 == Usage ==
 The following usage would happen all in one thread:
