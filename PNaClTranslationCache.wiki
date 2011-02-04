@@ -34,7 +34,7 @@ Here is the high-level flow for a single bitcode file:
 
 == Requirements ==
 
-This cache and translation system must have at least the following capabilities:
+This cache and translation system must at the very least satisfy the following requirements:
 
  * Handle concurrency.
    * Avoid redundant concurrent translations.
@@ -47,20 +47,19 @@ This cache and translation system must have at least the following capabilities:
  * Nice to have: immutable files to be able to map files directly instead of copying data.
 
 
-Other capabilities:
+Other requirements:
 
  * Have per-app quotas.
  * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large.
  * Clear cache when browser cache is cleared(?).
  * Be sure not to block the UI.
 
-
 = Options =
 
 There are at least two options to consider:
 
  # (A) Manage the cache via a web app and back it with HTML FS.
- # (B) Manage the cache in the browser and back it with real files in a reserved directory.
+ # (B) Manage the cache in a browser broker process and back it with real files in a reserved directory.
 
 Let's consider how the requirements will be satisfied by each option.
 
@@ -110,7 +109,7 @@ Other Issues:
 
 
 
-== Option B: Manage the cache in the browser, backed by a single directory ==
+== Option B: Manage the cache in a browser broker process, backed by a single directory ==
 
 With this option, the browser will have a Cache Broker Process that is given access to a single directory in the native file system. We do not extend the capabilities of web apps (besides supplying a bitcode translation cache).
 
@@ -139,7 +138,7 @@ Other issues:
 
 Here, we explore variations on the above options.
 
-== Option B-prime: Manage the cache in the browser, backed by browser cache ==
+== Option B-prime: Manage the cache in a browser broker process, backed by browser cache ==
 
 We could go with Option B, but instead of giving the cache broker ownership of a fresh/isolated directory we could reuse the browser cache.
 
@@ -149,7 +148,7 @@ We could go with Option B, but instead of giving the cache broker ownership of a
    * Not a problem. The chrome cache has an option to store entries as separate files.   
  * We get to reuse the chrome cache meta-data for LRU, journaling, etc.
 
-== Option B-double-prime: Manage the cache in the browser, backed by browser cache ==
+== Option B-double-prime: Manage the cache in the browser process, backed by browser cache ==
 
 This is a variation of Option B where we add logic to the browser process instead of having a separate broker process.
 
@@ -158,7 +157,9 @@ This is a variation of Option B where we add logic to the browser process instea
 
 = Conclusion =
 
-TODO.
+TODO: decide after design reviews.
+
+Current Leanings: Go with a variant of Option B (e.g., double-prime), since it does not need to face unspecified behavior (unlink behavior in the FS), require extensions to the web app platform, etc. We also get to reuse much of the chrome code (e.g., its cache).
 
 = Related =
 
