@@ -166,22 +166,21 @@ This is a variation of Option B where we add logic to the browser process instea
  * May be easiest for a first-cut.
  * Do not need to wait for a general Pepper Broker Abstraction.
 
-== Notes on Sharing Instances of the Translator to Translate Multiple BC files ==
+== Notes on Persisting Instances of the Translator to Translate Multiple BC files ==
 
-Mark had an example where:
+Persisting and reusing instances of the translator nexe will save on startup cost. However, even if we limit this persistence/sharing to a single domain there are ways in which a malicious individual could affect multiple domains. Mark's example:
 
  * Translator starts up
  * Translator receives a malicious.bc and gets owned
  * Translator behavior is now changed
- * Changed translator persists and mistranslates libgood.so.bc, e.g., so that numeric literals that may refer to prices are 2x greater.
- * Next time another app wants to use libgood.so we refer to the cached mistranslated version
-
+ * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation causes numeric literals that may refer to prices are 2x greater.
+ * Next time another app wants to use domainB:libgood.so.bc which also has hash X. Since we only check hashes in the cache, the dynamic linker will be supplied with the cached mistranslated version.
 
 = Conclusion =
 
 TODO: decide after design reviews.
 
-Current Leanings: Go with a variant of Option B (e.g., double-prime), since it does not need to face unspecified behavior (unlink behavior in the FS), require extensions to the web app platform, etc. We also get to reuse much of the chrome code (e.g., its cache).
+Current Leanings: Go with Option B double-prime, since it does not need to face unspecified behavior (unlink behavior in the FS), and does not require extensions to the web app platform. We also get to reuse much of the chrome code including its cache.
 
 = Related =
 
