@@ -60,6 +60,7 @@ Performance and remote loading:
  * Support *decentralised sharing* of libraries:  If foo.com and bar.org host identical copies of a library, using web apps on these sites should not cause the library to be downloaded twice.  Such caching could be enabled by linking to the file using a (URL, hash) pair -- see "Integrity" -- using a "share-by-hash" scheme.  This may be implemented by the [PNaClTranslationCache PNaCl translation cache].
  * Support *local storage* of libraries:  Allow libraries to be stored in locations other than the browser's download cache, such as in the local storage provided by the proposed [http://dev.w3.org/2009/dap/file-system/file-dir-sys.html "File API: Directories and System"] extension to the Web [http://www.w3.org/TR/FileAPI/ File API].  Allow a web app to manage its own cache.
  * *Copy avoidance*:  We want to avoid copying library data unnecessarily.  The dynamic linker should receive library files as file descriptors.
+ * Allow *progress bars*:  A large web app should be able to report the progress of library downloading and translation.
 
 Maintenance issues:
  * *PNaCl* support:  We do not want to make assumptions that make it difficult to support PNaCl later on.
