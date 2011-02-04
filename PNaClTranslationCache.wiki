@@ -95,7 +95,7 @@ Here is a representative layout of the components involved and how they communic
 Let's go over what is needed:
 
  * Manage concurrent requests
-   * [http://dev.w3.org/html5/workers/#shared-workers-introduction SharedWorkers] allow us to refer to a Javascript worker across different windows to provide serialization.
+   * [http://dev.w3.org/html5/workers/#shared-workers-introduction SharedWorkers] allow us to refer to a single Javascript worker across different windows. This single Javascript worker can handle serialization.
 
  * Get file descriptors out of files in cache
    * Ideally we would have __urlAsNaClDesc apply to HTML FS based URLs.
