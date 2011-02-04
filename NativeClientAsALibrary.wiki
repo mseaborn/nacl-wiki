@@ -23,7 +23,7 @@ The NaCl domain would need these extra interfaces:
  * A syscall for returning results.
  * A syscall by which the domain indicates how it should receive invocations.  This would include what address to jump to.
 
-Luckily, these can be the same syscall!  The "return" syscall would really be "return-and-wait-for-next-invocation".  This syscall would appear to return when the next invocation occurs.  It would be like a combined sendmsg() + recvmsg() call.  This is similar to EROS's "[http://www.eros-os.org/devel/ObRef/Intro.html Return]" capability invocation, which switches the calling process from the "running" state to the "available" state.
+Luckily, these can be the same syscall!  The "return" syscall would really be "return-and-wait-for-next-invocation".  This syscall would appear to return when the next invocation occurs.  It would be like a combined sendmsg() + recvmsg() call.  This is similar to EROS's "[http://www.eros-os.org/devel/ObRef/Intro.html Return]" capability invocation, which switches the calling process from the "running" state to the "available" (open wait) state.
 
 CallNaCl() would save its state using setjmp().  When the NaCl domain calls the "return" syscall, this would return from CallNaCl() using longjmp().
 
