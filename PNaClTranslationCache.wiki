@@ -49,16 +49,18 @@ This cache and translation system must at the very least satisfy the following r
  * Supply file descriptors of cache entries to loader/linker.
  * Supply file descriptors to translator nexe.
  * Evict and unlink files when at capacity.
- * Nice to have: immutable files to be able to map files directly instead of copying data.
- * Handle crashes / cache Put operation should be atomic.
-
+ * Use immutable files so that the linker will be able to map files directly instead of copying the data.
 
 Other requirements:
 
- * Have per-app quotas.
+ * Handle crashes: Cache Put operation should be atomic.
  * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large.
- * Clear cache when browser cache is cleared(?).
- * Be sure not to block the UI.
+ * Clear cache when browser cache is cleared, or via other mechanisms.
+   * Useful for deterministic testing.
+   * Possibly relevant to privacy / not revealing browsing history via timing.
+ * Retain ability to test translator as a standalone program.
+ * Be sure not to block the UI threads.
+ * Have per-app, per-domain, per-X quotas.
 
 Other issues to consider:
 
@@ -90,7 +92,7 @@ Being a Web App, it will need storage. The only HTML storage option that appears
 Let's go over what is needed:
 
  * Manage concurrent requests
-   * We can serialize accesses if the Cache App is a SharedWorker
+   * We can serialize accesses by making the Cache App a SharedWorker.
 
  * Get file descriptor of files in cache
    * Can we reuse the url-to-fd mechanism for FS-based URLs?
