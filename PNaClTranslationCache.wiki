@@ -2,6 +2,10 @@
 
 _Draft_
 
+= Table of Contents =
+
+<wiki:toc max_depth="1" />
+
 = Introduction =
 
 For PNaCl, we wish to be able to cache the translation of *bitcode files* _to_ *ELF files*. One question is, how should we manage the cache? Inside the browser, as a web app, or something in between?
@@ -139,7 +143,7 @@ Other issues:
 
  * We need to be careful about detecting translator.nexe changes. Possibly we could split the cache directory up based on the version of the translator.nexe.
 
-= Other Possibilities =
+= Variants of Options =
 
 Here, we explore variations on the above options.
 
