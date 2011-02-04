@@ -159,6 +159,17 @@ This is a variation of Option B where we add logic to the browser process instea
  * May be easiest for a first-cut.
  * Do not need to wait for a general Pepper Broker Abstraction.
 
+== Notes on Sharing Instances of the Translator to Translate Multiple BC files ==
+
+Mark had an example where:
+
+ * Translator starts up
+ * Translator receives a malicious.bc and gets owned
+ * Translator behavior is now changed
+ * Changed translator persists and mistranslates libgood.so.bc
+ * Next time another app wants to use libgood.so we refer to the cached mistranslated version
+
+
 = Conclusion =
 
 TODO: decide after design reviews.
