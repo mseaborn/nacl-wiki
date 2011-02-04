@@ -166,7 +166,7 @@ Mark had an example where:
  * Translator starts up
  * Translator receives a malicious.bc and gets owned
  * Translator behavior is now changed
- * Changed translator persists and mistranslates libgood.so.bc
+ * Changed translator persists and mistranslates libgood.so.bc, e.g., so that numeric literals that may refer to prices are 2x greater.
  * Next time another app wants to use libgood.so we refer to the cached mistranslated version
 
 
