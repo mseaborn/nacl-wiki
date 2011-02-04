@@ -43,10 +43,13 @@ Here is a diagram of how the components interact:
 
  [ Bitcode1 ] <------\
  [ Bitcode2 ] <-------\
- [ PNaCl App Page ] <-----> [ Cache Manager ] <--> [ Translator nexe ]
- [ Dynamic Linker ] <--/ 
+ [ PNaCl App.html ] <-----> [ Cache Manager ] <--> [ Translator.nexe ]
+ [ Dyn Linker.nexe ] <--/ 
 
 }}}
+
+All boxes besides the Cache Manager represent data and nexes that are likely from different domains.
+
 
 == Requirements ==
 
