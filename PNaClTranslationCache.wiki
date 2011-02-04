@@ -4,7 +4,7 @@ _Draft_
 
 = Table of Contents =
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
@@ -53,13 +53,14 @@ This cache and translation system must at the very least satisfy the following r
 
 Other requirements:
 
- * Handle crashes: Cache Put operation should be atomic.
+ * Handle crashes: Cache "put" operation should be atomic / Never look up a partially-written file.
  * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large and are redundant.
  * Clear cache when browser cache is cleared, or via other mechanisms.
    * Useful for deterministic testing.
    * Possibly relevant to privacy / not revealing browsing history via timing.
  * Retain ability to test translator as a standalone program.
  * Be sure not to block the UI threads.
+ * Compatibility with third-party translator.nexes (e.g., one with fewer optimizations but faster startup), or multiple versions of translator.nexes.
  * Have per-app, per-domain, per-X quotas.
 
 Other issues to consider:
@@ -165,6 +166,18 @@ This is a variation of Option B where we add logic to the browser process instea
  * May be easiest for a first-cut.
  * Do not need to wait for a general Pepper Broker Abstraction.
 
+= Current Leanings =
+
+Go with Option B double-prime, since it does not need to face unspecified behavior (unlink behavior in the FS), and does not require extensions to the web app platform. We also get to reuse much of the chrome code including its cache.
+
+= Other Requirements / Issues =
+
+This section explores the secondary requirements and issues related to client-side translation caches.
+
+== Compatiblity with Alternative Translator.nexes ==
+
+We can create a separate cache instance based on a hash of the translator.nexe. TODO: Look into the details of doing so with each option.
+
 == Notes on Persisting Instances of the Translator to Translate Multiple BC files ==
 
 Persisting and reusing instances of the translator nexe will save on startup cost. However, even if we limit this persistence/sharing to a single domain there are ways in which a malicious individual could affect multiple domains. Mark's example:
@@ -175,11 +188,6 @@ Persisting and reusing instances of the translator nexe will save on startup cos
  * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation causes numeric literals that may refer to prices are 2x greater.
  * Next time another app wants to use domainB:libgood.so.bc which also has hash X. Since we only check hashes in the cache, the dynamic linker will be supplied with the cached mistranslated version.
 
-= Conclusion =
-
-TODO: decide after design reviews.
-
-Current Leanings: Go with Option B double-prime, since it does not need to face unspecified behavior (unlink behavior in the FS), and does not require extensions to the web app platform. We also get to reuse much of the chrome code including its cache.
 
 = Related =
 
