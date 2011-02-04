@@ -35,7 +35,7 @@ Here is the high-level flow for a single bitcode file:
 
 }}}
 
-(See NameResolutionForDynamicLibraries for details on specifying URLs of libraries.)
+See NameResolutionForDynamicLibraries for details on specifying URLs of libraries.
 
 == Requirements ==
 
