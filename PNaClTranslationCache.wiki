@@ -36,6 +36,7 @@ Here is the high-level flow for a single bitcode file:
 
 }}}
 
+(See NameResolutionForDynamicLibraries for details on specifying URLs of libraries.)
 
 == Requirements ==
 
@@ -44,17 +45,17 @@ This cache and translation system must at the very least satisfy the following r
  * Handle concurrency.
    * Avoid redundant concurrent translations.
    * Avoid races in writing to the cache.
- * The cross-domain fetch permission should apply to the derived data (translated elf in the cache).
-   * I.e., the elf should be available to the consumer (dynamic linker) that is pulled from another domain.
- * Supply file descriptors of cache entries to loader/linker.
- * Supply file descriptors to translator nexe.
+ * Supply file descriptors to the translator nexe.
+ * The cross-domain fetch permission should propagate to the derived data (translated ELF files in the cache).
+   * I.e., the ELF files should be available to the consumer (dynamic linker) that is pulled from another domain.
+ * Supply file descriptors of cache entries to dynamic linker.
  * Evict and unlink files when at capacity.
  * Use immutable files so that the linker will be able to map files directly instead of copying the data.
 
 Other requirements:
 
  * Handle crashes: Cache Put operation should be atomic.
- * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large.
+ * Do not cache the bitcode files (only the ELF files), since the bitcode files can be quite large and are redundant.
  * Clear cache when browser cache is cleared, or via other mechanisms.
    * Useful for deterministic testing.
    * Possibly relevant to privacy / not revealing browsing history via timing.
@@ -94,11 +95,11 @@ Let's go over what is needed:
  * Manage concurrent requests
    * We can serialize accesses by making the Cache App a SharedWorker.
 
- * Get file descriptor of files in cache
-   * Can we reuse the url-to-fd mechanism for FS-based URLs?
+ * Get file descriptors out of files in cache
+   * Can we reuse the url-to-fd mechanism for HTML FS based URLs?
    * i.e., fd = plugin.fetchURL(fileEntry.toURI())
 
- * Pass file descriptors out of the cache to a few known nexes.
+ * Pass file descriptors out of the cache to dynamic linker and translator nexes.
    * Because the Cache Web App is in a different domain from the other components, we something like postMessage send of FDs.
    * FDs will need to be wrapped to pass them around in Javascript.
    * In that case, will FDs close when JS ref-counts go to zero?
@@ -114,12 +115,11 @@ Let's go over what is needed:
 
 Extensions made will be available to all Web Apps and not used solely by the translation cache.
 
-Other Issues:
+In summary, the extensions appear to be:
 
- * Extensions appear to be:
-   * urlToFD(fileEntry.toURI())
-   * postMessage for an FD
-
+ * urlToFD(fileEntry.toURI())
+ * postMessage for an FD
+ * Make semantics of unlinking concrete  
 
 
 == Option B: Manage the cache in a browser broker process, backed by a single directory ==
@@ -129,10 +129,10 @@ With this option, the browser will have a Cache Broker Process that is given acc
  * Manage concurrent requests
    * We will need a broker process in the browser.
 
- * Get file descriptor of "file" in cache
+ * Get file descriptors out of files in cache
    * Trivial to get.
 
- * Pass file descriptors out of cache to a few known nexes
+ * Pass file descriptors out of the cache to dynamic linker and translator nexes.
    * Use chrome IPC between cache broker and NaCl plugins.
    * Re: garbage collection -- ownership transfer from cache to consumer.
 
