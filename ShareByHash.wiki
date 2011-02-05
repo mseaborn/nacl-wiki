@@ -34,6 +34,28 @@ In this document, we focus specifically on the second property, which we dub _sh
 
  * Upgrading hash scheme:  What kind of plans do we need to make to change to a stronger hash algorithm if/when flaws are found in the current one?
 
+== Extension: Direct cache queries ==
+
+Share-by-hash as proposed by Douglas Crockford exposes a composite operation in which the system queries the cache and falls back to fetching a URL:
+
+{{{
+function getCachedByHashAndUrl(hash, url) {
+    var file = getCachedByHash(hash);
+    if (file == null) {
+        file = fetchUrl(url);
+        if (hashData(file) != hash) {
+            throwHashMismatchError();
+        }
+        addToHashCache(hash, file);
+    }
+    return file;
+}
+}}}
+
+What are the implications of exposing the cache query, getCachedByHash(hash), directly?  Initially it appears there are none, because the information revealed by getCachedByHash(hash) is also revealed by getCachedByHashAndUrl(hash, url).  We probably cannot enforce anything by forcing a web app to use getCachedByHashAndUrl() rather than getCachedByHash().  However, we might be able to impose costs for malfeasance.
+
+Suppose an attacker is trying to invert a hash H, to find the data X for which hash(X) = H.  Suppose the attacker has access to getCachedByHashAndUrl() but not getCachedByHash().  The attacker will not be able to supply a URL that returns X.  We could log cases where getCachedByHashAndUrl() does not return successfully.  Potentially, we could warn the user.  However, this would trigger in innocent cases such as when URLs fail to respond.
+
 == Related work ==
 
 Related concepts:
