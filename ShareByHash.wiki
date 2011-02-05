@@ -33,3 +33,20 @@ In this document, we focus specifically on the second property, which we dub _sh
  * Inverting service:  The browser cache could be used to invert hashes.  If other systems make the assumption that hashes are not invertable, share-by-hash would violate this assumption.  Is this assumption ever valid to make?
 
  * Upgrading hash scheme:  What kind of plans do we need to make to change to a stronger hash algorithm if/when flaws are found in the current one?
+
+== Related work ==
+
+Related concepts:
+ * "self-certifying names":  I believe this term was introduced by the Self-certifying File System (SFS)
+ * "strong names":  I believe this term was introduced by Microsoft in .NET
+ * content-addressable filesystems
+
+Related systems:
+ * Share-by-hash was implemented by the EC Habitats system, and this is described by Mark Miller in "Anonymous Unspoofable Cyclic Distributed Static Linking" (January 2000): [http://www.eros-os.org/pipermail/e-lang/2000-January/003188.html part 1], [http://www.eros-os.org/pipermail/e-lang/2000-January/003194.html part 2].
+ * Tahoe-LAFS is a content-addressable filesystem.  It can provide share-by-hash, but it also provides a way to turn it off on privacy grounds.
+ * Git, Mercurial, Monotone:  These DVCSes implement content-addressable filesystems.  However, share-by-hash is scoped to within a repository.
+
+Discussions relevant to share-by-hash:
+ * [http://valerieaurora.org/review/hash.html An Analysis of Compare-by-hash] ([http://valerieaurora.org/review/hash.pdf PDF]), Val Henson, 2003.
+ * [http://www.cs.colorado.edu/~jrblack/papers/cbh.html Compare-by-Hash: A Reasoned Analysis], J. Black, April 2006
+ * Brendan Eich [http://brendaneich.com/2008/04/popularity/ responded] to Douglas Crockford's proposal:  "One idea, mooted by many folks, most recently here by Doug, entails embedding crypto-hashes in potentially very long-lived script tag attributes. Is this a good idea?  Probably not, based both on theoretical soundness concerns about crypto-hash algorithms, and on well-known poisoning attacks."
