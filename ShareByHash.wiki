@@ -1,8 +1,16 @@
 #summary Notes on share-by-hash caching schemes
 
+= Share-by-hash: Decentralised sharing of identical files =
+
+Mark Seaborn, February 2011
+
 _Draft_
 
-= Share-by-hash: Decentralised sharing of identical files =
+*Please send comments to [https://groups.google.com/group/native-client-discuss native-client-discuss]* rather than adding them inline or using the comment form, because the wiki does not send notifications about changes.
+
+<wiki:toc/>
+
+== Proposed scheme ==
 
 Back in 2008, Douglas Crockford proposed the following browser extension:
 
@@ -55,6 +63,12 @@ function getCachedByHashAndUrl(hash, url) {
 What are the implications of exposing the cache query, getCachedByHash(hash), directly?  Initially it appears there are none, because the information revealed by getCachedByHash(hash) is also revealed by getCachedByHashAndUrl(hash, url).  We probably cannot enforce anything by forcing a web app to use getCachedByHashAndUrl() rather than getCachedByHash().  However, we might be able to impose costs for malfeasance.
 
 Suppose an attacker is trying to invert a hash H, to find the data X for which hash(X) = H.  Suppose the attacker has access to getCachedByHashAndUrl() but not getCachedByHash().  The attacker will not be able to supply a URL that returns X.  We could log cases where getCachedByHashAndUrl() does not return successfully.  Potentially, we could warn the user.  However, this would trigger in innocent cases such as when URLs fail to respond.
+
+== Extension: PNaCl translation cache ==
+
+The [PNaClTranslationCache PNaCl translation cache] differs from the browser cache in that we want to cache a function of a file, rather than the file itself.  A web app specifies a portable bitcode file as a (hash, URL) pair, and PNaCl caches the translated version of the bitcode file (an architecture-specific ELF file).
+
+In this scenario, there is no need to keep the bitcode file around: it can be thrown away after the translated version is computed.
 
 == Related work ==
 
