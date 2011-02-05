@@ -25,6 +25,8 @@ In this document, we focus specifically on the second property, which we dub _sh
 
  * Leakability:  It is easier to leak the hash of a file over a low-bandwidth covert channel than to leak the full contents of the file.  A share-by-hash scheme could allow an attacker to retrieve the full contents after leaking the hash from a process that is supposed to be confined.
 
+ * Hash collisions:  Suppose many sites rely on a library file F with hash H.  If there is a vulnerability in the crypto-hash scheme, an attacker might be able to construct a malicious library, F2, with the same hash H.  If the attacker can get the user to visit their site, they can poison the cache to replace F with F2, and run code in the context of the sites that rely on F.
+
  * Site testability:  Suppose example.net hosts a web app that uses a popular library.  The developers link to the library as `href=http://example.net/poplib.js hash=H` but they forget to make the file available under `/poplib.js`.  Since it's such a popular library, most users, including the developers, already have hash H in their browser cache.  The developers don't notice the problem, but for some users, the web app mysteriously fails.
     * Mitigation:  Create tools to lint for these dangling links.  Use development tools for constructing web apps that avoid this problem.
 
