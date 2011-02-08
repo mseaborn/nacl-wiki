@@ -178,14 +178,6 @@ Go with Option B double-prime, since it does not need to face unspecified behavi
 
 This section explores the secondary requirements and issues related to client-side translation caches.
 
-== Not Using Hashes ==
-
-See the ShareByHash document for background. It is possible to detect that files have changed without ShareByHash using the typical Browser Cache mechanisms (e.g., Timestamp + [http://en.wikipedia.org/wiki/HTTP_ETag ETags]). That option has the following implications:
-
-  * We would need to store the bitcode file in the browser cache, since we need to know if the bitcode has changed. The bitcode files are typically larger than the ELF files and are redundant.
-  * This would imply using Option B, since it is unlikely that the Web App Platform would be extended with an API for checking if data is already in the browser cache.
-  * ETags do not guarantee that the same bitcode file hosted at different URLs will have the same "hash" and, therefore, will not share cached ELF files.
-
 == Compatiblity with Alternative Translator.nexes ==
 
 We can create a separate cache instance based on a hash of the 
@@ -207,6 +199,15 @@ Persisting and reusing instances of the translator nexe will save on startup cos
  * Translator behavior is now changed
  * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation doubles numeric literals that may refer to prices.
  * Next time another app wants to use domainB:libgood.so.bc which also has hash X. Since we only check hashes in the cache, the dynamic linker will be supplied with the cached mistranslated version.
+
+== Not Storing Bitcode vs Not Using Hashes ==
+
+See the ShareByHash document for background. It is possible to detect that files have changed without ShareByHash using the typical Browser Cache mechanisms (e.g., Timestamp + [http://en.wikipedia.org/wiki/HTTP_ETag ETags]). That option has the following implications:
+
+  * We would need to store the bitcode file in the browser cache, since we need to know if the bitcode has changed. The bitcode files are typically larger than the ELF files and are redundant.
+  * This would imply using Option B, since it is unlikely that the Web App Platform would be extended with an API for checking if data is already in the browser cache.
+  * ETags do not guarantee that the same bitcode file hosted at different URLs will have the same "hash" and, therefore, will not share cached ELF files.
+
 
 = Related =
 
