@@ -180,11 +180,11 @@ This section explores the secondary requirements and issues related to client-si
 
 == Not Using Hashes ==
 
-See the ShareByHash document for background. It is possible to detect that files have changed without ShareByHash using the typical Browser Cache mechanisms (e.g., Timestamp + ETags). That option has the following implications:
+See the ShareByHash document for background. It is possible to detect that files have changed without ShareByHash using the typical Browser Cache mechanisms (e.g., Timestamp + [http://en.wikipedia.org/wiki/HTTP_ETag ETags]). That option has the following implications:
 
   * We would need to store the bitcode file in the browser cache, since we need to know if the bitcode has changed. The bitcode files are typically larger than the ELF files and are redundant.
   * This would imply using Option B, since it is unlikely that the Web App Platform would be extended with an API for checking if data is already in the browser cache.
-
+  * ETags do not guarantee that the same bitcode file hosted at different URLs will have the same "hash" and, therefore, will not share cached ELF files.
 
 == Compatiblity with Alternative Translator.nexes ==
 
