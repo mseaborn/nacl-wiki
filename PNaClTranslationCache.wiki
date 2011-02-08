@@ -211,8 +211,5 @@ See the ShareByHash document for background. It is possible to detect that files
 
 = Related =
 
-  * DSO name resolution design document:
-NameResolutionForDynamicLibraries
-
-  * Share-by-hash design document:
-ShareByHash
+  * DSO name resolution design document: NameResolutionForDynamicLibraries
+  * Share-by-hash design document: ShareByHash
