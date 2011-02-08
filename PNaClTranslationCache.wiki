@@ -24,6 +24,8 @@ Here is the high-level flow for a single bitcode file:
     // Compute hash, since bitcode may have changed in the meantime.
     var hash2 = CalcHash(pnacl_file);
 
+    // May want to simply stop and retry if hash != hash2
+
     var elf_file_w = CreateCacheEntry(hash2);
 
     Translate(pnacl_file, elf_file_w);
@@ -178,7 +180,15 @@ This section explores the secondary requirements and issues related to client-si
 
 == Compatiblity with Alternative Translator.nexes ==
 
-We can create a separate cache instance based on a hash of the translator.nexe. TODO: Look into the details of doing so with each option.
+We can create a separate cache instance based on a hash of the 
+translator.nexe. TODO: Look into the details of doing so with each option.
+
+== The translator may be multi-part ==
+
+The "translator" component will actually involve two nexes (llc and ld) for quite a while (until llc is taught all of the linker logic -- optimize TLS accesses, generate GOT and PLT entries, generate DT_NEEDED, ...). This also means that:
+
+  * We may need two files -- one more for the intermediate file -- instead of just the one for the final output. Alternatively, we can try to use shared memory tagged with an explicit file size for the intermediate data.
+  * We need to be able to atomically update the translator and linker. This is possible if we specify them in the manifest file and update the hashes (assuming we use the hashing scheme) atomically.
 
 == Notes on Persisting Instances of the Translator to Translate Multiple BC files ==
 
