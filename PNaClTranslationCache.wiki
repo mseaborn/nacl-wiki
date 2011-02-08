@@ -178,14 +178,22 @@ Go with Option B double-prime, since it does not need to face unspecified behavi
 
 This section explores the secondary requirements and issues related to client-side translation caches.
 
+== Not Using Hashes ==
+
+See the ShareByHash document for background. It is possible to detect that files have changed without ShareByHash using the typical Browser Cache mechanisms (e.g., Timestamp + ETags). That option has the following implications:
+
+  * We would need to store the bitcode file in the browser cache, since we need to know if the bitcode has changed. The bitcode files are typically larger than the ELF files and are redundant.
+  * This would imply using Option B, since it is unlikely that the Web App Platform would be extended with an API for checking if data is already in the browser cache.
+
+
 == Compatiblity with Alternative Translator.nexes ==
 
 We can create a separate cache instance based on a hash of the 
 translator.nexe. TODO: Look into the details of doing so with each option.
 
-== The translator may be multi-part ==
+== The Translator May Consist of Multiple Components ==
 
-The "translator" component will actually involve two nexes (llc and ld) for quite a while (until llc is taught all of the linker logic -- optimize TLS accesses, generate GOT and PLT entries, generate DT_NEEDED, ...). This also means that:
+The "translator" component will actually involve two nexes (llc and ld) for quite a while. It will not be a single nexe until llc is taught all of the linker logic -- optimize TLS accesses, generate GOT and PLT entries, generate DT_NEEDED, etc.. This also means that:
 
   * We may need two files -- one more for the intermediate file -- instead of just the one for the final output. Alternatively, we can try to use shared memory tagged with an explicit file size for the intermediate data.
   * We need to be able to atomically update the translator and linker. This is possible if we specify them in the manifest file and update the hashes (assuming we use the hashing scheme) atomically.
@@ -199,7 +207,6 @@ Persisting and reusing instances of the translator nexe will save on startup cos
  * Translator behavior is now changed
  * Changed translator persists and mistranslates domainA:libgood.so.bc, which has hash X. The mistranslation doubles numeric literals that may refer to prices.
  * Next time another app wants to use domainB:libgood.so.bc which also has hash X. Since we only check hashes in the cache, the dynamic linker will be supplied with the cached mistranslated version.
-
 
 = Related =
 
