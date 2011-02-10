@@ -27,3 +27,7 @@ What kind of IPC do we provide?
 Proxying objects:
  * What conventions do we use for proxying objects?
  * Who provides the Javascript-side proxy code?
+
+Visibility of garbage collection:
+ * Can a user program discover when a Javascript proxy object is no longer referenced?  If not, we would either leak memory in the NaCl process, or we would require explicit deletion calls in Javascript, which would make the proxying non-transparent.
+ * Similarly, if we provide Javascript wrapper objects for file descriptors, can we ensure that the file descriptors are automatically garbage collected?
