@@ -27,6 +27,12 @@ What kind of IPC do we provide?
 Proxying objects:
  * What conventions do we use for proxying objects?
  * Who provides the Javascript-side proxy code?
+    * We can implement a standard Javascript library for proxying Javascript objects.  But how does a web app load it?
+    * The web app could load the library via `<script>`.  It could copy the library to its own server, or load it from a Google server.
+    * The NaCl plugin could provide a built-in library and `eval()` it.  But this will not work if PPAPI removes the ability of a plugin to do Javascript calls such as `eval()`.
+ * In today's Javascript, it is not possible for an object `x` to intercept a property assignment such as `x.location = y`, but many DOM interfaces are based on property assignment.  Only native objects (such as DOM objects) can handle such assignments.
+    * This will be fixed by the "[http://wiki.ecmascript.org/doku.php?do=show&id=harmony:proxies proxies]" extension to Ecmascript being designed by Tom Van Cutsem.
+    * Until ES proxies or a similar feature is implemented, it will not be possible to proxy Javascript objects fully to the extent that PPVar and NPAPI's npruntime can.
 
 Visibility of garbage collection:
  * Can a user program discover when a Javascript proxy object is no longer referenced?  If not, we would either leak memory in the NaCl process, or we would require explicit deletion calls in Javascript, which would make the proxying non-transparent.
