@@ -33,6 +33,7 @@ Proxying objects:
  * In today's Javascript, it is not possible for an object `x` to intercept a property assignment such as `x.prop = y`, but many DOM interfaces are based on property assignment (e.g. `window.location = url`).  Only native objects (such as DOM objects) can handle such assignments.
     * This will be fixed by the "[http://wiki.ecmascript.org/doku.php?do=show&id=harmony:proxies proxies]" extension to Ecmascript being designed by Tom Van Cutsem.
     * Until ES proxies or a similar feature is implemented, it will not be possible to proxy Javascript objects fully to the extent that PPVar and NPAPI's npruntime can.
+ * In order to efficiently forward Javascript objects across a connection without creating multiple proxies when a Javascript object is forwarded multiple times, we need [http://wiki.ecmascript.org/doku.php?id=harmony:weak_maps weak maps] in Javascript, which are proposed but not yet implemented and standardised.
 
 Visibility of garbage collection:
  * Can a user program discover when a Javascript proxy object is no longer referenced?  If not, we would either leak memory in the NaCl process, or we would require explicit deletion calls in Javascript, which would make the proxying non-transparent.
