@@ -1,0 +1,29 @@
+#summary What happens if the NaCl plugin provides only asynchronous messaging (in the style of postMessage())?
+
+= Async-only plugin: design questions =
+
+== Introduction ==
+Suppose we remove the Javascript bridge from the NaCl plugin -- that is, remove the implementation of PPAPI's PPVar interface.  What are the implications of this?
+
+One suggestion is that we have a postMessage()-like interface.  window.postMessage() is the DOM interface for sending messages between frames.
+
+== Discussion ==
+postMessage() comes with some baggage:
+ * The receiver receives an "origin" argument.
+ * postMessage() can send an array of ports.  This is useful, but how would we expose ports to a NaCl process?  A ports an appropriate IPC mechanism for NaCl to use?
+ * Should the argument be a Unicode string (UTF-16?), a byte string, a JSON data structure, or something else?  window.postMessage() takes a Unicode string, which is not really appropriate for NaCl because we are likely to want to send binary data.
+
+Can we still do synchronous calls from Javascript to a NaCl process?
+ * How do we handle DOM events?  These must usually be handled synchronously.  Event handlers will indicate whether the event should be propagated to later handlers.
+ * We could provide a "wait for message" primitive.  By putting this in one place, it would make it easier for the renderer to cancel the blocking.  Currently, blocking prompts the browser to offer to kill the renderer.  It is more graceful when long-running Javascript prompts the renderer to offer to stop the Javascript.
+ * The DOM already allows a page to block by doing a synchronous XMLHttpRequest.
+
+What kind of IPC do we provide?
+ * Can we pass file descriptors (FDs) across a connection?
+ * Can we have multiple connections to the NaCl process?
+ * Can we set up connections between multiple NaCl processes?
+ * Do we have message size limits?
+
+Proxying objects:
+ * What conventions do we use for proxying objects?
+ * Who provides the Javascript-side proxy code?
