@@ -15,24 +15,25 @@ Here is a typical scenario: a user just opened multiple window tabs, each trying
 Here is the high-level flow for a single bitcode file:
 
 {{{
-  var hash = GetHash("http://example.com/lib/libz.so.1.0.bc")
 
-  var elf_file = GetFromCache(hash);
-  if (!elf_file) {
-    var pnacl_file = plugin.fetchUrl("http://example.com/lib/libz.so.1.0.bc");
+  function getPnaclTranslation(url, hash) {
+    var elf_file = GetFromCache(hash);
+    if (!elf_file) {
+      var pnacl_file = plugin.fetchUrl(url);
 
-    // Compute hash, since bitcode may have changed in the meantime.
-    var hash2 = CalcHash(pnacl_file);
+      // Compute hash, since bitcode may have changed in the meantime.
+      var hash2 = CalcHash(pnacl_file);
 
-    // May want to simply stop and retry if hash != hash2
+      // May want to simply stop and retry if hash != hash2
 
-    var elf_file_w = CreateCacheEntry(hash2);
+      var elf_file_w = CreateCacheEntry(hash2);
 
-    Translate(pnacl_file, elf_file_w);
+      Translate(pnacl_file, elf_file_w);
     
-    elf_file = MakeReadOnly(elf_file_w);
+      elf_file = MakeReadOnly(elf_file_w);
+    }
+    return elf_file;
   }
-
   // Dynamic Linker will use the elf_file...
 
 }}}
