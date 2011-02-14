@@ -157,7 +157,7 @@ Here, we explore variations on the above options.
 
 == Option B-prime: Manage the cache in a browser broker process, backed by browser cache ==
 
-We could go with Option B, but instead of giving the cache broker ownership of a fresh/isolated directory we could reuse the browser cache ([http://www.chromium.org/developers/design-documents/network-stack/disk-cache Chromium Disk Cache]).
+We could go with Option B, but instead of giving the cache broker ownership of a fresh/isolated directory we could reuse the browser cache ([http://www.chromium.org/developers/design-documents/network-stack/disk-cache e.g., the Chromium Disk Cache]).
 
  * The chrome cache has an option to store entries as as individual files, so we can still get FDs.
    * Will need to investigate.
