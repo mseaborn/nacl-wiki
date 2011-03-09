@@ -2,7 +2,7 @@
 
 == Building on Linux ==
  * Check out the Native Client source using gclient
- * `sudo apt-get install g++-multilib libsdl1.2-dev texinfo libcrypto++-dev libssl-dev lib32ncurses5-dev flex bison` # For Ubuntu Karmic.
- * `cd native_client/tools && make SDKLOC=$(cd .. && echo $(pwd)/src/third_party/nacl_sdk/linux64/sdk)` # Will build the toolchain that is able to compile Native Client modules for platforms: x86-64, x86-32.
- * `cd native_client && ./scons --mode=dbg-linux platform=x86-64` # Build x86-64 binaries.
- * `cd native_client && ./scons --mode=dbg-linux platform=x86-64 small_tests` # Run some tests.
+ * `sudo apt-get install g++-multilib libsdl1.2-dev texinfo libcrypto++-dev libssl-dev lib32ncurses5-dev` # For Ubuntu Lucid.
+ * [http://www.chromium.org/nativeclient/how-tos/building-and-testing-gcc-and-gnu-binutils Build the x86 toolchain]
+ * `cd native_client && ./scons --mode=dbg-host platform=x86-64` # Build x86-64 binaries.
+ * `cd native_client && ./scons --mode=dbg-host platform=x86-64 small_tests` # Run some tests.
