@@ -3,6 +3,5 @@
 == Building on Linux ==
  * Check out the Native Client source using gclient
  * `sudo apt-get install g++-multilib libsdl1.2-dev texinfo libcrypto++-dev libssl-dev lib32ncurses5-dev` # For Ubuntu Lucid.
+ * For Ubuntu Lucid x86_64 it is necessary to *uninstall* `libmpfr-dev` because it does not contain the 32bit version of the library needed by the toolchain
  * [http://www.chromium.org/nativeclient/how-tos/building-and-testing-gcc-and-gnu-binutils Build the x86 toolchain]
- * `cd native_client && ./scons --mode=dbg-host platform=x86-64` # Build x86-64 binaries.
- * `cd native_client && ./scons --mode=dbg-host platform=x86-64 small_tests` # Run some tests.
