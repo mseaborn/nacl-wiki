@@ -1,5 +1,8 @@
 #summary Information about each release
 
+*Please see the new [http://code.google.com/chrome/nativeclient/docs/releasenotes.html Release Notes] page for current information.*
+
+==Obsolete Information: ==
 This page summarizes the changes in each downloadable "tarball" of the Native Client project. To get the latest tarball for each platform, see [Downloads Downloads].
 
 Between 0.2 and 0.1, the Native Client source hierarchy changed substantially, and the main development repository changed from an internal one to the [http://code.google.com/p/nativeclient/source/browse#svn/trunk nativeclient project's SVN repository].
