@@ -146,7 +146,7 @@ With this option, the browser will have a Cache Broker Process that is given acc
    * Re: garbage collection -- ownership transfer from cache to consumer.
 
  * Unlink files
-   * Although unlinking may fail for in-use files on Windows, we manage the cache, so we can gracefully handle this.
+   * Chrome correctly uses FILE_SHARE_DELETE so that in-use files can still be marked for deletion.
 
  * Immutable files
    * The cache broker manages the directory. One problem is that files are externally visible, but if that is the only way to modify cached files then you have already been owned?
