@@ -1,8 +1,2 @@
-#summary Papers about Native Client technology
 
-We've published the following papers about Native Client technology:
-
-  * [http://src.chromium.org/viewvc/native_client/data/docs_tarball/nacl/googleclient/native_client/documentation/nacl_paper.pdf Native Client: A Sandbox for Portable, Untrusted x86 Native Code], Appeared in the 2009 IEEE Symposium on Security and Privacy (http://oakland09.cs.virginia.edu), May 2009
-  * [http://nativeclient.googlecode.com/svn/data/site/NaCl_SFI.pdf Adapting Software Fault Isolation to Contemporary CPU Architectures]. Appeared in the 19th USENIX Security Symposium (http://www.usenix.org/events/sec10/index.html), August 2010; originally posted February 2010, revised June 2010
-  * [http://nativeclient.googlecode.com/svn/data/site/pnacl.pdf PNaCl: Portable Native Client Executables], white paper, February 2010
-  * [http://naclports.googlecode.com/svn/trunk/src/experimental/v8/nacljit.pdf Language-Independent Sandboxing of Just-In-Time Compilation and Self-Modifying Code], To appear in the 2011 Conference on Programming Language Design and Implementation (http://pldi11.cs.utah.edu).
+NOTE: This page has been replaced by: http://www.chromium.org/nativeclient/reference/research-papers
