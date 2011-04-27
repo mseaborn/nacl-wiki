@@ -114,7 +114,7 @@ Let's go over what is needed:
    * In that case, will FDs close when JS ref-counts go to zero?
 
  * Unlink files
-   * Use [http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#widl-Entry-remove fileEntry.remove](succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that for the normal Windows FS, you get an error, and this would introduce platform differences. 
+   * Use [http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#widl-Entry-remove fileEntry.remove](succCB, errCB). The spec doesn't specify the semantics if a file is still in use. A worry is that, depending on the implementation on Windows, you may an error, and this would introduce platform differences (if the files are created on Windows without FILE_SHARE_DELETE). 
    * Perhaps we can just gracefully handle errors.
    * We can only gracefully handle the case where remove() gets the error, not the reader/writer getting the error.
    * If the cache is full, we would have to delay a cache-put until a remove is finally successful. If we cannot unlink anything (all files are busy), then we would have to fail to add to the cache and the subsequent load will fail.
