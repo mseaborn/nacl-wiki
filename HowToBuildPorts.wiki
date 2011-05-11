@@ -7,13 +7,4 @@
 {{{
 sudo apt-get install g++-multilib libsdl1.2-dev texinfo libcrypto++-dev libssl-dev lib32ncurses5-dev
 }}}
- * On Ubuntu Lucid x86_64 some GCC packages (`libmpfr-dev`, 'libcloog-ppl-dev', 'libppl0.10-dev', 'libmpc-dev', 'libgmp3-dev') does not have the necessary 32-bit version of the library installed.  Two options:
-  * uninstall these libraries completely (this would use the sources in the tree)
-  * Use the installation script to install the library to your system:
-{{{
-sudo apt-get install libmpfr-dev libcloog-ppl-dev libppl0.10-dev libmpc-dev libgmp3-dev
-cd native_client/tools
-bash lucid64.x86_64.toolchain.prep.sh
-}}}
-  * The script prompts you how to get unpacked library files and header files and copy them to your system directories
  * [http://www.chromium.org/nativeclient/how-tos/building-and-testing-gcc-and-gnu-binutils Build the x86 toolchain]
