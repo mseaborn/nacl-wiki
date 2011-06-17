@@ -9,7 +9,7 @@ If you just want to look at the source code, you can either [http://src.chromium
 
   `svn checkout http://src.chromium.org/native_client/trunk/src/native_client`
 
-If you use `svn checkout`, the source code appears under a directory named `src` in the current directory. You can update it using `svn update`.
+If you use `svn checkout`, the source code appears under a directory named `native_client` in the current directory. You can update it using `svn update`.
 
 == Getting buildable source code ==
 
