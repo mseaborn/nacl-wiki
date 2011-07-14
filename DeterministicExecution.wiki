@@ -34,6 +34,9 @@ Confinement:  Although it is not in general possible to prevent programs _writin
  * Non-sandboxing of reads:  On ARM and [X8664Sandboxing x86-64], memory reads will not normally be sandboxed for performance reasons.
  * In the x86-64 sandbox, the sandbox's base address is exposed to untrusted code.  See [http://code.google.com/p/nativeclient/issues/detail?id=1235 issue 1235].
  * Default setting of the "extended precision" flag for x87 floating point arithmetic ([http://code.google.com/p/nativeclient/issues/detail?id=253 issue 253]).
+ * Trampoline code sequences:
+    * x86-32: The code sequence will include the address of `NaClSyscallSeg` and the %cs value to `lcall`.  We could hide this code by using separate code/data segments (the "Harvard architecture" in DynamicLoadingOptions), but that uses up a lot of address space.
+    * x86-64: The code sequence will include the address of `NaClSwitch` to `call`.  We could hide this address by placing NaClSwitch outside the untrusted address space (plus guard regions) at a fixed offset, and by computing its address based on %r15.  See issue 1996.
 
 || *Source* || *Need to constrain for confinement?* || *Need to constrain for build system determinism?* ||
 || Timers || yes || yes ||
