@@ -1,0 +1,9 @@
+#summary This wiki is obsolete!
+
+= This wiki is obsolete! =
+
+For the SDK and developer oriented docs see http://code.google.com/chrome/nativeclient/.
+
+For contributor oriented information see http://chromium.org/nativeclient.
+
+Do not rely on, edit, or add any information in this wiki. If you need to edit a page, please migrate it to either of the above as appropriate first.
