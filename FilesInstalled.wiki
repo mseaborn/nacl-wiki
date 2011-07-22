@@ -1,4 +1,5 @@
 #summary Files added when you install the Native Client plug-in
+#labels Deprecated
 
 When you install the Native Client plug-in (`./scons firefox_install`), files are added to platform-specific locations on your computer. This page lists those files and their locations.
 
