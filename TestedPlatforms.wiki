@@ -1,4 +1,5 @@
 #summary Platforms on which Native Client has been tested
+#labels Deprecated
 
 This page lists the platforms on which we've tried Native Client, both for building it and for running it. Also see the ReleaseNotes.
 
