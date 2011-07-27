@@ -1,5 +1,4 @@
 #summary Tips on porting to Native Client
 
-This page has moved to the nativeclient-sdk project. The new URL:
-
-  http://code.google.com/p/nativeclient-sdk/wiki/Porting
+This page has moved. Please see the latest developer documentation at:
+  http://code.google.com/chrome/nativeclient/
