@@ -2,7 +2,7 @@
 
 = This wiki is obsolete! =
 
-For the SDK and developer oriented docs see http://code.google.com/chrome/nativeclient/.
+For the SDK and developer oriented docs see https://developers.google.com/native-client/.
 
 For contributor oriented information see http://chromium.org/nativeclient.
 
